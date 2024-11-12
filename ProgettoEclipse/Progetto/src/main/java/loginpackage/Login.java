@@ -20,8 +20,10 @@ public class Login {
             if (rs.next()) {
                 int id = rs.getInt("id");
                 String codiceFiscale = rs.getString("codice_fiscale");
+                String telefono= rs.getString("telefono");
+                String email=rs.getString("email");
                 boolean admin = rs.getBoolean("admin");
-                return new Utente(id, username, password, codiceFiscale, admin);
+                return new Utente(id, username, password, codiceFiscale, telefono, email, admin);
             } else {
                 System.out.println("Autenticazione fallita: credenziali errate.");
                 return null;

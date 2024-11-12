@@ -19,6 +19,8 @@ public class Database {
                 "username TEXT NOT NULL UNIQUE," +
                 "password TEXT NOT NULL," +
                 "codice_fiscale TEXT NOT NULL UNIQUE," +
+                "telefono TEXT NOT NULL UNIQUE," +
+                "email TEXT NOT NULL UNIQUE,"+
                 "admin BOOLEAN NOT NULL CHECK(admin IN (0, 1))" +
                 ");";
 

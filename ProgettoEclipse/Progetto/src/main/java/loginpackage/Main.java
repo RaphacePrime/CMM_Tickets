@@ -1,11 +1,16 @@
 package loginpackage;
 
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.Scanner;
 
 import ProgettoIngegneriaDelSoftware.Progetto.Utente;
 import databasepackage.Database;
 import framespackage.AdminFrame;
 import framespackage.UtenteFrame;
+
+
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -56,7 +61,39 @@ public class Main {
                 }while(controlloCF==false);
                 codiceFiscale.toUpperCase();
                 
+                String telefono;
+                boolean controlloTel=false;
+                do {
+                	System.out.println("Numero di telefono: ");
+                	telefono=scanner.nextLine();
+                	if(telefono.length()==10)
+                	{
+                		controlloTel=true;
+                	}
+                	else
+                	{
+                		System.out.println("Hai inserito un numero di cellulare non valido!");
+                	}
+                }while(controlloTel==false);
                 
+                
+                String email;
+               
+                boolean controlloEmail=false;
+                
+                do {
+                	System.out.println("Email: ");
+                	email=scanner.nextLine();
+                	if(IsEmailValid(email))
+                	{
+                		controlloEmail=true;
+                	}
+                	else
+                	{
+                	System.out.println("Hai inserito un'email in un formato non corretto!");	
+                	}
+                }while(controlloEmail==false);
+                   
                 System.out.print("Vuoi fare richiesta per diventare admin e poter creare e gestire eventi? (s/N): ");
                 String adminString = scanner.nextLine();
                 boolean admin;
@@ -69,7 +106,7 @@ public class Main {
                 	admin=false;
                 }
 
-                Utente nuovoUtente = new Utente(username, password, codiceFiscale, admin);
+                Utente nuovoUtente = new Utente(username, password, codiceFiscale, telefono, email,  admin);
                 Registrazione.registraUtente(nuovoUtente);
             } else if (scelta == 2) {
                 System.out.print("Username: ");
@@ -103,6 +140,16 @@ public class Main {
         }
         scanner.close();
     }
+
+    
+    //funzione per validare email
+	private static boolean IsEmailValid(String email) {
+		String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+		Pattern pattern = Pattern.compile(emailRegex);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+		
+	}
 }
 
 
