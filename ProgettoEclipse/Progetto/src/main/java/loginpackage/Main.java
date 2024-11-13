@@ -97,13 +97,11 @@ public class Main {
                 System.out.print("Vuoi fare richiesta per diventare admin e poter creare e gestire eventi? (s/N): ");
                 String adminString = scanner.nextLine();
                 boolean admin;
-                if(adminString=="S" || adminString=="s")
-                {
-                	admin=true;
-                }
-                else
-                {
-                	admin=false;
+
+                if (adminString.equalsIgnoreCase("S")) {
+                    admin = true;
+                } else {
+                    admin = false;
                 }
 
                 Utente nuovoUtente = new Utente(username, password, codiceFiscale, telefono, email,  admin);
