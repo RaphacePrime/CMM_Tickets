@@ -16,6 +16,8 @@ public class RegistrationPanel extends JPanel {
     private JCheckBox adminCheckBox;
     private JButton registerButton;
     private JButton switchToLoginButton;
+    
+    private ActionListener switchToLoginAction;
 
     public RegistrationPanel(ActionListener switchToLoginAction) {
         setLayout(new GridLayout(8, 2, 5, 5));
@@ -45,6 +47,7 @@ public class RegistrationPanel extends JPanel {
         adminCheckBox = new JCheckBox("Vuoi diventare admin?");
         add(adminCheckBox);
 
+        
         // Bottone di registrazione con listener per la validazione dei campi
         registerButton = new JButton("Registrati");
         registerButton.addActionListener(e -> validateAndRegister());
@@ -52,8 +55,11 @@ public class RegistrationPanel extends JPanel {
 
         // Bottone per passare alla schermata di login
         switchToLoginButton = new JButton("Accedi");
-        switchToLoginButton.addActionListener(switchToLoginAction);  // Imposta l'ActionListener qui
         add(switchToLoginButton);
+
+        // Imposta l'ActionListener del bottone di switch
+        this.switchToLoginAction = switchToLoginAction;  // Salva l'ActionListener per poterlo usare successivamente
+        switchToLoginButton.addActionListener(switchToLoginAction);  // Aggiungi l'ActionListener al bottone
     }
 
     // Metodo per impostare l'azione del bottone di switch
@@ -110,6 +116,8 @@ public class RegistrationPanel extends JPanel {
         if (Registrazione.registraUtente(utente)) {
             JOptionPane.showMessageDialog(this, "Registrazione avvenuta con successo!");
             resetFields();
+            // Passa al pannello di login dopo una registrazione riuscita
+            switchToLoginAction.actionPerformed(null);  // Esegui il cambio di pannello
         } else {
             JOptionPane.showMessageDialog(this, "Username già in uso", "Errore", JOptionPane.ERROR_MESSAGE);
         }
