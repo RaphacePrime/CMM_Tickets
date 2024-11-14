@@ -15,17 +15,50 @@ public class LoginPanel extends JPanel {
     private JButton switchToRegisterButton;
 
     public LoginPanel() {
-        setLayout(new GridLayout(4, 2, 5, 5));
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Aggiusta gli spazi esterni
 
-        add(new JLabel("Username:"));
-        usernameField = new JTextField();
-        add(usernameField);
+        // Pannello contenitore per centralizzare e migliorare lo stile
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Margine interno
+        mainPanel.setBackground(Color.WHITE);
+        
+        // Aggiungi un bordo ombra per far risaltare il pannello
+        setBackground(new Color(240, 240, 240)); // Grigio chiaro di sfondo
+        mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        add(new JLabel("Password:"));
-        passwordField = new JPasswordField();
-        add(passwordField);
+        // Etichetta del titolo
+        JLabel titleLabel = new JLabel("Login");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(titleLabel);
 
+        mainPanel.add(Box.createVerticalStrut(20)); // Spaziatura
+
+        // Campo Username
+        usernameField = new JTextField(15);
+        usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(createLabeledField("Username", usernameField));
+
+        // Campo Password
+        passwordField = new JPasswordField(15);
+        passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        passwordField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(createLabeledField("Password", passwordField));
+
+        mainPanel.add(Box.createVerticalStrut(20)); // Spaziatura tra campi e pulsanti
+
+        // Pulsante Accedi
         loginButton = new JButton("Accedi");
+        loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        loginButton.setBackground(new Color(33, 150, 243)); // Colore blu per il bottone
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setFocusPainted(false);
+        loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40)); // Larghezza e altezza pulsante
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
@@ -42,10 +75,38 @@ public class LoginPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Credenziali non valide", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         });
-        add(loginButton);
+        mainPanel.add(loginButton);
 
+        mainPanel.add(Box.createVerticalStrut(10)); // Spaziatura tra pulsanti
+
+        // Pulsante Registrati
         switchToRegisterButton = new JButton("Registrati");
-        add(switchToRegisterButton);
+        switchToRegisterButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        switchToRegisterButton.setBackground(new Color(33, 150, 243));
+        switchToRegisterButton.setForeground(Color.WHITE);
+        switchToRegisterButton.setFocusPainted(false);
+        switchToRegisterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        switchToRegisterButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        mainPanel.add(switchToRegisterButton);
+
+        // Aggiungi il mainPanel al centro del pannello principale con layout GridBag
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(mainPanel, gbc);
+    }
+
+    // Metodo per creare un campo con etichetta e spaziatura
+    private JPanel createLabeledField(String labelText, JTextField textField) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        JLabel label = new JLabel(labelText);
+        label.setFont(new Font("Arial", Font.PLAIN, 14));
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(Box.createVerticalStrut(5), BorderLayout.CENTER); // Spazio tra label e campo
+        panel.add(textField, BorderLayout.SOUTH);
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setOpaque(false); // Trasparente per mantenere il colore di sfondo del contenitore
+        return panel;
     }
 
     public void setSwitchToRegisterAction(ActionListener action) {

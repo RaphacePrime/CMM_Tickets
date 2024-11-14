@@ -3,9 +3,9 @@ package loginpackage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import ProgettoIngegneriaDelSoftware.Progetto.Utente;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import ProgettoIngegneriaDelSoftware.Progetto.Utente;
 
 public class RegistrationPanel extends JPanel {
     private JTextField usernameField;
@@ -16,60 +16,114 @@ public class RegistrationPanel extends JPanel {
     private JCheckBox adminCheckBox;
     private JButton registerButton;
     private JButton switchToLoginButton;
-    
+
     private ActionListener switchToLoginAction;
 
     public RegistrationPanel(ActionListener switchToLoginAction) {
-        setLayout(new GridLayout(8, 2, 5, 5));
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Imposta margini esterni per spaziatura
 
-        // Configurazione dei campi di input
-        add(new JLabel("Username:"));
-        usernameField = new JTextField();
-        add(usernameField);
+        // Pannello contenitore per centralizzare e stilizzare
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        mainPanel.setBackground(Color.WHITE);
 
-        add(new JLabel("Password:"));
-        passwordField = new JPasswordField();
-        add(passwordField);
+        setBackground(new Color(240, 240, 240)); // Sfondo grigio chiaro per l'effetto "card"
+        mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        add(new JLabel("Codice Fiscale:"));
-        codiceFiscaleField = new JTextField();
-        add(codiceFiscaleField);
+        // Titolo
+        JLabel titleLabel = new JLabel("Registrazione");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(titleLabel);
 
-        add(new JLabel("Telefono:"));
-        telefonoField = new JTextField();
-        add(telefonoField);
+        mainPanel.add(Box.createVerticalStrut(20)); // Spazio tra titolo e campi
 
-        add(new JLabel("Email:"));
-        emailField = new JTextField();
-        add(emailField);
+        // Campo Username
+        usernameField = new JTextField(15);
+        usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(createLabeledField("Username", usernameField));
 
-        add(new JLabel("Admin:"));
+        // Campo Password
+        passwordField = new JPasswordField(15);
+        passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        passwordField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(createLabeledField("Password", passwordField));
+
+        // Campo Codice Fiscale
+        codiceFiscaleField = new JTextField(15);
+        codiceFiscaleField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        codiceFiscaleField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(createLabeledField("Codice Fiscale", codiceFiscaleField));
+
+        // Campo Telefono
+        telefonoField = new JTextField(15);
+        telefonoField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        telefonoField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(createLabeledField("Telefono", telefonoField));
+
+        // Campo Email
+        emailField = new JTextField(15);
+        emailField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        emailField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(createLabeledField("Email", emailField));
+
+        // Checkbox Admin
         adminCheckBox = new JCheckBox("Vuoi diventare admin?");
-        add(adminCheckBox);
-
+        adminCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(adminCheckBox);
         
-        // Bottone di registrazione con listener per la validazione dei campi
+        mainPanel.add(Box.createVerticalStrut(20)); // Spazio tra i campi e pulsanti
+
+        // Pulsante Registrati
         registerButton = new JButton("Registrati");
+        registerButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        registerButton.setBackground(new Color(33, 150, 243)); // Colore blu
+        registerButton.setForeground(Color.WHITE);
+        registerButton.setFocusPainted(false);
+        registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         registerButton.addActionListener(e -> validateAndRegister());
-        add(registerButton);
+        mainPanel.add(registerButton);
 
-        // Bottone per passare alla schermata di login
+        mainPanel.add(Box.createVerticalStrut(10)); // Spazio tra pulsanti
+
+        // Pulsante Accedi
         switchToLoginButton = new JButton("Accedi");
-        add(switchToLoginButton);
+        switchToLoginButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        switchToLoginButton.setBackground(new Color(33, 150, 243));
+        switchToLoginButton.setForeground(Color.WHITE);
+        switchToLoginButton.setFocusPainted(false);
+        switchToLoginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        switchToLoginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        switchToLoginButton.addActionListener(switchToLoginAction);
+        mainPanel.add(switchToLoginButton);
 
-        // Imposta l'ActionListener del bottone di switch
-        this.switchToLoginAction = switchToLoginAction;  // Salva l'ActionListener per poterlo usare successivamente
-        switchToLoginButton.addActionListener(switchToLoginAction);  // Aggiungi l'ActionListener al bottone
+        // Aggiungi il mainPanel al centro del pannello principale
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(mainPanel, gbc);
     }
 
-    // Metodo per impostare l'azione del bottone di switch
-    public void setSwitchToLoginAction(ActionListener action) {
-        switchToLoginButton.addActionListener(action);
+    // Metodo per creare un campo con etichetta e spaziatura
+    private JPanel createLabeledField(String labelText, JTextField textField) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        JLabel label = new JLabel(labelText);
+        label.setFont(new Font("Arial", Font.PLAIN, 14));
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(Box.createVerticalStrut(5), BorderLayout.CENTER); // Spazio tra label e campo
+        panel.add(textField, BorderLayout.SOUTH);
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setOpaque(false); // Trasparente per mantenere il colore di sfondo del contenitore
+        return panel;
     }
 
     // Funzione per validare i campi e registrare l'utente
     private void validateAndRegister() {
-        // Ripristina i bordi dei campi al colore predefinito
         resetBorders();
 
         String username = usernameField.getText();
@@ -81,49 +135,41 @@ public class RegistrationPanel extends JPanel {
 
         String errorMessage = "";
 
-        // Validazione del campo password
         if (password.length() < 8) {
             errorMessage += "- La password deve essere di almeno 8 caratteri.\n";
             passwordField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         }
 
-        // Validazione del campo codice fiscale
         if (codiceFiscale.length() != 16) {
             errorMessage += "- Il codice fiscale deve essere di 16 caratteri.\n";
             codiceFiscaleField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         }
 
-        // Validazione del campo telefono
         if (telefono.length() != 10) {
             errorMessage += "- Il numero di telefono deve essere di 10 cifre.\n";
             telefonoField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         }
 
-        // Validazione del campo email
         if (!isEmailValid(email)) {
             errorMessage += "- L'email non è valida.\n";
             emailField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         }
 
-        // Se c'è un errore, mostra un messaggio e termina
         if (!errorMessage.isEmpty()) {
             JOptionPane.showMessageDialog(this, errorMessage, "Errore di registrazione", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Crea un nuovo oggetto Utente e tenta di registrarlo
         Utente utente = new Utente(username, password, codiceFiscale, telefono, email, admin);
         if (Registrazione.registraUtente(utente)) {
             JOptionPane.showMessageDialog(this, "Registrazione avvenuta con successo!");
             resetFields();
-            // Passa al pannello di login dopo una registrazione riuscita
-            switchToLoginAction.actionPerformed(null);  // Esegui il cambio di pannello
+            switchToLoginAction.actionPerformed(null); // Esegui il cambio di pannello
         } else {
             JOptionPane.showMessageDialog(this, "Username già in uso", "Errore", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // Funzione per validare il formato dell'email
     private boolean isEmailValid(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         Pattern pattern = Pattern.compile(emailRegex);
@@ -131,7 +177,6 @@ public class RegistrationPanel extends JPanel {
         return matcher.matches();
     }
 
-    // Funzione per resettare i campi di testo
     private void resetFields() {
         usernameField.setText("");
         passwordField.setText("");
@@ -141,7 +186,6 @@ public class RegistrationPanel extends JPanel {
         adminCheckBox.setSelected(false);
     }
 
-    // Funzione per ripristinare i bordi dei campi di testo al colore predefinito
     private void resetBorders() {
         usernameField.setBorder(UIManager.getBorder("TextField.border"));
         passwordField.setBorder(UIManager.getBorder("TextField.border"));
