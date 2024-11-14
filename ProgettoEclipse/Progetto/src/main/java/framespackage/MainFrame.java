@@ -1,6 +1,9 @@
 package framespackage;
 
 import javax.swing.*;
+
+import databasepackage.Database;
+
 import java.awt.*;
 import panelspackage.AdminHomePanel;
 import panelspackage.LoginPanel;
@@ -18,6 +21,7 @@ public class MainFrame extends JFrame {
     private AdminMyEventsPanel adminMyEventsPanel;
 
     public MainFrame() {
+    	Database.createTables();
         setTitle("Sistema di Accesso e Registrazione");
 
         // Imposta il layout per il full-screen su macOS, Windows e Linux
