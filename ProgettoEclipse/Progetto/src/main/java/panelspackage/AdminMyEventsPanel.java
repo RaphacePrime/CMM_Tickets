@@ -2,6 +2,6 @@ package panelspackage;
 
 import javax.swing.JPanel;
 
-public class UserHomePanel extends JPanel{
+public class AdminMyEventsPanel extends JPanel{
 
 }

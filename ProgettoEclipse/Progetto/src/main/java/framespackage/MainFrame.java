@@ -2,36 +2,37 @@ package framespackage;
 
 import javax.swing.*;
 import java.awt.*;
-import classespackage.Utente;
+import panelspackage.AdminHomePanel;
 import panelspackage.LoginPanel;
 import panelspackage.RegistrationPanel;
 
 public class MainFrame extends JFrame {
-    private CardLayout cardLayout;
+    public CardLayout cardLayout;
     private JPanel mainPanel;
     private LoginPanel loginPanel;
     private RegistrationPanel registrationPanel;
+    private AdminHomePanel adminHomePanel;
 
     public MainFrame() {
         setTitle("Sistema di Accesso e Registrazione");
-        
-     // Imposta il layout per il full-screen su macOS, Windows e Linux
+
+        // Imposta il layout per il full-screen su macOS, Windows e Linux
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //setUndecorated(true); // Nasconde i bordi della finestra per il full-screen
-        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Inizializzazione del CardLayout
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Creazione dei pannelli di Login e Registrazione
-        loginPanel = new LoginPanel();
+        // Creazione dei pannelli di Login, Registrazione e AdminHome
+        loginPanel = new LoginPanel(this.cardLayout, mainPanel);
         registrationPanel = new RegistrationPanel(e -> cardLayout.show(mainPanel, "Login"));
+        adminHomePanel = new AdminHomePanel();
 
         // Aggiunta dei pannelli al CardLayout
         mainPanel.add(loginPanel, "Login");
         mainPanel.add(registrationPanel, "Registration");
+        mainPanel.add(adminHomePanel, "Admin Home");
 
         add(mainPanel);
 
