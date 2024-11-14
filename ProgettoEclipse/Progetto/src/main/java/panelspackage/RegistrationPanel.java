@@ -14,7 +14,7 @@ public class RegistrationPanel extends JPanel {
     private JTextField codiceFiscaleField;
     private JTextField telefonoField;
     private JTextField emailField;
-    private JCheckBox adminCheckBox;
+    //private JCheckBox adminCheckBox;
     private JButton registerButton;
     private JButton switchToLoginButton;
 
@@ -73,10 +73,10 @@ public class RegistrationPanel extends JPanel {
         mainPanel.add(createLabeledField("Email", emailField));
 
         // Checkbox Admin
-        adminCheckBox = new JCheckBox("Vuoi diventare admin?");
+        /*adminCheckBox = new JCheckBox("Vuoi diventare admin?");
         adminCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         adminCheckBox.setBackground(Color.WHITE);
-        mainPanel.add(adminCheckBox);
+        mainPanel.add(adminCheckBox);*/
         
         mainPanel.add(Box.createVerticalStrut(20)); // Spazio tra i campi e pulsanti
 
@@ -141,7 +141,8 @@ public class RegistrationPanel extends JPanel {
         String codiceFiscale = codiceFiscaleField.getText().toUpperCase();
         String telefono = telefonoField.getText();
         String email = emailField.getText();
-        boolean admin = adminCheckBox.isSelected();
+        //boolean admin = adminCheckBox.isSelected();
+        boolean admin = false; // non è piu possibile registrare un admin
 
         String errorMessage = "";
 
@@ -193,7 +194,7 @@ public class RegistrationPanel extends JPanel {
         codiceFiscaleField.setText("");
         telefonoField.setText("");
         emailField.setText("");
-        adminCheckBox.setSelected(false);
+        //adminCheckBox.setSelected(false);
     }
 
     private void resetBorders() {
