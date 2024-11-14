@@ -9,49 +9,52 @@ import framespackage.AdminFrame;
 import framespackage.UtenteFrame;
 
 public class LoginPanel extends JPanel {
+    private CardLayout cardLayout;
+    private JPanel mainPanel; // Variabile di classe
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton switchToRegisterButton;
-
-    public LoginPanel() {
-    	
-    	
+    
+    // Costruttore che accetta CardLayout e mainPanel
+    public LoginPanel(CardLayout cardLayout, JPanel mainPanel) {
+        this.cardLayout = cardLayout;
+        this.mainPanel = mainPanel;  // Usa il mainPanel passato come parametro
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); // Aggiusta gli spazi esterni
 
         // Pannello contenitore per centralizzare e migliorare lo stile
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Margine interno
-        mainPanel.setBackground(Color.WHITE);
+        JPanel innerMainPanel = new JPanel();
+        innerMainPanel.setLayout(new BoxLayout(innerMainPanel, BoxLayout.Y_AXIS));
+        innerMainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Margine interno
+        innerMainPanel.setBackground(Color.WHITE);
         
         // Aggiungi un bordo ombra per far risaltare il pannello
         setBackground(new Color(240, 240, 240)); // Grigio chiaro di sfondo
-        mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        innerMainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Etichetta del titolo
         JLabel titleLabel = new JLabel("Login");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(titleLabel);
+        innerMainPanel.add(titleLabel);
 
-        mainPanel.add(Box.createVerticalStrut(20)); // Spaziatura
+        innerMainPanel.add(Box.createVerticalStrut(20)); // Spaziatura
 
         // Campo Username
         usernameField = new JTextField(15);
         usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(createLabeledField("Username", usernameField));
+        innerMainPanel.add(createLabeledField("Username", usernameField));
 
         // Campo Password
         passwordField = new JPasswordField(15);
         passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         passwordField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(createLabeledField("Password", passwordField));
+        innerMainPanel.add(createLabeledField("Password", passwordField));
 
-        mainPanel.add(Box.createVerticalStrut(20)); // Spaziatura tra campi e pulsanti
+        innerMainPanel.add(Box.createVerticalStrut(20)); // Spaziatura tra campi e pulsanti
 
         // Pulsante Accedi
         loginButton = new JButton("Accedi");
@@ -71,17 +74,19 @@ public class LoginPanel extends JPanel {
             if (utente != null) {
                 JOptionPane.showMessageDialog(this, "Benvenuto " + utente.getUsername());
                 if (utente.isAdmin()) {
-                    new AdminFrame().setVisible(true);
+                    // Se è admin, mostra il pannello AdminHomePanel
+                    cardLayout.show(mainPanel, "Admin Home");
                 } else {
+                    // Per l'utente normale, apri una finestra separata
                     new UtenteFrame().setVisible(true);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Credenziali non valide", "Errore", JOptionPane.ERROR_MESSAGE);
             }
         });
-        mainPanel.add(loginButton);
+        innerMainPanel.add(loginButton);
 
-        mainPanel.add(Box.createVerticalStrut(10)); // Spaziatura tra pulsanti
+        innerMainPanel.add(Box.createVerticalStrut(10)); // Spaziatura tra pulsanti
 
         // Pulsante Registrati
         switchToRegisterButton = new JButton("Registrati");
@@ -94,12 +99,12 @@ public class LoginPanel extends JPanel {
         switchToRegisterButton.setOpaque(true);
         switchToRegisterButton.setBorderPainted(false);
         
-        mainPanel.add(switchToRegisterButton);
+        innerMainPanel.add(switchToRegisterButton);
 
         // Aggiungi il mainPanel al centro del pannello principale con layout GridBag
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(mainPanel, gbc);
+        add(innerMainPanel, gbc);
     }
 
     // Metodo per creare un campo con etichetta e spaziatura
