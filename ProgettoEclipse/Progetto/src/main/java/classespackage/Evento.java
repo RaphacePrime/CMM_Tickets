@@ -29,4 +29,5 @@ public abstract class Evento {
 	 * 
 	 */
 	public Luogo luogo;
+	private int numMaxBigliettiAcquistabili;
 }

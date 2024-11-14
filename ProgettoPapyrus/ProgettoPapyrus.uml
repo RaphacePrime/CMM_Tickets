@@ -36,7 +36,7 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_z4Ft4KGgEe-0Qq1gsZDFHw" name="Admin">
       <generalization xmi:type="uml:Generalization" xmi:id="_4xoPsKGgEe-0Qq1gsZDFHw" general="_Oq8MsKGeEe-0Qq1gsZDFHw" isSubstitutable="false"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_FWQN4KGhEe-0Qq1gsZDFHw" name="Evento" isAbstract="true">
+    <packagedElement xmi:type="uml:Class" xmi:id="_FWQN4KGhEe-0Qq1gsZDFHw" name="Evento" visibility="public" isAbstract="true">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_U-32oKGjEe-7erFtc63XzA" name="idEvento" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedAttribute>
@@ -50,6 +50,9 @@
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_sHiegKGnEe-7erFtc63XzA" name="luogo" type="_Hy8SwKGhEe-0Qq1gsZDFHw" association="_sGFtAKGnEe-7erFtc63XzA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_QHDG0KJ5Ee-qB_CiRmNJwg" name="numMaxBigliettiAcquistabili" visibility="private" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_Hy8SwKGhEe-0Qq1gsZDFHw" name="Luogo">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XlaloKGkEe-7erFtc63XzA" name="idLuogo" visibility="private">
