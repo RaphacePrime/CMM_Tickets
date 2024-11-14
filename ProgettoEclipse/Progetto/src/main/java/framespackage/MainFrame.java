@@ -1,8 +1,10 @@
-package loginpackage;
+package framespackage;
 
 import javax.swing.*;
 import java.awt.*;
 import classespackage.Utente;
+import panelspackage.LoginPanel;
+import panelspackage.RegistrationPanel;
 
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;

@@ -1,4 +1,4 @@
-package loginpackage;
+package panelspackage;
 
 import javax.swing.*;
 import java.awt.*;
