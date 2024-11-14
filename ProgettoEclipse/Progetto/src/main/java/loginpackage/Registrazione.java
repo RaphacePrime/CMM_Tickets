@@ -8,7 +8,7 @@ import databasepackage.Database;
 
 public class Registrazione {
     public static boolean registraUtente(Utente utente) {
-        String sql = "INSERT INTO utenti (username, password, codice_fiscale, telefono, email, admin) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO utenti (username, password, codiceFiscale, telefono, email, admin) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, utente.getUsername());

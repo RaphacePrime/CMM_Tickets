@@ -20,7 +20,7 @@ public class Login {
 
             if (rs.next()) {
                 int id = rs.getInt("id");
-                String codiceFiscale = rs.getString("codice_fiscale");
+                String codiceFiscale = rs.getString("codiceFiscale");
                 String telefono= rs.getString("telefono");
                 String email=rs.getString("email");
                 boolean admin = rs.getBoolean("admin");
