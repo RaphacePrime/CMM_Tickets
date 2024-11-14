@@ -74,6 +74,7 @@ public class RegistrationPanel extends JPanel {
         // Checkbox Admin
         adminCheckBox = new JCheckBox("Vuoi diventare admin?");
         adminCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        adminCheckBox.setBackground(Color.WHITE);
         mainPanel.add(adminCheckBox);
         
         mainPanel.add(Box.createVerticalStrut(20)); // Spazio tra i campi e pulsanti
