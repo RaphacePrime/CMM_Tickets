@@ -12,8 +12,10 @@ import databasepackage.Database;
 public class Login {
     public static Utente autentica(String username, String password) {
         String sql = "SELECT * FROM utenti WHERE username = ? AND password = ?";
-
-        try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        //String decryptedPassword=RSAUtils.decrypt(password);
+    	
+        //if(decryptedPassword.equals(password)) {
+        	try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
@@ -33,5 +35,10 @@ public class Login {
             System.out.println("Errore durante l'autenticazione: " + e.getMessage());
             return null;
         }
+        }
+        //else {
+        	//return null;
+        //}
+        
     }
-}
+

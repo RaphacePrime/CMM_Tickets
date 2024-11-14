@@ -1,12 +1,15 @@
 package panelspackage;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import loginpackage.Login;
+import loginpackage.RSAUtils;
 import classespackage.Utente;
 import framespackage.AdminFrame;
 import framespackage.UtenteFrame;
+import loginpackage.RSAUtils;
 
 public class LoginPanel extends JPanel {
     private JTextField usernameField;
@@ -64,10 +67,9 @@ public class LoginPanel extends JPanel {
         loginButton.setOpaque(true);
         loginButton.setBorderPainted(false);
         loginButton.addActionListener(e -> {
-            String username = usernameField.getText();
+        	String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
-
-            Utente utente = Login.autentica(username, password);
+            Utente utente=Login.autentica(username, password);
             if (utente != null) {
                 JOptionPane.showMessageDialog(this, "Benvenuto " + utente.getUsername());
                 if (utente.isAdmin()) {

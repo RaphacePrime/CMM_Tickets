@@ -88,7 +88,14 @@ public class RegistrationPanel extends JPanel {
         registerButton.setFocusPainted(false);
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        registerButton.addActionListener(e -> validateAndRegister());
+        registerButton.addActionListener(e -> {
+			try {
+				validateAndRegister();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
         registerButton.setOpaque(true);
         registerButton.setBorderPainted(false);
         mainPanel.add(registerButton);
@@ -133,7 +140,7 @@ public class RegistrationPanel extends JPanel {
     }
 
     // Funzione per validare i campi e registrare l'utente
-    private void validateAndRegister() {
+    private void validateAndRegister() throws HeadlessException, Exception {
         resetBorders();
 
         String username = usernameField.getText();
