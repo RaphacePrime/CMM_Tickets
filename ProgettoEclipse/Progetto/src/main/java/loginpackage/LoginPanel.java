@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import loginpackage.Login;
-import ProgettoIngegneriaDelSoftware.Progetto.Utente;
+import classespackage.Utente;
 import framespackage.AdminFrame;
 import framespackage.UtenteFrame;
 
@@ -15,6 +15,8 @@ public class LoginPanel extends JPanel {
     private JButton switchToRegisterButton;
 
     public LoginPanel() {
+    	
+    	
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); // Aggiusta gli spazi esterni
@@ -59,6 +61,8 @@ public class LoginPanel extends JPanel {
         loginButton.setFocusPainted(false);
         loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         loginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40)); // Larghezza e altezza pulsante
+        loginButton.setOpaque(true);
+        loginButton.setBorderPainted(false);
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
@@ -87,6 +91,9 @@ public class LoginPanel extends JPanel {
         switchToRegisterButton.setFocusPainted(false);
         switchToRegisterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         switchToRegisterButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        switchToRegisterButton.setOpaque(true);
+        switchToRegisterButton.setBorderPainted(false);
+        
         mainPanel.add(switchToRegisterButton);
 
         // Aggiungi il mainPanel al centro del pannello principale con layout GridBag

@@ -2,7 +2,7 @@ package loginpackage;
 
 import javax.swing.*;
 import java.awt.*;
-import ProgettoIngegneriaDelSoftware.Progetto.Utente;
+import classespackage.Utente;
 
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
@@ -12,7 +12,11 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         setTitle("Sistema di Accesso e Registrazione");
-        setSize(400, 300);
+        
+     // Imposta il layout per il full-screen su macOS, Windows e Linux
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setUndecorated(true); // Nasconde i bordi della finestra per il full-screen
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Inizializzazione del CardLayout

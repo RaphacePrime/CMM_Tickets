@@ -4,8 +4,7 @@ package loginpackage;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.Scanner;
-
-import ProgettoIngegneriaDelSoftware.Progetto.Utente;
+import classespackage.Utente;
 import databasepackage.Database;
 import framespackage.AdminFrame;
 import framespackage.UtenteFrame;

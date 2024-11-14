@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import ProgettoIngegneriaDelSoftware.Progetto.Utente;
+import classespackage.Utente;
 
 public class RegistrationPanel extends JPanel {
     private JTextField usernameField;
@@ -87,6 +87,8 @@ public class RegistrationPanel extends JPanel {
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         registerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         registerButton.addActionListener(e -> validateAndRegister());
+        registerButton.setOpaque(true);
+        registerButton.setBorderPainted(false);
         mainPanel.add(registerButton);
 
         mainPanel.add(Box.createVerticalStrut(10)); // Spazio tra pulsanti
@@ -100,12 +102,18 @@ public class RegistrationPanel extends JPanel {
         switchToLoginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         switchToLoginButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         switchToLoginButton.addActionListener(switchToLoginAction);
+        switchToLoginButton.setOpaque(true);
+        switchToLoginButton.setBorderPainted(false);
         mainPanel.add(switchToLoginButton);
 
         // Aggiungi il mainPanel al centro del pannello principale
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(mainPanel, gbc);
+        
+     // Imposta l'ActionListener del bottone di switch
+        this.switchToLoginAction = switchToLoginAction;  // Salva l'ActionListener per poterlo usare successivamente
+        switchToLoginButton.addActionListener(switchToLoginAction);  // Aggiungi l'ActionListener al bottone
     }
 
     // Metodo per creare un campo con etichetta e spaziatura

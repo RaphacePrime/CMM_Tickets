@@ -3,7 +3,7 @@ package loginpackage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import ProgettoIngegneriaDelSoftware.Progetto.Utente;
+import classespackage.Utente;
 import databasepackage.Database; 
 
 public class Registrazione {
