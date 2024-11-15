@@ -8,6 +8,7 @@ import java.awt.*;
 import panelspackage.AdminHomePanel;
 import panelspackage.LoginPanel;
 import panelspackage.RegistrationPanel;
+import panelspackage.UserHomePanel;
 import panelspackage.AdminNewEventPanel;
 import panelspackage.AdminMyEventsPanel;
 
@@ -17,6 +18,7 @@ public class MainFrame extends JFrame {
     private LoginPanel loginPanel;
     private RegistrationPanel registrationPanel;
     private AdminHomePanel adminHomePanel;
+    private UserHomePanel userHomePanel;
     private AdminNewEventPanel adminNewEventPanel;
     private AdminMyEventsPanel adminMyEventsPanel;
 
@@ -38,6 +40,7 @@ public class MainFrame extends JFrame {
         adminHomePanel = new AdminHomePanel();
         adminNewEventPanel = new AdminNewEventPanel();
         adminMyEventsPanel = new AdminMyEventsPanel();
+        userHomePanel = new UserHomePanel();
 
         // Aggiunta dei pannelli al CardLayout
         mainPanel.add(loginPanel, "Login");
@@ -45,6 +48,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(adminHomePanel, "Admin Home");
         mainPanel.add(adminNewEventPanel, "Admin New Event");
         mainPanel.add(adminMyEventsPanel, "Admin My Events");
+        mainPanel.add(userHomePanel, "User Home");
 
         // Imposta l'ascoltatore per la navigazione tra i pannelli
         loginPanel.setSwitchToRegisterAction(e -> cardLayout.show(mainPanel, "Registration"));
@@ -59,6 +63,7 @@ public class MainFrame extends JFrame {
 
         // Aggiunta dell'azione per il pulsante "Logout"
         adminHomePanel.setLogoutAction(e -> cardLayout.show(mainPanel, "Login"));
+        userHomePanel.setLogoutAction(e -> cardLayout.show(mainPanel, "Login"));
 
         // Aggiunta del mainPanel alla finestra
         add(mainPanel);

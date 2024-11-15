@@ -80,7 +80,8 @@ public class LoginPanel extends JPanel {
                     cardLayout.show(mainPanel, "Admin Home");
                 } else {
                     // Per l'utente normale, apri una finestra separata
-                    new UtenteFrame().setVisible(true);
+                    //new UtenteFrame().setVisible(true);
+                    cardLayout.show(mainPanel, "User Home");
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Credenziali non valide", "Errore", JOptionPane.ERROR_MESSAGE);

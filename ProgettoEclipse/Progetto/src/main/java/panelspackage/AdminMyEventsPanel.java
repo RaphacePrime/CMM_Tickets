@@ -5,69 +5,73 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class AdminMyEventsPanel extends JPanel {
-
     private JButton backToAdminHomeButton;
+    private JLabel titleLabel;
+    private JList<String> eventsList;
 
     public AdminMyEventsPanel() {
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-
-        // Creazione del pannello principale
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBackground(Color.WHITE);
+        // Imposta il layout principale del pannello
+        setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
-        mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Titolo del pannello
-        JLabel titleLabel = new JLabel("Gestisci Eventi");
+        // Creazione del pannello superiore per contenere il pulsante "Torna alla Home"
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(new Color(240, 240, 240));
+
+        // Pulsante "Torna alla Home" in alto a sinistra
+        backToAdminHomeButton = new JButton("<html><u>Torna alla Home</u></html>");
+        backToAdminHomeButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        backToAdminHomeButton.setBackground(null);
+        backToAdminHomeButton.setForeground(Color.BLACK);
+        backToAdminHomeButton.setFocusPainted(false);
+        backToAdminHomeButton.setBorderPainted(false);
+        backToAdminHomeButton.setOpaque(false);
+        backToAdminHomeButton.setContentAreaFilled(false);
+        backToAdminHomeButton.setBorder(null);
+        topPanel.add(backToAdminHomeButton, BorderLayout.WEST); // Aggiungi il pulsante a sinistra
+
+        add(topPanel, BorderLayout.NORTH); // Aggiungi il pannello superiore al bordo nord
+
+        // Creazione di un pannello centrale per contenere il titolo e la lista
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setBackground(new Color(240, 240, 240));
+
+        // Etichetta del titolo sopra la lista
+        titleLabel = new JLabel("I tuoi eventi");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(titleLabel);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); // Aggiungi margini per spaziatura
+        centerPanel.add(titleLabel, BorderLayout.NORTH); // Aggiungi il titolo in alto nel pannello centrale
 
-        mainPanel.add(Box.createVerticalStrut(20));
+        // Lista degli eventi
+        eventsList = new JList<>();
+        eventsList.setFont(new Font("Arial", Font.PLAIN, 16));
+        eventsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        eventsList.setBackground(Color.WHITE);
+        eventsList.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 
-        // Pulsante per gestire l'evento
-        JButton manageEventButton = new JButton("Gestisci Evento");
-        manageEventButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        manageEventButton.setBackground(new Color(33, 150, 243)); 
-        manageEventButton.setForeground(Color.WHITE);
-        manageEventButton.setFocusPainted(false);
-        manageEventButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(manageEventButton);
+        // Aggiungi uno scroll pane per la lista
+        JScrollPane scrollPane = new JScrollPane(eventsList);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Seleziona evento da gestire"));
+        scrollPane.setBackground(Color.WHITE);
 
-        // Pannello per il pulsante "Torna alla Home" in alto a sinistra
-        JPanel backPanel = new JPanel();
-        backPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        centerPanel.add(scrollPane, BorderLayout.CENTER); // Aggiungi lo scroll pane al centro del pannello centrale
 
-        // Pulsante "Torna alla Home" con lo stesso stile del "Logout"
-        backToAdminHomeButton = new JButton("<html><u>Torna alla Home</u></html>"); // Aggiungi sottolineato al testo
-        backToAdminHomeButton.setFont(new Font("Arial", Font.PLAIN, 16)); // Non corsivo
-        backToAdminHomeButton.setBackground(null); // Nessun sfondo
-        backToAdminHomeButton.setForeground(Color.BLACK); // Colore del testo nero
-        backToAdminHomeButton.setFocusPainted(false); // Nessun bordo quando si clicca
-        backToAdminHomeButton.setBorderPainted(false); // Nessun bordo
-        backToAdminHomeButton.setOpaque(false); // Non opaco
-        backToAdminHomeButton.setBorder(null); // Nessun bordo
-        backToAdminHomeButton.setContentAreaFilled(false); // Nessun riempimento
-        backPanel.add(backToAdminHomeButton);
-
-        // Aggiungi il pannello "backPanel" nel GridBagLayout
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2; // Occupare tutta la larghezza
-        add(backPanel, gbc);
-
-        // Aggiungi il pannello principale sotto il pulsante
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1; // Reset gridwidth
-        add(mainPanel, gbc);
+        add(centerPanel, BorderLayout.CENTER); // Aggiungi il pannello centrale al centro del layout principale
     }
 
     // Metodo per impostare l'azione del pulsante "Torna alla Home"
     public void setBackToAdminHomeAction(ActionListener action) {
         backToAdminHomeButton.addActionListener(action);
+    }
+
+    // Metodo per impostare i dati della lista degli eventi
+    public void setEventsListData(String[] events) {
+        eventsList.setListData(events);
+    }
+
+    // Metodo per ottenere l'evento selezionato
+    public String getSelectedEvent() {
+        return eventsList.getSelectedValue();
     }
 }
