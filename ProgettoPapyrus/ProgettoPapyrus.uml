@@ -53,6 +53,12 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_QHDG0KJ5Ee-qB_CiRmNJwg" name="numMaxBigliettiAcquistabili" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_4xK2YKNFEe-57alA32WAMw" name="postoNumerato" visibility="private" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_OXozEKNHEe-57alA32WAMw" name="dataInizioVendita" visibility="private" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_Hy8SwKGhEe-0Qq1gsZDFHw" name="Luogo">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_XlaloKGkEe-7erFtc63XzA" name="idLuogo" visibility="private">
@@ -64,12 +70,6 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_d_lMsKGkEe-7erFtc63XzA" name="indirizzo" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_ogQLkKGjEe-7erFtc63XzA" name="EventoStadio">
-      <generalization xmi:type="uml:Generalization" xmi:id="_1Gq5gKGjEe-7erFtc63XzA" general="_FWQN4KGhEe-0Qq1gsZDFHw"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_v3gF8KGjEe-7erFtc63XzA" name="EventoPostoUnico">
-      <generalization xmi:type="uml:Generalization" xmi:id="_2GCr0KGjEe-7erFtc63XzA" general="_FWQN4KGhEe-0Qq1gsZDFHw"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_n2eZUKGkEe-7erFtc63XzA" name="Settore" visibility="public">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_O9y9oKGmEe-7erFtc63XzA" name="idSettore" visibility="private">
