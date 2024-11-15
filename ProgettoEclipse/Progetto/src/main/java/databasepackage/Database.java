@@ -13,8 +13,9 @@ public class Database {
     }
 
     public static void createTables() {
-
-        String sql = "CREATE TABLE IF NOT EXISTS utenti (" +
+    
+    
+        String sql = "CREATE TABLE IF NOT EXISTS Utente (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "username TEXT NOT NULL UNIQUE," +
                 "password TEXT NOT NULL," +
@@ -23,12 +24,56 @@ public class Database {
                 "email TEXT NOT NULL UNIQUE,"+
                 "admin BOOLEAN NOT NULL CHECK(admin IN (0, 1))" +
                 ");";
+        
+    /*	
+        String sql = "CREATE TABLE IF NOT EXISTS Luogo (" +
+        		"idLuogo INTEGER PRIMARY KEY AUTOINCREMENT," +
+        		"nome TEXT NOT NULL UNIQUE, " +
+        		"indirizzo TEXT NOT NULL"+
+        		");";
 
         
+    	
+    	String sql = "CREATE TABLE IF NOT EXISTS Evento (" +
+    			"idEvento INTEGER PRIMARY KEY AUTOINCREMENT," +
+    			"data DATE NOT NULL," +
+    			"ora TEXT NOT NULL," +
+    			"numMaxBigliettiAcquistabili INTEGER NOT NULL," +
+    			"postoNumerato BOOLEAN NOT NULL CHECK (postoNumerato in (0,1))," +
+    			"dataInizioVendita DATE NULL" +
+    			");";
+    			
+    	
+    	
+    	
+    	String sql = "CREATE TABLE IF NOT EXISTS Settore (" +
+    			"idSettore INTEGER PRIMARY KEY AUTOINCREMENT, " +
+    			"nome TEXT NOT NULL UNIQUE, " +
+    			"prezzo NUMERIC(6,2) NOT NULL, " +
+    			"postiTotali INTEGER, " +
+    			"postiOccupati INTEGER" +
+    			");";
+    			
+        
+        
+    	String sql = "CREATE TABLE IF NOT EXISTS Posto (" +
+    			"idPosto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+
+    			"num INTEGER " +
+    			");";
+       
+    	
+    	
+    	String sql = "CREATE TABLE IF NOT EXISTS Biglietto (" +
+    			"idBiglietto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
+    			");";
+    	
+    */
+
+    			
         
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
-            System.out.println("Tabella utenti creata (se non esisteva già).");
+            System.out.println("Tabella creata (se non esisteva già).");
         } catch (SQLException e) {
             System.out.println("Errore durante la creazione della tabella: " + e.getMessage());
         }
