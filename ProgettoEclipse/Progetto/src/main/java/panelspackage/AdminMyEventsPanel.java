@@ -8,6 +8,8 @@ public class AdminMyEventsPanel extends JPanel {
     private JButton backToAdminHomeButton;
     private JLabel titleLabel;
     private JList<String> eventsList;
+    private JLabel imageLabel;
+    private ImageIcon imageIcon;
 
     public AdminMyEventsPanel() {
         // Imposta il layout principale del pannello
@@ -58,6 +60,13 @@ public class AdminMyEventsPanel extends JPanel {
         centerPanel.add(scrollPane, BorderLayout.CENTER); // Aggiungi lo scroll pane al centro del pannello centrale
 
         add(centerPanel, BorderLayout.CENTER); // Aggiungi il pannello centrale al centro del layout principale
+        
+        /*String imagePath = "../../Immagini/mappa_stadio.jpg";
+        imageIcon = new ImageIcon(imagePath);
+        imageLabel = new JLabel(imageIcon);
+        add(imageLabel,BorderLayout.SOUTH);
+        */
+        
     }
 
     // Metodo per impostare l'azione del pulsante "Torna alla Home"
