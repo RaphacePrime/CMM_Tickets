@@ -1,15 +1,13 @@
-package panelspackage;
+package panels_package;
 
 import javax.swing.*;
 
+import classes_package.Utente;
+import login_package.Login;
+import login_package.RSAUtils;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
-import loginpackage.Login;
-import loginpackage.RSAUtils;
-import classespackage.Utente;
-import framespackage.AdminFrame;
-import framespackage.UtenteFrame;
-import loginpackage.RSAUtils;
 
 public class LoginPanel extends JPanel {
     private CardLayout cardLayout;

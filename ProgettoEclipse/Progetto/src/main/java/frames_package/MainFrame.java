@@ -1,16 +1,16 @@
-package framespackage;
+package frames_package;
 
 import javax.swing.*;
 
-import databasepackage.Database;
+import database_package.Database;
+import panels_package.AdminHomePanel;
+import panels_package.AdminMyEventsPanel;
+import panels_package.AdminNewEventPanel;
+import panels_package.LoginPanel;
+import panels_package.RegistrationPanel;
+import panels_package.UserHomePanel;
 
 import java.awt.*;
-import panelspackage.AdminHomePanel;
-import panelspackage.LoginPanel;
-import panelspackage.RegistrationPanel;
-import panelspackage.UserHomePanel;
-import panelspackage.AdminNewEventPanel;
-import panelspackage.AdminMyEventsPanel;
 
 public class MainFrame extends JFrame {
     public CardLayout cardLayout;

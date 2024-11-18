@@ -1,13 +1,14 @@
-package loginpackage;
+package login_package;
 
 
 import java.util.regex.Pattern;
+
+import classes_package.Utente;
+import database_package.Database;
+
 import java.util.regex.Matcher;
 import java.util.Scanner;
-import classespackage.Utente;
-import databasepackage.Database;
-import framespackage.AdminFrame;
-import framespackage.UtenteFrame;
+
 
 
 
@@ -117,15 +118,15 @@ public class Main {
                     if (utenteLoggato.isAdmin()) {
                         System.out.println("Sei un amministratore. Carico pagina...");
                         Thread.sleep(2000);
-                        javax.swing.SwingUtilities.invokeLater(() -> {
+                        /*javax.swing.SwingUtilities.invokeLater(() -> {
                             new AdminFrame().setVisible(true);
-                        });
+                        });*/
                     } else {
                         System.out.println("Sei un utente normale. Carico pagina...");
                         Thread.sleep(2000);
-                        javax.swing.SwingUtilities.invokeLater(() -> {
+                        /*javax.swing.SwingUtilities.invokeLater(() -> {
                             new UtenteFrame().setVisible(true);
-                        });
+                        });*/
                     }
                 }
             } else if (scelta == 3) {

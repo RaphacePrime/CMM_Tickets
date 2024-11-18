@@ -1,12 +1,12 @@
-package loginpackage;
+package login_package;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import classespackage.Utente;
-import databasepackage.Database;
+import classes_package.Utente;
+import database_package.Database;
 
 public class Login {
     public static Utente autentica(String username, String password) {

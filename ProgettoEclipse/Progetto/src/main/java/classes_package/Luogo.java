@@ -1,4 +1,4 @@
-package classespackage;
+package classes_package;
 
 public class Luogo {
 	private int idLuogo;

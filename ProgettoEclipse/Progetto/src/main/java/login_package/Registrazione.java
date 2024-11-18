@@ -1,10 +1,11 @@
-package loginpackage;
+package login_package;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import classespackage.Utente;
-import databasepackage.Database;
+
+import classes_package.Utente;
+import database_package.Database;
 
 public class Registrazione {
     public static boolean registraUtente(Utente utente) {

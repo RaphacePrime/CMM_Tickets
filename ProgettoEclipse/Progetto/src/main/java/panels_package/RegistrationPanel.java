@@ -1,12 +1,14 @@
-package panelspackage;
+package panels_package;
 
 import javax.swing.*;
+
+import classes_package.Utente;
+import login_package.Registrazione;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import classespackage.Utente;
-import loginpackage.Registrazione;
 
 public class RegistrationPanel extends JPanel {
     private JTextField usernameField;
