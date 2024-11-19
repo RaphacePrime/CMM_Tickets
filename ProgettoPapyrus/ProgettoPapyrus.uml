@@ -148,6 +148,11 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_b8D_UKGwEe-WTofhe3ArGw" value="*"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_6soS4KZ5Ee-1iLY0R4eYOw" name="Utente">
+      <generalization xmi:type="uml:Generalization" xmi:id="_-ZN5YKZ5Ee-1iLY0R4eYOw" general="_8ko9YKZ5Ee-1iLY0R4eYOw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_8ko9YKZ5Ee-1iLY0R4eYOw" name="Admin"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Jobj0KZ6Ee-1iLY0R4eYOw" name="CMMTickets"/>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_yVsTwKGwEe-WTofhe3ArGw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yVs60KGwEe-WTofhe3ArGw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
@@ -156,6 +161,5 @@
     </profileApplication>
   </uml:Model>
   <Codegen:GeneratorHint xmi:id="_yYyrEKGwEe-WTofhe3ArGw" base_Element="_ylI4UKDcEe-8nr79RnMfdw" generatorID="Standard Java">
-    <language xmi:type="Codegen:Language" href="pathmap://Codegen_PROFILES/languages.uml#_2Zt6YCjREeayco6FJ_OtTQ"/>
-  </Codegen:GeneratorHint>
+    <language xmi:type="Codegen:Language" href="pathmap://Codegen_PROFILES/languages.uml#_2Zt6YCjREeayco6FJ_OtTQ"/></Codegen:GeneratorHint>
 </xmi:XMI>

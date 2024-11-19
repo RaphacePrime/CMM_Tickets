@@ -2,6 +2,7 @@ package panels_package;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AdminMyEventsPanel extends JPanel {
@@ -15,11 +16,11 @@ public class AdminMyEventsPanel extends JPanel {
         // Imposta il layout principale del pannello
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
-
+        
         // Creazione del pannello superiore per contenere il pulsante "Torna alla Home"
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
-
+        
         // Pulsante "Torna alla Home" in alto a sinistra
         backToAdminHomeButton = new JButton("<html><u>Torna alla Home</u></html>");
         backToAdminHomeButton.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -67,11 +68,67 @@ public class AdminMyEventsPanel extends JPanel {
         add(imageLabel,BorderLayout.SOUTH);
         */
         
+        // Creazione del pannello principale
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        add(mainPanel);
+        
+        // Barra di navigazione (verticale)
+        JPanel navBar = new JPanel();
+        navBar.setBackground(new Color (60, 63, 65));
+        navBar.setPreferredSize(new Dimension(150, 200));
+        navBar.setLayout(new GridLayout(0,1,0,10));
+        
+        String[] buttonLabels = {"Aggiungi evento", "Aggiungi luogo", "Modifica evento", "Modifica luogo"};
+        for( String label: buttonLabels) {
+        	JButton button= createNavBarButton(label);
+        	navBar.add(button);
+        }
+        
+        mainPanel.add(navBar, BorderLayout.WEST);
+        
+        
+        //Area centrale per il contenuto (andrà modificato per le varie azioni scelte sui bottoni
+        JPanel contentPanel = new JPanel();
+        contentPanel.setBackground(Color.WHITE);
+        contentPanel.setLayout(new BorderLayout());
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
+        
+        // Azioni sui bottoni
+        Component [] components = navBar.getComponents();
+        for(Component comp : components) {
+        	if(comp instanceof JButton) {
+        		JButton button = (JButton) comp;
+        		button.addActionListener(new ActionListener(){
+        		@Override
+        		public void actionPerformed(ActionEvent e) {
+        			contentPanel.removeAll();
+        			JLabel label = new JLabel("Hai cliccato:" + button.getText(), JLabel.CENTER);
+        			label.setFont(new Font("Arial", Font.BOLD, 20));
+        			contentPanel.add(label, BorderLayout.CENTER);
+        			contentPanel.revalidate();
+        			contentPanel.repaint();
+        		}
+        	});
+        }
     }
+   }
+    
+    
 
     // Metodo per impostare l'azione del pulsante "Torna alla Home"
     public void setBackToAdminHomeAction(ActionListener action) {
         backToAdminHomeButton.addActionListener(action);
+    }
+    
+    private static JButton createNavBarButton(String label) {
+        JButton button = new JButton(label);
+        button.setFocusPainted(false); // Rimuovi il bordo di focus
+        button.setBackground(new Color(75, 110, 175)); // Colore blu scuro
+        button.setForeground(Color.WHITE); // Colore del testo
+        button.setFont(new Font("Arial", Font.BOLD, 15));
+        button.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Margini interni
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Cambia il cursore al passaggio
+        return button;
     }
 
     // Metodo per impostare i dati della lista degli eventi
