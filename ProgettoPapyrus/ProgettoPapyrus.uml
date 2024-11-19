@@ -148,11 +148,36 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_b8D_UKGwEe-WTofhe3ArGw" value="*"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Actor" xmi:id="_6soS4KZ5Ee-1iLY0R4eYOw" name="Utente">
-      <generalization xmi:type="uml:Generalization" xmi:id="_-ZN5YKZ5Ee-1iLY0R4eYOw" general="_8ko9YKZ5Ee-1iLY0R4eYOw"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_Jobj0KZ6Ee-1iLY0R4eYOw" name="CMMTickets">
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_SPtCAKaCEe-1iLY0R4eYOw" name="Login"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_VvQ5IKaCEe-1iLY0R4eYOw" name="Gestione luoghi"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_dfVjMKaCEe-1iLY0R4eYOw" name="Gestione eventi"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_hDBsYKaCEe-1iLY0R4eYOw" name="Gestione evento posto numerato"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_3LzhYKaCEe-1iLY0R4eYOw" name="Gestione evento posto unico"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Actor" xmi:id="_8ko9YKZ5Ee-1iLY0R4eYOw" name="Admin"/>
-    <packagedElement xmi:type="uml:Package" xmi:id="_Jobj0KZ6Ee-1iLY0R4eYOw" name="CMMTickets"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_BlJwQKaCEe-1iLY0R4eYOw" name="Cliente"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_CIGsUKaCEe-1iLY0R4eYOw" name="Amministratore"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Um7YEKaCEe-1iLY0R4eYOw" memberEnd="_UnFJEKaCEe-1iLY0R4eYOw _UnIzcKaCEe-1iLY0R4eYOw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UnCFwKaCEe-1iLY0R4eYOw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UnCs0KaCEe-1iLY0R4eYOw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_UnFJEKaCEe-1iLY0R4eYOw" name="login" type="_SPtCAKaCEe-1iLY0R4eYOw" association="_Um7YEKaCEe-1iLY0R4eYOw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_UnIzcKaCEe-1iLY0R4eYOw" name="amministratore" type="_CIGsUKaCEe-1iLY0R4eYOw" association="_Um7YEKaCEe-1iLY0R4eYOw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_agVbcKaCEe-1iLY0R4eYOw" memberEnd="_agXQoaaCEe-1iLY0R4eYOw _agX3sKaCEe-1iLY0R4eYOw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_agWpkKaCEe-1iLY0R4eYOw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_agXQoKaCEe-1iLY0R4eYOw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_agXQoaaCEe-1iLY0R4eYOw" name="gestione luoghi" type="_VvQ5IKaCEe-1iLY0R4eYOw" association="_agVbcKaCEe-1iLY0R4eYOw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_agX3sKaCEe-1iLY0R4eYOw" name="login" type="_SPtCAKaCEe-1iLY0R4eYOw" association="_agVbcKaCEe-1iLY0R4eYOw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_f92NAKaCEe-1iLY0R4eYOw" memberEnd="_f953YaaCEe-1iLY0R4eYOw _f96ecKaCEe-1iLY0R4eYOw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_f94pQKaCEe-1iLY0R4eYOw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_f953YKaCEe-1iLY0R4eYOw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_f953YaaCEe-1iLY0R4eYOw" name="gestione eventi" type="_dfVjMKaCEe-1iLY0R4eYOw" association="_f92NAKaCEe-1iLY0R4eYOw"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_f96ecKaCEe-1iLY0R4eYOw" name="login" type="_SPtCAKaCEe-1iLY0R4eYOw" association="_f92NAKaCEe-1iLY0R4eYOw"/>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_yVsTwKGwEe-WTofhe3ArGw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yVs60KGwEe-WTofhe3ArGw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
