@@ -43,7 +43,13 @@
     <groupId>org.xerial</groupId>
     <artifactId>sqlite-jdbc</artifactId>
     <version>3.43.2.2</version>
-</dependency>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-slf4j-impl</artifactId>
+	    <version>2.20.0</version>
+	</dependency>
+
   </dependencies>
 
   <build>
