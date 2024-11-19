@@ -15,7 +15,7 @@ public class Database {
     public static void createTables() {
     
     
-        String sql = "CREATE TABLE IF NOT EXISTS Utente (" +
+        /*String sql = "CREATE TABLE IF NOT EXISTS utenti (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "username TEXT NOT NULL UNIQUE," +
                 "password TEXT NOT NULL," +
@@ -25,28 +25,32 @@ public class Database {
                 "admin BOOLEAN NOT NULL CHECK(admin IN (0, 1))" +
                 ");";
         
-    /*	
-        String sql = "CREATE TABLE IF NOT EXISTS Luogo (" +
+    
+        String sql = "CREATE TABLE IF NOT EXISTS luoghi (" +
         		"idLuogo INTEGER PRIMARY KEY AUTOINCREMENT," +
         		"nome TEXT NOT NULL UNIQUE, " +
         		"indirizzo TEXT NOT NULL"+
-        		");";
+        		");";*/
 
         
     	
-    	String sql = "CREATE TABLE IF NOT EXISTS Evento (" +
-    			"idEvento INTEGER PRIMARY KEY AUTOINCREMENT," +
-    			"data DATE NOT NULL," +
-    			"ora TEXT NOT NULL," +
-    			"numMaxBigliettiAcquistabili INTEGER NOT NULL," +
-    			"postoNumerato BOOLEAN NOT NULL CHECK (postoNumerato in (0,1))," +
-    			"dataInizioVendita DATE NULL" +
-    			");";
+        String sql = "CREATE TABLE IF NOT EXISTS eventi (" +
+                "idEvento INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "nome TEXT NOT NULL, " +
+                "data DATE NOT NULL, " +
+                "ora TEXT NOT NULL, " +
+                "numMaxBigliettiAcquistabili INTEGER NOT NULL, " +
+                "postoNumerato BOOLEAN NOT NULL CHECK (postoNumerato IN (0, 1)), " +
+                "dataInizioVendita DATE NULL, " +
+                "idLuogo INTEGER NOT NULL, " +
+                "FOREIGN KEY (idLuogo) REFERENCES luoghi(idLuogo)" +
+                ");";
+
     			
+        /*
     	
     	
-    	
-    	String sql = "CREATE TABLE IF NOT EXISTS Settore (" +
+    	String sql = "CREATE TABLE IF NOT EXISTS settori (" +
     			"idSettore INTEGER PRIMARY KEY AUTOINCREMENT, " +
     			"nome TEXT NOT NULL UNIQUE, " +
     			"prezzo NUMERIC(6,2) NOT NULL, " +
@@ -56,14 +60,14 @@ public class Database {
     			
         
         
-    	String sql = "CREATE TABLE IF NOT EXISTS Posto (" +
+    	String sql = "CREATE TABLE IF NOT EXISTS posti (" +
     			"idPosto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+
     			"num INTEGER " +
     			");";
        
     	
     	
-    	String sql = "CREATE TABLE IF NOT EXISTS Biglietto (" +
+    	String sql = "CREATE TABLE IF NOT EXISTS biglietti (" +
     			"idBiglietto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
     			");";
     	
