@@ -151,12 +151,30 @@
     <packagedElement xmi:type="uml:Package" xmi:id="_Jobj0KZ6Ee-1iLY0R4eYOw" name="CMMTickets">
       <packagedElement xmi:type="uml:UseCase" xmi:id="_SPtCAKaCEe-1iLY0R4eYOw" name="Login"/>
       <packagedElement xmi:type="uml:UseCase" xmi:id="_VvQ5IKaCEe-1iLY0R4eYOw" name="Gestione luoghi"/>
-      <packagedElement xmi:type="uml:UseCase" xmi:id="_dfVjMKaCEe-1iLY0R4eYOw" name="Gestione eventi"/>
-      <packagedElement xmi:type="uml:UseCase" xmi:id="_hDBsYKaCEe-1iLY0R4eYOw" name="Gestione evento posto numerato"/>
-      <packagedElement xmi:type="uml:UseCase" xmi:id="_3LzhYKaCEe-1iLY0R4eYOw" name="Gestione evento posto unico"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_dfVjMKaCEe-1iLY0R4eYOw" name="Gestione eventi">
+        <include xmi:type="uml:Include" xmi:id="_V0afoKcWEe-CCrm8qJvYvg" addition="_TRugcKcWEe-CCrm8qJvYvg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_hDBsYKaCEe-1iLY0R4eYOw" name="Gestione evento posto numerato">
+        <generalization xmi:type="uml:Generalization" xmi:id="_gQakcKcWEe-CCrm8qJvYvg" general="_dfVjMKaCEe-1iLY0R4eYOw"/>
+        <include xmi:type="uml:Include" xmi:id="_Qqos8KcXEe-CCrm8qJvYvg" addition="_tzY2sKcVEe-CCrm8qJvYvg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_3LzhYKaCEe-1iLY0R4eYOw" name="Gestione evento posto unico">
+        <generalization xmi:type="uml:Generalization" xmi:id="_d54K4KcWEe-CCrm8qJvYvg" general="_dfVjMKaCEe-1iLY0R4eYOw"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_tzY2sKcVEe-CCrm8qJvYvg" name="Gestione posto"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_TRugcKcWEe-CCrm8qJvYvg" name="Gestione settore"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_n28Q8KcWEe-CCrm8qJvYvg" name="Guarda catalogo"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_xI8n0KcWEe-CCrm8qJvYvg" name="Selezione biglietti e posti">
+        <include xmi:type="uml:Include" xmi:id="_GX5R0KcXEe-CCrm8qJvYvg" addition="__7vGsKcWEe-CCrm8qJvYvg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_1tRHkKcWEe-CCrm8qJvYvg" name="Acquisto"/>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="_5U3gYKcWEe-CCrm8qJvYvg" name="Visualizzazione biglietti acquistati">
+        <include xmi:type="uml:Include" xmi:id="_IM5roKcXEe-CCrm8qJvYvg" addition="__7vGsKcWEe-CCrm8qJvYvg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:UseCase" xmi:id="__7vGsKcWEe-CCrm8qJvYvg" name="Registrazione/Login"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Actor" xmi:id="_BlJwQKaCEe-1iLY0R4eYOw" name="Cliente"/>
-    <packagedElement xmi:type="uml:Actor" xmi:id="_CIGsUKaCEe-1iLY0R4eYOw" name="Amministratore"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_CIGsUKaCEe-1iLY0R4eYOw" name="Admin"/>
     <packagedElement xmi:type="uml:Association" xmi:id="_Um7YEKaCEe-1iLY0R4eYOw" memberEnd="_UnFJEKaCEe-1iLY0R4eYOw _UnIzcKaCEe-1iLY0R4eYOw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UnCFwKaCEe-1iLY0R4eYOw" source="org.eclipse.papyrus">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UnCs0KaCEe-1iLY0R4eYOw" key="nature" value="UML_Nature"/>
@@ -164,19 +182,47 @@
       <ownedEnd xmi:type="uml:Property" xmi:id="_UnFJEKaCEe-1iLY0R4eYOw" name="login" type="_SPtCAKaCEe-1iLY0R4eYOw" association="_Um7YEKaCEe-1iLY0R4eYOw"/>
       <ownedEnd xmi:type="uml:Property" xmi:id="_UnIzcKaCEe-1iLY0R4eYOw" name="amministratore" type="_CIGsUKaCEe-1iLY0R4eYOw" association="_Um7YEKaCEe-1iLY0R4eYOw"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_agVbcKaCEe-1iLY0R4eYOw" memberEnd="_agXQoaaCEe-1iLY0R4eYOw _agX3sKaCEe-1iLY0R4eYOw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_agWpkKaCEe-1iLY0R4eYOw" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_agXQoKaCEe-1iLY0R4eYOw" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_agXQoaaCEe-1iLY0R4eYOw" name="gestione luoghi" type="_VvQ5IKaCEe-1iLY0R4eYOw" association="_agVbcKaCEe-1iLY0R4eYOw"/>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_agX3sKaCEe-1iLY0R4eYOw" name="login" type="_SPtCAKaCEe-1iLY0R4eYOw" association="_agVbcKaCEe-1iLY0R4eYOw"/>
-    </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_f92NAKaCEe-1iLY0R4eYOw" memberEnd="_f953YaaCEe-1iLY0R4eYOw _f96ecKaCEe-1iLY0R4eYOw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_f94pQKaCEe-1iLY0R4eYOw" source="org.eclipse.papyrus">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_f953YKaCEe-1iLY0R4eYOw" key="nature" value="UML_Nature"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:Property" xmi:id="_f953YaaCEe-1iLY0R4eYOw" name="gestione eventi" type="_dfVjMKaCEe-1iLY0R4eYOw" association="_f92NAKaCEe-1iLY0R4eYOw"/>
       <ownedEnd xmi:type="uml:Property" xmi:id="_f96ecKaCEe-1iLY0R4eYOw" name="login" type="_SPtCAKaCEe-1iLY0R4eYOw" association="_f92NAKaCEe-1iLY0R4eYOw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_bKInIKcWEe-CCrm8qJvYvg" memberEnd="_bKRKAKcWEe-CCrm8qJvYvg _bKRxEKcWEe-CCrm8qJvYvg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_bKLDYKcWEe-CCrm8qJvYvg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_bKLqcKcWEe-CCrm8qJvYvg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_bKRKAKcWEe-CCrm8qJvYvg" name="gestione luoghi" type="_VvQ5IKaCEe-1iLY0R4eYOw" association="_bKInIKcWEe-CCrm8qJvYvg"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_bKRxEKcWEe-CCrm8qJvYvg" name="login" type="_SPtCAKaCEe-1iLY0R4eYOw" association="_bKInIKcWEe-CCrm8qJvYvg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_ubQSgKcWEe-CCrm8qJvYvg" memberEnd="_ubSHsKcWEe-CCrm8qJvYvg _ubSHsacWEe-CCrm8qJvYvg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ubRgoKcWEe-CCrm8qJvYvg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ubRgoacWEe-CCrm8qJvYvg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_ubSHsKcWEe-CCrm8qJvYvg" name="cliente" type="_BlJwQKaCEe-1iLY0R4eYOw" association="_ubQSgKcWEe-CCrm8qJvYvg"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_ubSHsacWEe-CCrm8qJvYvg" name="guarda catalogo" type="_n28Q8KcWEe-CCrm8qJvYvg" association="_ubQSgKcWEe-CCrm8qJvYvg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_0l6d8KcWEe-CCrm8qJvYvg" memberEnd="_0l8TIacWEe-CCrm8qJvYvg _0l8TIqcWEe-CCrm8qJvYvg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0l7sEKcWEe-CCrm8qJvYvg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0l8TIKcWEe-CCrm8qJvYvg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_0l8TIacWEe-CCrm8qJvYvg" name="selezione biglietti e posti" type="_xI8n0KcWEe-CCrm8qJvYvg" association="_0l6d8KcWEe-CCrm8qJvYvg"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_0l8TIqcWEe-CCrm8qJvYvg" name="guarda catalogo" type="_n28Q8KcWEe-CCrm8qJvYvg" association="_0l6d8KcWEe-CCrm8qJvYvg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_31szsKcWEe-CCrm8qJvYvg" memberEnd="_31xFIacWEe-CCrm8qJvYvg _31xFIqcWEe-CCrm8qJvYvg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_31weEKcWEe-CCrm8qJvYvg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_31xFIKcWEe-CCrm8qJvYvg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_31xFIacWEe-CCrm8qJvYvg" name="acquisto" type="_1tRHkKcWEe-CCrm8qJvYvg" association="_31szsKcWEe-CCrm8qJvYvg"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_31xFIqcWEe-CCrm8qJvYvg" name="selezione biglietti e posti" type="_xI8n0KcWEe-CCrm8qJvYvg" association="_31szsKcWEe-CCrm8qJvYvg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_8dzAMKcWEe-CCrm8qJvYvg" memberEnd="_8d01YKcWEe-CCrm8qJvYvg _8d01YacWEe-CCrm8qJvYvg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_8d0OUKcWEe-CCrm8qJvYvg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_8d0OUacWEe-CCrm8qJvYvg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_8d01YKcWEe-CCrm8qJvYvg" name="visualizzazione biglietti acquistati" type="_5U3gYKcWEe-CCrm8qJvYvg" association="_8dzAMKcWEe-CCrm8qJvYvg"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_8d01YacWEe-CCrm8qJvYvg" name="cliente" type="_BlJwQKaCEe-1iLY0R4eYOw" association="_8dzAMKcWEe-CCrm8qJvYvg"/>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_yVsTwKGwEe-WTofhe3ArGw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yVs60KGwEe-WTofhe3ArGw" source="http://www.eclipse.org/uml2/2.0.0/UML">
