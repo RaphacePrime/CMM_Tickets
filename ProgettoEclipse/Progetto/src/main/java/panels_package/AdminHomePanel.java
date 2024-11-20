@@ -5,90 +5,88 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class AdminHomePanel extends JPanel {
-    private JButton switchToNewEventButton;
-    private JButton switchToMyEventsButton;
-    private JButton logoutButton; // Aggiungi il pulsante di logout
+    private JButton logoutButton; // Logout button
+    private JButton switchToModifyEventButton;
+    private JPanel contentPanel; // The panel where content changes
 
     public AdminHomePanel() {
-        // Usare GridBagLayout per il layout principale
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Aggiusta gli spazi esterni
-
-        // Pannello principale per allineare i componenti verticalmente
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBackground(Color.WHITE);
+        setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
-        mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Etichetta del titolo
-        JLabel titleLabel = new JLabel("Seleziona un'opzione");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(titleLabel);
+        // Create top panel for logout button
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(new Color(240, 240, 240));
 
-        mainPanel.add(Box.createVerticalStrut(20)); // Spaziatura tra il titolo e il primo pulsante
+        // Logout button
+        logoutButton = new JButton("<html><u>Logout</u></html>");
+        logoutButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        logoutButton.setBackground(null);
+        logoutButton.setForeground(Color.BLACK);
+        logoutButton.setFocusPainted(false);
+        logoutButton.setBorderPainted(false);
+        logoutButton.setOpaque(false);
+        logoutButton.setContentAreaFilled(false);
+        logoutButton.setBorder(null);
+        topPanel.add(logoutButton, BorderLayout.WEST);
+        add(topPanel, BorderLayout.NORTH);
 
-        // Pulsante "Nuovo evento"
-        switchToNewEventButton = new JButton("Nuovo evento");
-        switchToNewEventButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        switchToNewEventButton.setBackground(new Color(33, 150, 243)); // Colore blu
-        switchToNewEventButton.setForeground(Color.WHITE);
-        switchToNewEventButton.setFocusPainted(false);
-        switchToNewEventButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        switchToNewEventButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        switchToNewEventButton.setOpaque(true);
-        switchToNewEventButton.setBorderPainted(false);
-        mainPanel.add(switchToNewEventButton);
+        // Side navigation bar
+        JPanel navBar = new JPanel();
+        navBar.setBackground(new Color(60, 63, 65));
+        navBar.setPreferredSize(new Dimension(150, 200));
+        navBar.setLayout(new GridLayout(0, 1, 0, 10));
 
-        mainPanel.add(Box.createVerticalStrut(10)); // Spaziatura tra i pulsanti
+        String[] buttonLabels = {"Aggiungi evento", "Aggiungi luogo", "Modifica evento", "Modifica luogo"};
+        for (String label : buttonLabels) {
+            JButton button = createNavBarButton(label);
+            navBar.add(button);
 
-        // Pulsante "Gestisci eventi"
-        switchToMyEventsButton = new JButton("Gestisci eventi");
-        switchToMyEventsButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        switchToMyEventsButton.setBackground(new Color(33, 150, 243)); // Colore blu
-        switchToMyEventsButton.setForeground(Color.WHITE);
-        switchToMyEventsButton.setFocusPainted(false);
-        switchToMyEventsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        switchToMyEventsButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        switchToMyEventsButton.setOpaque(true);
-        switchToMyEventsButton.setBorderPainted(false);
+            // Action for "Modifica evento"
+            if (label.equals("Modifica evento")) {
+                switchToModifyEventButton = button;
+            }
+        }
 
-        mainPanel.add(switchToMyEventsButton);
+        add(navBar, BorderLayout.WEST);
 
-        // Aggiungi il pannello principale al layout di GridBagLayout
-        gbc.gridx = 0;
-        gbc.gridy = 1; // Posizioniamo il mainPanel sotto il pulsante di logout
-        add(mainPanel, gbc);
+        // Main content panel where other panels are loaded
+        contentPanel = new JPanel();
+        contentPanel.setBackground(Color.WHITE);
+        contentPanel.setLayout(new CardLayout()); // Using CardLayout for content switching
+        add(contentPanel, BorderLayout.CENTER);
 
-        // Posizioniamo il pulsante "Logout" fuori dal GridBagLayout (in alto a sinistra)
-        logoutButton = new JButton("<html><u>Logout</u></html>"); // Aggiungi sottolineato al testo
-        logoutButton.setFont(new Font("Arial", Font.PLAIN, 16)); // Non corsivo
-        logoutButton.setBackground(null); // Nessun sfondo
-        logoutButton.setForeground(Color.BLACK); // Colore del testo nero
-        logoutButton.setFocusPainted(false); // Nessun bordo quando si clicca
-        logoutButton.setBorderPainted(false); // Nessun bordo
-        logoutButton.setOpaque(false); // Non opaco
-        logoutButton.setBorder(null); // Nessun bordo
-        logoutButton.setContentAreaFilled(false); // Nessun riempimento
-
-        // Aggiungi logoutButton manualmente al pannello
-        logoutButton.setBounds(10, 10, 100, 30); // Posiziona il bottone manualmente
-        add(logoutButton); // Aggiungi direttamente al pannello
+        // Empty initial label in the center
+        JLabel initialLabel = new JLabel("Benvenuto nella Home Admin", JLabel.CENTER);
+        initialLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        contentPanel.add(initialLabel, "Initial");
     }
 
-    // Aggiungi i gestori per le azioni sui pulsanti
-    public void setSwitchToNewEventAction(ActionListener action) {
-        switchToNewEventButton.addActionListener(action);
-    }
-
-    public void setSwitchToMyEventsAction(ActionListener action) {
-        switchToMyEventsButton.addActionListener(action);
-    }
-
-    // Aggiungi il gestore per l'azione di logout
+    // Method to handle logout button action
     public void setLogoutAction(ActionListener action) {
         logoutButton.addActionListener(action);
+    }
+
+    // Method to handle "Modifica evento" button action
+    public void setSwitchToModifyEventAction(ActionListener action) {
+        switchToModifyEventButton.addActionListener(action);
+    }
+
+    // Method to change the content in the center panel
+    public void setContentPanel(JPanel newPanel) {
+        contentPanel.removeAll(); // Clear current content
+        contentPanel.add(newPanel, BorderLayout.CENTER); // Add new panel
+        contentPanel.revalidate(); // Refresh layout
+        contentPanel.repaint(); // Redraw content
+    }
+
+    private JButton createNavBarButton(String label) {
+        JButton button = new JButton(label);
+        button.setFocusPainted(false);
+        button.setBackground(new Color(75, 110, 175));
+        button.setForeground(Color.WHITE);
+        button.setFont(new Font("Arial", Font.BOLD, 15));
+        button.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return button;
     }
 }

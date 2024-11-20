@@ -20,7 +20,12 @@ public class Evento {
         this.dataInizioVendita = dataInizioVendita;
         this.idLuogo = idLuogo;
     }
-
+    
+    public int getId()
+    {
+    	return idLuogo;
+    }
+    
     public String getNome() {
         return nome;
     }
