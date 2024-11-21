@@ -4,10 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import classes_package.Utente;
 import database_package.Database;
 
 public class Registrazione {
+    private static Logger logger = LogManager.getLogger(Registrazione.class);
+
     public static boolean registraUtente(Utente utente) {
         try {
             RSAUtils.generateKeys(); 
@@ -23,14 +28,14 @@ public class Registrazione {
                 pstmt.setString(5, utente.getEmail());
                 pstmt.setBoolean(6, utente.isAdmin());
                 pstmt.executeUpdate();
-                System.out.println("Registrazione avvenuta con successo!");
+                logger.info("Registrazione avvenuta con successo!");
                 return true;
             } catch (SQLException e) {
-                System.out.println("Errore durante la registrazione: " + e.getMessage());
+                logger.error("Errore durante la registrazione: " + e.getMessage());
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("Errore durante la crittografia della password: " + e.getMessage());
+            logger.error("Errore durante la crittografia della password: " + e.getMessage());
             return false;
         }
     }

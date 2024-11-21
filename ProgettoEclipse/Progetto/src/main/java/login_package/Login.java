@@ -5,10 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import classes_package.Utente;
 import database_package.Database;
 
 public class Login {
+    private static Logger logger = LogManager.getLogger(Login.class);
+
     public static Utente autentica(String username, String password) {
         try {
             RSAUtils.generateKeys(); 
@@ -31,19 +36,19 @@ public class Login {
                         boolean admin = rs.getBoolean("admin");
                         return new Utente(id, username, password, codiceFiscale, telefono, email, admin);
                     } else {
-                        System.out.println("Autenticazione fallita: credenziali errate.");
+                        logger.error("Autenticazione fallita: credenziali errate.");
                         return null;
                     }
                 } else {
-                    System.out.println("Autenticazione fallita: nessun utente trovato.");
+                    logger.error("Autenticazione fallita: nessun utente trovato.");
                     return null;
                 }
             } catch (SQLException e) {
-                System.out.println("Errore durante l'autenticazione: " + e.getMessage());
+                logger.error("Errore durante l'autenticazione: " + e.getMessage());
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("Errore nella decrittografia della password: " + e.getMessage());
+            logger.error("Errore nella decrittografia della password: " + e.getMessage());
             return null;
         }
     }
