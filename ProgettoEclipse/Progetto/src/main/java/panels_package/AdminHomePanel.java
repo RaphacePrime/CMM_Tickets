@@ -5,19 +5,20 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class AdminHomePanel extends JPanel {
-    private JButton logoutButton; // Logout button
+    private JButton logoutButton; 
     private JButton switchToModifyEventButton;
-    private JPanel contentPanel; // The panel where content changes
+    private JButton switchToModifyLuogoButton;
+    private JPanel contentPanel; 
 
     public AdminHomePanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
-        // Create top panel for logout button
+        
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
 
-        // Logout button
+        
         logoutButton = new JButton("<html><u>Logout</u></html>");
         logoutButton.setFont(new Font("Arial", Font.PLAIN, 16));
         logoutButton.setBackground(null);
@@ -30,7 +31,7 @@ public class AdminHomePanel extends JPanel {
         topPanel.add(logoutButton, BorderLayout.WEST);
         add(topPanel, BorderLayout.NORTH);
 
-        // Side navigation bar
+        
         JPanel navBar = new JPanel();
         navBar.setBackground(new Color(60, 63, 65));
         navBar.setPreferredSize(new Dimension(150, 200));
@@ -41,42 +42,50 @@ public class AdminHomePanel extends JPanel {
             JButton button = createNavBarButton(label);
             navBar.add(button);
 
-            // Action for "Modifica evento"
+            
             if (label.equals("Modifica evento")) {
                 switchToModifyEventButton = button;
+            }
+            
+            if (label.equals("Modifica luogo")) {
+                switchToModifyLuogoButton = button;
             }
         }
 
         add(navBar, BorderLayout.WEST);
 
-        // Main content panel where other panels are loaded
+        
         contentPanel = new JPanel();
         contentPanel.setBackground(Color.WHITE);
-        contentPanel.setLayout(new CardLayout()); // Using CardLayout for content switching
+        contentPanel.setLayout(new CardLayout()); 
         add(contentPanel, BorderLayout.CENTER);
 
-        // Empty initial label in the center
+        
         JLabel initialLabel = new JLabel("Benvenuto nella Home Admin", JLabel.CENTER);
         initialLabel.setFont(new Font("Arial", Font.BOLD, 20));
         contentPanel.add(initialLabel, "Initial");
     }
 
-    // Method to handle logout button action
+    
     public void setLogoutAction(ActionListener action) {
         logoutButton.addActionListener(action);
     }
 
-    // Method to handle "Modifica evento" button action
+    
     public void setSwitchToModifyEventAction(ActionListener action) {
         switchToModifyEventButton.addActionListener(action);
     }
+    
+    public void setSwitchToModifyLuogoAction(ActionListener action) {
+        switchToModifyLuogoButton.addActionListener(action);
+    }
 
-    // Method to change the content in the center panel
+    
     public void setContentPanel(JPanel newPanel) {
-        contentPanel.removeAll(); // Clear current content
-        contentPanel.add(newPanel, BorderLayout.CENTER); // Add new panel
-        contentPanel.revalidate(); // Refresh layout
-        contentPanel.repaint(); // Redraw content
+        contentPanel.removeAll(); 
+        contentPanel.add(newPanel, BorderLayout.CENTER); 
+        contentPanel.revalidate(); 
+        contentPanel.repaint(); 
     }
 
     private JButton createNavBarButton(String label) {

@@ -25,50 +25,50 @@ public class RegistrationPanel extends JPanel {
     public RegistrationPanel(ActionListener switchToLoginAction) {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Imposta margini esterni per spaziatura
+        gbc.insets = new Insets(10, 10, 10, 10); 
 
-        // Pannello contenitore per centralizzare e stilizzare
+        
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         mainPanel.setBackground(Color.WHITE);
 
-        setBackground(new Color(240, 240, 240)); // Sfondo grigio chiaro per l'effetto "card"
+        setBackground(new Color(240, 240, 240)); 
         mainPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Titolo
+        
         JLabel titleLabel = new JLabel("Registrazione");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(titleLabel);
 
-        mainPanel.add(Box.createVerticalStrut(20)); // Spazio tra titolo e campi
+        mainPanel.add(Box.createVerticalStrut(20)); 
 
-        // Campo Username
+        
         usernameField = new JTextField(15);
         usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         usernameField.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(createLabeledField("Username", usernameField));
 
-        // Campo Password
+        
         passwordField = new JPasswordField(15);
         passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         passwordField.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(createLabeledField("Password", passwordField));
 
-        // Campo Codice Fiscale
+        
         codiceFiscaleField = new JTextField(15);
         codiceFiscaleField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         codiceFiscaleField.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(createLabeledField("Codice Fiscale", codiceFiscaleField));
 
-        // Campo Telefono
+        
         telefonoField = new JTextField(15);
         telefonoField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         telefonoField.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(createLabeledField("Telefono", telefonoField));
 
-        // Campo Email
+        
         emailField = new JTextField(15);
         emailField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         emailField.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -80,12 +80,12 @@ public class RegistrationPanel extends JPanel {
         adminCheckBox.setBackground(Color.WHITE);
         mainPanel.add(adminCheckBox);*/
         
-        mainPanel.add(Box.createVerticalStrut(20)); // Spazio tra i campi e pulsanti
+        mainPanel.add(Box.createVerticalStrut(20)); 
 
-        // Pulsante Registrati
+        
         registerButton = new JButton("Registrati");
         registerButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        registerButton.setBackground(new Color(33, 150, 243)); // Colore blu
+        registerButton.setBackground(new Color(33, 150, 243)); 
         registerButton.setForeground(Color.WHITE);
         registerButton.setFocusPainted(false);
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -102,9 +102,9 @@ public class RegistrationPanel extends JPanel {
         registerButton.setBorderPainted(false);
         mainPanel.add(registerButton);
 
-        mainPanel.add(Box.createVerticalStrut(10)); // Spazio tra pulsanti
+        mainPanel.add(Box.createVerticalStrut(10)); 
 
-        // Pulsante Accedi
+        
         switchToLoginButton = new JButton("Accedi");
         switchToLoginButton.setFont(new Font("Arial", Font.PLAIN, 16));
         switchToLoginButton.setBackground(new Color(33, 150, 243));
@@ -117,31 +117,31 @@ public class RegistrationPanel extends JPanel {
         switchToLoginButton.setBorderPainted(false);
         mainPanel.add(switchToLoginButton);
 
-        // Aggiungi il mainPanel al centro del pannello principale
+        
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(mainPanel, gbc);
         
-     // Imposta l'ActionListener del bottone di switch
-        this.switchToLoginAction = switchToLoginAction;  // Salva l'ActionListener per poterlo usare successivamente
-        switchToLoginButton.addActionListener(switchToLoginAction);  // Aggiungi l'ActionListener al bottone
+     
+        this.switchToLoginAction = switchToLoginAction;  
+        switchToLoginButton.addActionListener(switchToLoginAction);  
     }
 
-    // Metodo per creare un campo con etichetta e spaziatura
+    
     private JPanel createLabeledField(String labelText, JTextField textField) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("Arial", Font.PLAIN, 14));
         panel.add(label, BorderLayout.NORTH);
-        panel.add(Box.createVerticalStrut(5), BorderLayout.CENTER); // Spazio tra label e campo
+        panel.add(Box.createVerticalStrut(5), BorderLayout.CENTER); 
         panel.add(textField, BorderLayout.SOUTH);
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.setOpaque(false); // Trasparente per mantenere il colore di sfondo del contenitore
+        panel.setOpaque(false); 
         return panel;
     }
 
-    // Funzione per validare i campi e registrare l'utente
+    
     private void validateAndRegister() throws HeadlessException, Exception {
         resetBorders();
 
@@ -150,8 +150,8 @@ public class RegistrationPanel extends JPanel {
         String codiceFiscale = codiceFiscaleField.getText().toUpperCase();
         String telefono = telefonoField.getText();
         String email = emailField.getText();
-        //boolean admin = adminCheckBox.isSelected();
-        boolean admin = false; // non è piu possibile registrare un admin
+        
+        boolean admin = false; 
 
         String errorMessage = "";
 
@@ -184,7 +184,7 @@ public class RegistrationPanel extends JPanel {
         if (Registrazione.registraUtente(utente)) {
             JOptionPane.showMessageDialog(this, "Registrazione avvenuta con successo!");
             resetFields();
-            switchToLoginAction.actionPerformed(null); // Esegui il cambio di pannello
+            switchToLoginAction.actionPerformed(null); 
         } else {
             JOptionPane.showMessageDialog(this, "Username già in uso", "Errore", JOptionPane.ERROR_MESSAGE);
         }
@@ -203,7 +203,7 @@ public class RegistrationPanel extends JPanel {
         codiceFiscaleField.setText("");
         telefonoField.setText("");
         emailField.setText("");
-        //adminCheckBox.setSelected(false);
+        
     }
 
     private void resetBorders() {

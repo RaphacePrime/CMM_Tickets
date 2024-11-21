@@ -1,3 +1,4 @@
+
 package panels_package;
 
 import javax.swing.*;
@@ -7,30 +8,28 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
-import classes_package.Evento;
 import classes_package.Luogo;
 import database_package.AdminGetEventsDatabase;
 import database_package.AdminGetLuoghiDatabase;
 
-public class AdminModifyEventPanel extends JPanel {
-    private List<Evento> eventi;
+public class AdminModifyLuogoPanel extends JPanel {
     private List<Luogo> luoghi;
-    private JTable eventTable;
+    private JTable luogoTable;
     private DefaultTableModel tableModel;
     private JButton backButton;
 
-    public AdminModifyEventPanel() {
+    public AdminModifyLuogoPanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
         
-        JLabel titleLabel = new JLabel("Modifica Eventi", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Modifica Luoghi", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(new Color(60, 63, 65)); 
+        titleLabel.setForeground(new Color(60, 63, 65));  
         add(titleLabel, BorderLayout.NORTH);
 
 
-        fetchAndDisplayEvents();
+        fetchAndDisplayLuoghi();
 
 
         backButton = new JButton("Torna alla Home Admin");
@@ -46,34 +45,21 @@ public class AdminModifyEventPanel extends JPanel {
     }
 
 
-    public void fetchAndDisplayEvents() {
-        eventi = AdminGetEventsDatabase.getAllEvents();
+    public void fetchAndDisplayLuoghi() {
         luoghi = AdminGetLuoghiDatabase.getAllLuoghi();
-        String[] columnNames = {"Nome Evento", "Data", "Luogo", "Indirizzo"}; 
-        Object[][] data = new Object[eventi.size()][4]; 
+        String[] columnNames = {"Nome", "Indirizzo"}; 
+        Object[][] data = new Object[luoghi.size()][2]; 
 
-        for (int i = 0; i < eventi.size(); i++) {
-            Evento e = eventi.get(i);
-            Luogo l;
+        for (int i = 0; i < luoghi.size(); i++) {
+        	Luogo e = luoghi.get(i);
+
             
-            for(int y=0; y<luoghi.size(); y++)
-            {
-            	data[i][0] = e.getNome();     
-                data[i][1] = e.getData();   
-                
-                l=luoghi.get(y);
-                
-                if(e.getIdLuogo()==l.getIdLuogo())
-                {
-                	data[i][2] = l.getNome();
-                    data[i][3] = l.getIndirizzo(); 
-                }
-            }
-                 
+            data[i][0] = e.getNome();     
+            data[i][1] = e.getIndirizzo();            
         }
 
         tableModel = new DefaultTableModel(data, columnNames);
-        eventTable = new JTable(tableModel) {
+        luogoTable = new JTable(tableModel) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;  
@@ -94,41 +80,41 @@ public class AdminModifyEventPanel extends JPanel {
         };
 
         
-        eventTable.setRowHeight(40);  
-        eventTable.setFont(new Font("Arial", Font.PLAIN, 14));  
-        eventTable.setSelectionBackground(new Color(75, 110, 175));  
-        eventTable.setSelectionForeground(Color.WHITE); 
+        luogoTable.setRowHeight(40);  
+        luogoTable.setFont(new Font("Arial", Font.PLAIN, 14));  
+        luogoTable.setSelectionBackground(new Color(75, 110, 175));  
+        luogoTable.setSelectionForeground(Color.WHITE); 
 
         
-        eventTable.setCellSelectionEnabled(false);
-        eventTable.setRowSelectionAllowed(true);
-        eventTable.setColumnSelectionAllowed(false);
+        luogoTable.setCellSelectionEnabled(false);
+        luogoTable.setRowSelectionAllowed(true);
+        luogoTable.setColumnSelectionAllowed(false);
 
         
-        eventTable.setDefaultRenderer(Object.class, new ButtonRenderer());
+        luogoTable.setDefaultRenderer(Object.class, new ButtonRenderer());
 
        
-        JTableHeader header = eventTable.getTableHeader();
+        JTableHeader header = luogoTable.getTableHeader();
         header.setFont(new Font("Arial", Font.BOLD, 16));
         header.setBackground(new Color(75, 110, 175));
         header.setForeground(Color.WHITE);
 
         
-        eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        luogoTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent me) {
-                int row = eventTable.rowAtPoint(me.getPoint());
+                int row = luogoTable.rowAtPoint(me.getPoint());
                 if (row >= 0) {
                     
-                    String nomeEvento = (String) tableModel.getValueAt(row, 0);
-                    System.out.println("Evento cliccato: " + nomeEvento);
+                    String nomeLuogo = (String) tableModel.getValueAt(row, 0);
+                    System.out.println("Luogo cliccato: " + nomeLuogo);
                     
                 }
             }
         });
 
         
-        JScrollPane scrollPane = new JScrollPane(eventTable);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Lista Eventi"));
+        JScrollPane scrollPane = new JScrollPane(luogoTable);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Lista Luoghi"));
         add(scrollPane, BorderLayout.CENTER);
     }
 
