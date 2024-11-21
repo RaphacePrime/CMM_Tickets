@@ -36,12 +36,12 @@ public class AdminModifyLuogoPanel extends JPanel {
         fetchAndDisplayLuoghi();
 
 
-        backButton = new JButton("Torna alla Home Admin");
+        /*backButton = new JButton("Torna alla Home Admin");
         backButton.setFont(new Font("Arial", Font.PLAIN, 14));
         backButton.setBackground(new Color(75, 110, 175));
         backButton.setForeground(Color.WHITE);
         backButton.setFocusPainted(false);
-        add(backButton, BorderLayout.SOUTH);
+        add(backButton, BorderLayout.SOUTH);*/
     }
 
     public void setBackToAdminHomeAction(ActionListener action) {
