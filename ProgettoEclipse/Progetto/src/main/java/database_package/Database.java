@@ -1,5 +1,8 @@
 package database_package;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,6 +10,7 @@ import java.sql.Statement;
 
 public class Database {
     private static final String URL = "jdbc:sqlite:database.db";
+    private static Logger logger = LogManager.getLogger(Database.class);
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL);
@@ -77,9 +81,9 @@ public class Database {
         
         try (Connection conn = getConnection(); Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
-            System.out.println("Tabella creata (se non esisteva già).");
+            logger.info("Tabella creata (se non esisteva già).");
         } catch (SQLException e) {
-            System.out.println("Errore durante la creazione della tabella: " + e.getMessage());
+            logger.error("Errore durante la creazione della tabella: " + e.getMessage());
         }
     }
 }

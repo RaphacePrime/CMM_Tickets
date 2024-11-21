@@ -2,6 +2,8 @@
 package panels_package;
 
 import javax.swing.*;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -11,12 +13,14 @@ import java.util.List;
 import classes_package.Luogo;
 import database_package.AdminGetEventsDatabase;
 import database_package.AdminGetLuoghiDatabase;
+import database_package.Database;
 
 public class AdminModifyLuogoPanel extends JPanel {
     private List<Luogo> luoghi;
     private JTable luogoTable;
     private DefaultTableModel tableModel;
     private JButton backButton;
+    private static Logger logger = LogManager.getLogger(AdminModifyLuogoPanel.class);
 
     public AdminModifyLuogoPanel() {
         setLayout(new BorderLayout());
@@ -106,7 +110,7 @@ public class AdminModifyLuogoPanel extends JPanel {
                 if (row >= 0) {
                     
                     String nomeLuogo = (String) tableModel.getValueAt(row, 0);
-                    System.out.println("Luogo cliccato: " + nomeLuogo);
+                    logger.info("Luogo cliccato: " + nomeLuogo);
                     
                 }
             }

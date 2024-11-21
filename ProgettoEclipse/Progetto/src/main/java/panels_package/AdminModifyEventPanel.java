@@ -1,9 +1,15 @@
 package panels_package;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -11,6 +17,7 @@ import classes_package.Evento;
 import classes_package.Luogo;
 import database_package.AdminGetEventsDatabase;
 import database_package.AdminGetLuoghiDatabase;
+import database_package.Database;
 
 public class AdminModifyEventPanel extends JPanel {
     private List<Evento> eventi;
@@ -18,6 +25,7 @@ public class AdminModifyEventPanel extends JPanel {
     private JTable eventTable;
     private DefaultTableModel tableModel;
     private JButton backButton;
+    private static Logger logger = LogManager.getLogger(AdminModifyEventPanel.class);
 
     public AdminModifyEventPanel() {
         setLayout(new BorderLayout());
@@ -120,7 +128,7 @@ public class AdminModifyEventPanel extends JPanel {
                 if (row >= 0) {
                     
                     String nomeEvento = (String) tableModel.getValueAt(row, 0);
-                    System.out.println("Evento cliccato: " + nomeEvento);
+                   logger.info("Evento cliccato: " + nomeEvento);
                     
                 }
             }
