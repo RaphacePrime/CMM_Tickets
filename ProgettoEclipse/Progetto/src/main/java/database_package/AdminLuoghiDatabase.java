@@ -40,11 +40,12 @@ public class AdminLuoghiDatabase {
     }
     
     public static boolean addLuogo(Luogo luogo) {
-        String sql = "INSERT INTO luoghi (nome, citta, indirizzo) VALUES (?, ?)";
+        String sql = "INSERT INTO luoghi (nome, citta, indirizzo) VALUES (?, ?, ?)";
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, luogo.getNome());
-            pstmt.setString(2, luogo.getIndirizzo());
+            pstmt.setString(2, luogo.getCittà());
+            pstmt.setString(3, luogo.getIndirizzo());
 
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted > 0) {

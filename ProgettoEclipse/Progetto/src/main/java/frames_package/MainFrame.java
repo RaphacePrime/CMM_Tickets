@@ -2,6 +2,7 @@ package frames_package;
 
 import javax.swing.*;
 import database_package.Database;
+import panels_package.AdminAddLuogoPanel;
 import panels_package.AdminHomePanel;
 import panels_package.AdminModifyEventPanel;
 import panels_package.AdminModifyLuogoPanel;
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame {
     //private AdminNewEventPanel adminNewEventPanel;
     private AdminModifyEventPanel adminModifyEventPanel;
     private AdminModifyLuogoPanel adminModifyLuogoPanel;
+    private AdminAddLuogoPanel adminAddLuogoPanel;
 
     public MainFrame() {
         Database.createTables();
@@ -42,6 +44,7 @@ public class MainFrame extends JFrame {
         //adminNewEventPanel = new AdminNewEventPanel();
         adminModifyEventPanel = new AdminModifyEventPanel();
         adminModifyLuogoPanel = new AdminModifyLuogoPanel();
+        adminAddLuogoPanel = new AdminAddLuogoPanel();
         userHomePanel = new UserHomePanel();
 
         
@@ -49,12 +52,14 @@ public class MainFrame extends JFrame {
         mainPanel.add(registrationPanel, "Registration");
         mainPanel.add(adminHomePanel, "Admin Home");
         mainPanel.add(adminModifyEventPanel, "Admin Modify Event");
-        mainPanel.add(adminModifyLuogoPanel, "Admin Luogo Event");
+        mainPanel.add(adminModifyLuogoPanel, "Admin Modify Luogo");
+        mainPanel.add(adminAddLuogoPanel, "Admin Add Luogo");
         mainPanel.add(userHomePanel, "User Home");
 
         
         adminHomePanel.setSwitchToModifyEventAction(e -> adminHomePanel.setContentPanel(adminModifyEventPanel));
         adminHomePanel.setSwitchToModifyLuogoAction(e -> adminHomePanel.setContentPanel(adminModifyLuogoPanel));
+        adminHomePanel.setSwitchToAddLuogoAction(e -> adminHomePanel.setContentPanel(adminAddLuogoPanel));
         adminHomePanel.setLogoutAction(e -> cardLayout.show(mainPanel, "Login"));
         
          

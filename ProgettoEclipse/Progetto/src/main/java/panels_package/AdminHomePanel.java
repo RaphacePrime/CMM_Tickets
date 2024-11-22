@@ -8,6 +8,7 @@ public class AdminHomePanel extends JPanel {
     private JButton logoutButton; 
     private JButton switchToModifyEventButton;
     private JButton switchToModifyLuogoButton;
+    private JButton switchToAddLuogoButton;
     private JPanel contentPanel; 
 
     public AdminHomePanel() {
@@ -50,6 +51,10 @@ public class AdminHomePanel extends JPanel {
             if (label.equals("Modifica luogo")) {
                 switchToModifyLuogoButton = button;
             }
+            
+            if (label.equals("Aggiungi luogo")) {
+                switchToAddLuogoButton = button;
+            }
         }
 
         add(navBar, BorderLayout.WEST);
@@ -78,6 +83,10 @@ public class AdminHomePanel extends JPanel {
     
     public void setSwitchToModifyLuogoAction(ActionListener action) {
         switchToModifyLuogoButton.addActionListener(action);
+    }
+    
+    public void setSwitchToAddLuogoAction(ActionListener action) {
+        switchToAddLuogoButton.addActionListener(action);
     }
 
     
