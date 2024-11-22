@@ -27,18 +27,19 @@ public class Database {
                 "telefono TEXT NOT NULL UNIQUE," +
                 "email TEXT NOT NULL UNIQUE,"+
                 "admin BOOLEAN NOT NULL CHECK(admin IN (0, 1))" +
-                ");";
+                ");";*/
         
     
         String sql = "CREATE TABLE IF NOT EXISTS luoghi (" +
         		"idLuogo INTEGER PRIMARY KEY AUTOINCREMENT," +
         		"nome TEXT NOT NULL UNIQUE, " +
+        		"citta TEXT NOT NULL,"+
         		"indirizzo TEXT NOT NULL"+
-        		");";*/
-
+        		");";
+		
         
     	
-        String sql = "CREATE TABLE IF NOT EXISTS eventi (" +
+        /*String sql = "CREATE TABLE IF NOT EXISTS eventi (" +
                 "idEvento INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "nome TEXT NOT NULL, " +
                 "data DATE NOT NULL, " +
@@ -48,8 +49,8 @@ public class Database {
                 "dataInizioVendita DATE NULL, " +
                 "idLuogo INTEGER NOT NULL, " +
                 "FOREIGN KEY (idLuogo) REFERENCES luoghi(idLuogo)" +
-                ");";
-
+                ");";*/
+					
     			
         /*
     	
