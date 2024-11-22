@@ -160,13 +160,13 @@
           <element xmi:type="uml:Property" href="ProgettoPapyrus.uml#_asZksKGkEe-7erFtc63XzA"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_k_KN8aGkEe-7erFtc63XzA"/>
         </children>
-        <children xmi:type="notation:Shape" xmi:id="_k_gMMKGkEe-7erFtc63XzA" type="Property_ClassAttributeLabel">
-          <element xmi:type="uml:Property" href="ProgettoPapyrus.uml#_d_lMsKGkEe-7erFtc63XzA"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="_k_gMMaGkEe-7erFtc63XzA"/>
-        </children>
         <children xmi:type="notation:Shape" xmi:id="_4toMMKjBEe-aRNvBzkXW5g" type="Property_ClassAttributeLabel">
           <element xmi:type="uml:Property" href="ProgettoPapyrus.uml#_1MAfkKjBEe-aRNvBzkXW5g"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_4toMMajBEe-aRNvBzkXW5g"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_k_gMMKGkEe-7erFtc63XzA" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="ProgettoPapyrus.uml#_d_lMsKGkEe-7erFtc63XzA"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_k_gMMaGkEe-7erFtc63XzA"/>
         </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_Hy-vBqGhEe-0Qq1gsZDFHw"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_Hy-vB6GhEe-0Qq1gsZDFHw"/>
