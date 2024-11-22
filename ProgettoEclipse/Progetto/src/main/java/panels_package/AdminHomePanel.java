@@ -88,7 +88,7 @@ public class AdminHomePanel extends JPanel {
     public void setSwitchToAddLuogoAction(ActionListener action) {
         switchToAddLuogoButton.addActionListener(action);
     }
-
+        
     
     public void setContentPanel(JPanel newPanel) {
         contentPanel.removeAll(); 

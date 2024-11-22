@@ -17,8 +17,10 @@ public class LoginPanel extends JPanel {
     private JButton loginButton;
     private JButton switchToRegisterButton;
     
+    private ActionListener switchToRegisterAction;
     
-    public LoginPanel(CardLayout cardLayout, JPanel mainPanel) {
+    
+    public LoginPanel(CardLayout cardLayout, JPanel mainPanel, ActionListener switchToRegisterAction) {
         this.cardLayout = cardLayout;
         this.mainPanel = mainPanel;  
         setLayout(new GridBagLayout());
@@ -106,6 +108,10 @@ public class LoginPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(innerMainPanel, gbc);
+        
+        this.switchToRegisterAction = switchToRegisterAction;  
+        switchToRegisterButton.addActionListener(switchToRegisterAction);  
+        
     }
 
     
@@ -124,5 +130,11 @@ public class LoginPanel extends JPanel {
 
     public void setSwitchToRegisterAction(ActionListener action) {
         switchToRegisterButton.addActionListener(action);
+    }
+    
+    
+    public void resetFields() {
+        usernameField.setText("");
+        passwordField.setText("");        
     }
 }

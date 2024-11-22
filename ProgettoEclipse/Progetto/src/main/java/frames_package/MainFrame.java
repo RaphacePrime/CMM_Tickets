@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         
-        loginPanel = new LoginPanel(this.cardLayout, mainPanel);
+        loginPanel = new LoginPanel(this.cardLayout, mainPanel, e -> cardLayout.show(mainPanel, "Registration"));
         registrationPanel = new RegistrationPanel(e -> cardLayout.show(mainPanel, "Login"));
         adminHomePanel = new AdminHomePanel();
         //adminNewEventPanel = new AdminNewEventPanel();
@@ -60,8 +60,12 @@ public class MainFrame extends JFrame {
         adminHomePanel.setSwitchToModifyEventAction(e -> adminHomePanel.setContentPanel(adminModifyEventPanel));
         adminHomePanel.setSwitchToModifyLuogoAction(e -> adminHomePanel.setContentPanel(adminModifyLuogoPanel));
         adminHomePanel.setSwitchToAddLuogoAction(e -> adminHomePanel.setContentPanel(adminAddLuogoPanel));
-        adminHomePanel.setLogoutAction(e -> cardLayout.show(mainPanel, "Login"));
+       // adminHomePanel.setLogoutAction(e -> cardLayout.show(mainPanel, "Login"));
         
+        adminHomePanel.setLogoutAction(e -> {
+            loginPanel.resetFields(); // Usa direttamente il riferimento
+            cardLayout.show(mainPanel, "Login");
+        });
          
         add(mainPanel);
 
