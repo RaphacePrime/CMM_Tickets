@@ -57,8 +57,8 @@ public class AdminModifyEventPanel extends JPanel {
     public void fetchAndDisplayEvents() {
         eventi = AdminEventsDatabase.getAllEvents();
         luoghi = AdminLuoghiDatabase.getAllLuoghi();
-        String[] columnNames = {"Nome Evento", "Data", "Luogo", "Indirizzo"}; 
-        Object[][] data = new Object[eventi.size()][4]; 
+        String[] columnNames = {"Nome Evento", "Data", "Luogo", "Città", "Indirizzo"}; 
+        Object[][] data = new Object[eventi.size()][5]; 
 
         for (int i = 0; i < eventi.size(); i++) {
             Evento e = eventi.get(i);
@@ -75,6 +75,7 @@ public class AdminModifyEventPanel extends JPanel {
                 {
                 	data[i][2] = l.getNome();
                     data[i][3] = l.getIndirizzo(); 
+                    data[i][4] = l.getCittà();
                 }
             }
                  
