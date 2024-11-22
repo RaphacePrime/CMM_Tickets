@@ -25,9 +25,11 @@ public class AdminLuoghiDatabase {
             while (rs.next()) {
                 int idLuogo = rs.getInt("idLuogo");
                 String nome = rs.getString("nome");
+                String città =rs.getString("citta");
                 String indirizzo = rs.getString("indirizzo");
                 
-                Luogo luogo = new Luogo(idLuogo, nome, indirizzo);
+                
+                Luogo luogo = new Luogo(idLuogo, nome, città, indirizzo);
                 luoghi.add(luogo);
                 logger.debug("Luogo aggiunto alla lista: " + luogo.getNome());
             }
@@ -38,7 +40,7 @@ public class AdminLuoghiDatabase {
     }
     
     public static boolean addLuogo(Luogo luogo) {
-        String sql = "INSERT INTO luoghi (nome, indirizzo) VALUES (?, ?)";
+        String sql = "INSERT INTO luoghi (nome, citta, indirizzo) VALUES (?, ?)";
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, luogo.getNome());

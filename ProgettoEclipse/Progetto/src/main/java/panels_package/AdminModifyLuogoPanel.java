@@ -51,15 +51,18 @@ public class AdminModifyLuogoPanel extends JPanel {
 
     public void fetchAndDisplayLuoghi() {
         luoghi = AdminLuoghiDatabase.getAllLuoghi();
-        String[] columnNames = {"Nome", "Indirizzo"}; 
-        Object[][] data = new Object[luoghi.size()][2]; 
+        String[] columnNames = {"Nome", "Città", "Indirizzo"}; 
+        Object[][] data = new Object[luoghi.size()][3]; 
 
         for (int i = 0; i < luoghi.size(); i++) {
         	Luogo e = luoghi.get(i);
 
             
-            data[i][0] = e.getNome();     
-            data[i][1] = e.getIndirizzo();            
+            data[i][0] = e.getNome();
+            data[i][1] = e.getIndirizzo(); 
+            data[i][2] = e.getCittà();
+            
+                       
         }
 
         tableModel = new DefaultTableModel(data, columnNames);
