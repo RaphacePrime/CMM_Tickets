@@ -11,8 +11,8 @@ import classes_package.Evento;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AdminGetEventsDatabase {
-    private static final Logger logger = LogManager.getLogger(AdminGetEventsDatabase.class);
+public class AdminEventsDatabase {
+    private static final Logger logger = LogManager.getLogger(AdminEventsDatabase.class);
 
     public static List<Evento> getAllEvents() {
         List<Evento> events = new ArrayList<>();
