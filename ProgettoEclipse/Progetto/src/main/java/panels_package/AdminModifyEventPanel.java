@@ -15,8 +15,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import classes_package.Evento;
 import classes_package.Luogo;
-import database_package.AdminGetEventsDatabase;
-import database_package.AdminGetLuoghiDatabase;
+import database_package.AdminEventsDatabase;
+import database_package.AdminLuoghiDatabase;
 import database_package.Database;
 
 public class AdminModifyEventPanel extends JPanel {
@@ -55,8 +55,8 @@ public class AdminModifyEventPanel extends JPanel {
 
 
     public void fetchAndDisplayEvents() {
-        eventi = AdminGetEventsDatabase.getAllEvents();
-        luoghi = AdminGetLuoghiDatabase.getAllLuoghi();
+        eventi = AdminEventsDatabase.getAllEvents();
+        luoghi = AdminLuoghiDatabase.getAllLuoghi();
         String[] columnNames = {"Nome Evento", "Data", "Luogo", "Indirizzo"}; 
         Object[][] data = new Object[eventi.size()][4]; 
 
