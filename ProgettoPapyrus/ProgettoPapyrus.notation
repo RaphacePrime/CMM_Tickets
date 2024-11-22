@@ -164,6 +164,10 @@
           <element xmi:type="uml:Property" href="ProgettoPapyrus.uml#_d_lMsKGkEe-7erFtc63XzA"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_k_gMMaGkEe-7erFtc63XzA"/>
         </children>
+        <children xmi:type="notation:Shape" xmi:id="_4toMMKjBEe-aRNvBzkXW5g" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="ProgettoPapyrus.uml#_1MAfkKjBEe-aRNvBzkXW5g"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_4toMMajBEe-aRNvBzkXW5g"/>
+        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_Hy-vBqGhEe-0Qq1gsZDFHw"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_Hy-vB6GhEe-0Qq1gsZDFHw"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_Hy-vCKGhEe-0Qq1gsZDFHw"/>
@@ -182,7 +186,7 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Hy_WGaGhEe-0Qq1gsZDFHw"/>
       </children>
       <element xmi:type="uml:Class" href="ProgettoPapyrus.uml#_Hy8SwKGhEe-0Qq1gsZDFHw"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Hy-vAaGhEe-0Qq1gsZDFHw" x="180" y="20"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Hy-vAaGhEe-0Qq1gsZDFHw" x="180"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_n2fncKGkEe-7erFtc63XzA" type="Class_Shape">
       <children xmi:type="notation:DecorationNode" xmi:id="_n2g1kKGkEe-7erFtc63XzA" type="Class_NameLabel"/>
@@ -347,7 +351,7 @@
       <styles xmi:type="notation:FontStyle" xmi:id="_sH9VQaGnEe-7erFtc63XzA"/>
       <element xmi:type="uml:Association" href="ProgettoPapyrus.uml#_sGFtAKGnEe-7erFtc63XzA"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_sH9VQqGnEe-7erFtc63XzA" points="[480, 180, -643984, -643984]$[354, 120, -643984, -643984]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sLACMKGnEe-7erFtc63XzA" id="(0.0,0.10869565217391304)"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sLACMKGnEe-7erFtc63XzA" id="(0.0,0.08928571428571429)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sLBQUKGnEe-7erFtc63XzA" id="(1.0,0.6944444444444444)"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_WAerUKGoEe-7erFtc63XzA" type="Association_Edge" source="_FWTRMKGhEe-0Qq1gsZDFHw" target="_n2fncKGkEe-7erFtc63XzA">
