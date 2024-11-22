@@ -16,8 +16,10 @@ public class AdminAddLuogoPanel extends JPanel {
     private JTextField addressField;
     private JButton addButton;
     private static final Logger logger = LogManager.getLogger(AdminAddLuogoPanel.class);
-
-    public AdminAddLuogoPanel() {
+    private AdminModifyLuogoPanel modifyLuogoPanel;
+    
+    public AdminAddLuogoPanel(AdminModifyLuogoPanel modifyLuogoPanel) {
+    	this.modifyLuogoPanel=modifyLuogoPanel;
         setLayout(new BorderLayout());
         setBackground(new Color(230, 230, 250)); 
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); 
@@ -131,9 +133,15 @@ public class AdminAddLuogoPanel extends JPanel {
         if (success) {
             JOptionPane.showMessageDialog(this, "Luogo aggiunto con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
             logger.info("Luogo aggiunto: " + nome);
+            
             nameField.setText("");
             cityField.setText("");
             addressField.setText("");
+            
+            if(modifyLuogoPanel !=null)
+            {
+            	modifyLuogoPanel.refreshTable();
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Errore durante l'aggiunta del luogo. Verifica che il nome sia unico.", "Errore", JOptionPane.ERROR_MESSAGE);
             logger.error("Errore durante l'aggiunta del luogo: " + nome);

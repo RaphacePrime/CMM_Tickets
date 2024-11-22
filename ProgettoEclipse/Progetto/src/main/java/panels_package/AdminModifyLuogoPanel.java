@@ -23,6 +23,7 @@ public class AdminModifyLuogoPanel extends JPanel {
     private static Logger logger = LogManager.getLogger(AdminModifyLuogoPanel.class);
 
     public AdminModifyLuogoPanel() {
+    	
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
@@ -123,6 +124,7 @@ public class AdminModifyLuogoPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(luogoTable);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Lista Luoghi"));
         add(scrollPane, BorderLayout.CENTER);
+        
     }
 
     
@@ -146,5 +148,12 @@ public class AdminModifyLuogoPanel extends JPanel {
             }
             return this;
         }
+    }
+    
+    
+    public void refreshTable() {
+    	fetchAndDisplayLuoghi();
+    	revalidate();
+    	repaint();
     }
 }

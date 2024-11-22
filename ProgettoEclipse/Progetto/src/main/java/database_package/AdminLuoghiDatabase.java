@@ -50,6 +50,7 @@ public class AdminLuoghiDatabase {
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted > 0) {
                 logger.info("Luogo aggiunto con successo: " + luogo.getNome());
+                
                 return true;
             } else {
                 logger.warn("Nessun luogo aggiunto al database.");
