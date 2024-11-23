@@ -23,6 +23,10 @@ public class Luogo {
 		this.setCittà(città);
 	}
 
+	public Luogo() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getIdLuogo() {
 		return idLuogo;
 	}

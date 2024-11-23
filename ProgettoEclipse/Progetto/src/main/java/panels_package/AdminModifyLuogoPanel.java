@@ -14,6 +14,7 @@ import classes_package.Luogo;
 import database_package.AdminEventsDatabase;
 import database_package.AdminLuoghiDatabase;
 import database_package.Database;
+import frames_package.MainFrame;
 
 public class AdminModifyLuogoPanel extends JPanel {
     private List<Luogo> luoghi;
@@ -108,17 +109,23 @@ public class AdminModifyLuogoPanel extends JPanel {
         header.setForeground(Color.WHITE);
 
         
-        luogoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        /*luogoTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent me) {
                 int row = luogoTable.rowAtPoint(me.getPoint());
                 if (row >= 0) {
                     
                     String nomeLuogo = (String) tableModel.getValueAt(row, 0);
-                    logger.info("Luogo cliccato: " + nomeLuogo);
+                    logger.info("Luogo cliccato: " + nomeLuogo);                    
+                    for (Luogo luogo : luoghi) {
+                        if (luogo.getNome().equals(nomeLuogo)) {
+                            AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);                            
+                            break;
+                        }
+                    }
                     
                 }
             }
-        });
+        });*/
 
         
         JScrollPane scrollPane = new JScrollPane(luogoTable);
@@ -126,6 +133,30 @@ public class AdminModifyLuogoPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         
     }
+    
+    public void setSwitchToDetailsEventAction(MainFrame mainFrame) {
+        luogoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent me) {
+                int row = luogoTable.rowAtPoint(me.getPoint());
+                if (row >= 0) {
+                    String nomeLuogo = (String) tableModel.getValueAt(row, 0);
+                    logger.info("Luogo cliccato: " + nomeLuogo);
+                    
+                    for (Luogo luogo : luoghi) {
+                        if (luogo.getNome().equals(nomeLuogo)) {
+                            AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);
+                            detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
+                            mainFrame.adminHomePanel.setContentPanel(detailsPanel);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    
+    
 
     
     private static class ButtonRenderer extends JButton implements TableCellRenderer {
@@ -149,7 +180,6 @@ public class AdminModifyLuogoPanel extends JPanel {
             return this;
         }
     }
-    
     
     public void refreshTable() {
     	fetchAndDisplayLuoghi();
