@@ -145,7 +145,7 @@ public class AdminModifyLuogoPanel extends JPanel {
                     for (Luogo luogo : luoghi) {
                         if (luogo.getNome().equals(nomeLuogo)) {
                             AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);
-                            detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
+                            //detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
                             mainFrame.adminHomePanel.setContentPanel(detailsPanel);
                             break;
                         }

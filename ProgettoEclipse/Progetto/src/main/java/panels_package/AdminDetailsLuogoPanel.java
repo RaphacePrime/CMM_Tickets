@@ -22,7 +22,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
     private JTextField cityValueField; // Modificato da JLabel a JTextField
     private JLabel addressTextLabel;
     private JTextField addressValueField; // Modificato da JLabel a JTextField
-    private JButton backButton;
+    //private JButton backButton;
     private JButton deleteButton;
     private JButton updateButton;
     private JLabel imageLabel;
@@ -62,6 +62,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
         cityValueField = createEditableField(luogo.getCittà());
         addressTextLabel = createTextLabel("Indirizzo:");
         addressValueField = createEditableField(luogo.getIndirizzo());
+        
 
         // Aggiungi le etichette e i campi al pannello dei dettagli
         detailsPanel.add(createLabeledField(nameTextLabel, nameValueField));
@@ -76,8 +77,19 @@ public class AdminDetailsLuogoPanel extends JPanel {
         mainPanel.add(detailsPanel, gbc);
 
         add(mainPanel, BorderLayout.CENTER);
+        
+        InputStream imageStream;
+        if(luogo.getNomeFile()==null)
+        {
+        	imageStream = getClass().getClassLoader().getResourceAsStream("Immagini/default.png");
+        }
+        else
+        {
+        	String path="Immagini/"+luogo.getNomeFile();
+        	logger.info("Path file: "+ path);
+        	imageStream = getClass().getClassLoader().getResourceAsStream(path);
+        }
 
-        InputStream imageStream = getClass().getClassLoader().getResourceAsStream("Immagini/juventus_stadium.png");
         try {
             imageIcon = new ImageIcon(ImageIO.read(imageStream));
         } catch (IOException e) {
@@ -91,11 +103,11 @@ public class AdminDetailsLuogoPanel extends JPanel {
         buttonPanel.setBackground(new Color(245, 245, 245));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        backButton = createButton("Torna Indietro", new Color(75, 110, 175)); // Blu
+        //backButton = createButton("Torna Indietro", new Color(75, 110, 175)); // Blu
         deleteButton = createButton("Elimina", new Color(200, 50, 50)); // Rosso
         updateButton = createButton("Aggiorna", new Color(255, 140, 0)); // Giallo scuro
 
-        buttonPanel.add(backButton);
+        //buttonPanel.add(backButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(updateButton);
 
@@ -128,7 +140,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
         }
 
         Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);
-        boolean success = AdminLuoghiDatabase.updateLuogo(nuovoLuogo);
+        boolean success = AdminLuoghiDatabase.updateLuogo(nuovoLuogo,this.luogo.getIdLuogo());
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Luogo aggiornato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
@@ -195,9 +207,9 @@ public class AdminDetailsLuogoPanel extends JPanel {
         return button;
     }
 
-    public void setBackButtonAction(ActionListener action) {
+    /*public void setBackButtonAction(ActionListener action) {
         backButton.addActionListener(action);
-    }
+    }*/
 
     public void setDeleteButtonAction(ActionListener action) {
         deleteButton.addActionListener(action);
