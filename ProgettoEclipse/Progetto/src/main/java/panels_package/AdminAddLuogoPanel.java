@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import classes_package.Luogo;
 import database_package.AdminLuoghiDatabase;
@@ -15,6 +19,9 @@ public class AdminAddLuogoPanel extends JPanel {
     private JTextField cityField;
     private JTextField addressField;
     private JButton addButton;
+    private JButton uploadImageButton;
+    private JLabel imagePreview;
+    private String nomeFile= null;
     private static final Logger logger = LogManager.getLogger(AdminAddLuogoPanel.class);
    // private AdminModifyLuogoPanel modifyLuogoPanel;
     
@@ -90,6 +97,53 @@ public class AdminAddLuogoPanel extends JPanel {
         gbc.gridy = 3;
         formPanel.add(addressField, gbc);
 
+        uploadImageButton = new JButton("Carica immagine");
+        uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        uploadImageButton.setBackground(new Color(100,149,237));
+        uploadImageButton.setForeground(Color.WHITE);
+        uploadImageButton.setFocusPainted(false);
+        gbc.gridx=0;
+        gbc.gridy=4;
+        gbc.gridwidth=1;
+        formPanel.add(uploadImageButton, gbc);
+        
+        imagePreview = new JLabel();
+        imagePreview.setPreferredSize(new Dimension(150,150));
+        imagePreview.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        gbc.gridx=1;
+        gbc.gridy=4;
+        formPanel.add(imagePreview,gbc);
+        
+        uploadImageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(AdminAddLuogoPanel.this);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String destinationPath = "src/main/resources/Immagini/"+selectedFile.getName();
+                    File destinationFile = new File(destinationPath);
+                    //nomeFile = selectedFile.getName(); 
+                    try {
+                    	Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    	nomeFile=selectedFile.getName();
+                    	ImageIcon icon = new ImageIcon(destinationFile.getAbsolutePath());
+                        Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                        imagePreview.setIcon(new ImageIcon(scaledImage));
+
+                        JOptionPane.showMessageDialog(AdminAddLuogoPanel.this, "Immagine caricata con successo!");
+                        //ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
+                        //Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                        //imagePreview.setIcon(new ImageIcon(scaledImage));
+                    } catch (IOException ex) {
+                    	JOptionPane.showMessageDialog(AdminAddLuogoPanel.this, "Errore nel caricamento dell'immagine: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+        
+        
         
         addButton = new JButton("Aggiungi");
         addButton.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -123,12 +177,12 @@ public class AdminAddLuogoPanel extends JPanel {
         String indirizzo = addressField.getText().trim();
         String citta = cityField.getText().trim();
 
-        if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty()) {
+        if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty() || nomeFile==null) {
             JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo);
+        Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);
         boolean success = AdminLuoghiDatabase.addLuogo(nuovoLuogo);
 
         if (success) {
@@ -138,6 +192,8 @@ public class AdminAddLuogoPanel extends JPanel {
             nameField.setText("");
             cityField.setText("");
             addressField.setText("");
+            imagePreview.setIcon(null);
+            nomeFile=null;
             
             /*if(modifyLuogoPanel !=null)
             {
