@@ -132,7 +132,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
         String nome = nameValueField.getText().trim();
         String indirizzo = addressValueField.getText().trim();
         String citta = cityValueField.getText().trim();
-        String nomeFile="juventus_stadium.png";
+        String nomeFile=null;
 
         if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
