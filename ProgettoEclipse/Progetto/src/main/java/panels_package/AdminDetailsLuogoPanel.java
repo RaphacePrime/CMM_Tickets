@@ -1,8 +1,13 @@
+
 package panels_package;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
+
 import classes_package.Luogo;
 
 public class AdminDetailsLuogoPanel extends JPanel {
@@ -15,6 +20,8 @@ public class AdminDetailsLuogoPanel extends JPanel {
     private JButton backButton;
     private JButton deleteButton;
     private JButton updateButton;
+    private JLabel imageLabel;
+    private ImageIcon imageIcon;
 
     public AdminDetailsLuogoPanel(Luogo luogo) {
         setLayout(new BorderLayout(20, 20));
@@ -60,7 +67,21 @@ public class AdminDetailsLuogoPanel extends JPanel {
         mainPanel.add(detailsPanel, gbc);
 
         add(mainPanel, BorderLayout.CENTER);
-
+        
+        
+        InputStream imageStream = getClass().getClassLoader().getResourceAsStream("Immagini/juventus_stadium.png");
+        //String imagePath = "../src/main/resources/Immagini/juventus_stadium.png";
+        try {
+			imageIcon = new ImageIcon(ImageIO.read(imageStream));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        //imageIcon = new ImageIcon(imagePath);
+        imageLabel = new JLabel(imageIcon);
+        add(imageLabel, BorderLayout.EAST);
+        
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setBackground(new Color(245, 245, 245));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -74,6 +95,8 @@ public class AdminDetailsLuogoPanel extends JPanel {
         buttonPanel.add(updateButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
+        
+        
     }
 
     // Metodo per creare l'etichetta di testo (es. "Nome:")
