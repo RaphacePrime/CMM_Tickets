@@ -26,7 +26,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
     private JButton deleteButton;
     private JButton updateButton;
     private JLabel imageLabel;
-    private ImageIcon imageIcon;
+    private ImageIcon imageIcon=null;
     private Luogo luogo;
     private static final Logger logger = LogManager.getLogger(AdminDetailsLuogoPanel.class);
 
@@ -82,19 +82,40 @@ public class AdminDetailsLuogoPanel extends JPanel {
         if(luogo.getNomeFile()==null)
         {
         	imageStream = getClass().getClassLoader().getResourceAsStream("Immagini/default.png");
+        	try {
+				imageIcon = new ImageIcon(ImageIO.read(imageStream));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         else
         {
-        	String path="Immagini/"+luogo.getNomeFile();
+        	String path="src/main/resources/Immagini/"+luogo.getNomeFile();
         	logger.info("Path file: "+ path);
-        	imageStream = getClass().getClassLoader().getResourceAsStream(path);
+        	//imageStream = getClass().getClassLoader().getResourceAsStream(path);
+        	imageIcon = new ImageIcon(path);
+        	if(imageIcon==null) {
+        		logger.info("image icon null");
+        		imageStream = getClass().getClassLoader().getResourceAsStream("Immagini/default.png");
+            	try {
+    				imageIcon = new ImageIcon(ImageIO.read(imageStream));
+    			} catch (IOException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+        	}
+        	else
+        	{
+        		logger.info("image icon not null");
+        	}
         }
 
-        try {
+       /* try {
             imageIcon = new ImageIcon(ImageIO.read(imageStream));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         imageLabel = new JLabel(imageIcon);
         add(imageLabel, BorderLayout.EAST);
