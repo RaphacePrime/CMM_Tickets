@@ -168,6 +168,10 @@
           <element xmi:type="uml:Property" href="ProgettoPapyrus.uml#_d_lMsKGkEe-7erFtc63XzA"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_k_gMMaGkEe-7erFtc63XzA"/>
         </children>
+        <children xmi:type="notation:Shape" xmi:id="_0aqkMKscEe-lq4E-FESLWg" type="Property_ClassAttributeLabel">
+          <element xmi:type="uml:Property" href="ProgettoPapyrus.uml#_zr-5QKscEe-lq4E-FESLWg"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_0aqkMascEe-lq4E-FESLWg"/>
+        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_Hy-vBqGhEe-0Qq1gsZDFHw"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_Hy-vB6GhEe-0Qq1gsZDFHw"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_Hy-vCKGhEe-0Qq1gsZDFHw"/>

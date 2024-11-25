@@ -5,22 +5,25 @@ public class Luogo {
 	private String nome;
 	private String indirizzo;
 	private String città;
+	private String nomeFile;
 	
 	
-	public Luogo(int idLuogo, String nome, String indirizzo, String città)
+	public Luogo(int idLuogo, String nome, String indirizzo, String città, String nomeFile)
 	{
 		this.setIdLuogo(idLuogo);
 		this.setNome(nome);
 		this.setIndirizzo(indirizzo);
 		this.setCittà(città);
+		this.setNomeFile(nomeFile);
 
 	}
 	
-	public Luogo(String nome, String indirizzo, String città)
+	public Luogo(String nome, String indirizzo, String città, String nomeFile)
 	{
 		this.setNome(nome);
 		this.setIndirizzo(indirizzo);
 		this.setCittà(città);
+		this.setNomeFile(nomeFile);
 	}
 
 	public Luogo() {
@@ -57,5 +60,13 @@ public class Luogo {
 
 	public void setCittà(String città) {
 		this.città = città;
+	}
+
+	public String getNomeFile() {
+		return nomeFile;
+	}
+
+	public void setNomeFile(String nomeFile) {
+		this.nomeFile = nomeFile;
 	}
 }
