@@ -154,7 +154,7 @@ public class AdminAddLuogoPanel extends JPanel {
         addButton.setOpaque(true); // Forza il rendering del colore di sfondo
         addButton.setPreferredSize(new Dimension(200, 40)); // Altezza maggiore per il pulsante
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         formPanel.add(addButton, gbc);
 

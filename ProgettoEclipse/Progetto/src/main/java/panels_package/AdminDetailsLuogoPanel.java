@@ -1,14 +1,19 @@
-
 package panels_package;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 
 import classes_package.Luogo;
+import database_package.AdminLuoghiDatabase;
 
 public class AdminDetailsLuogoPanel extends JPanel {
     private JLabel nameTextLabel;
@@ -22,8 +27,12 @@ public class AdminDetailsLuogoPanel extends JPanel {
     private JButton updateButton;
     private JLabel imageLabel;
     private ImageIcon imageIcon;
+    private Luogo luogo;
+    private static final Logger logger = LogManager.getLogger(AdminDetailsLuogoPanel.class);
 
     public AdminDetailsLuogoPanel(Luogo luogo) {
+    	this.luogo=luogo;
+    	logger.info("Luogo in dettaglio: "+this.luogo.getIdLuogo());
         setLayout(new BorderLayout(20, 20));
         setBackground(new Color(240, 240, 240)); // A light background color
 
@@ -67,21 +76,17 @@ public class AdminDetailsLuogoPanel extends JPanel {
         mainPanel.add(detailsPanel, gbc);
 
         add(mainPanel, BorderLayout.CENTER);
-        
-        
+
         InputStream imageStream = getClass().getClassLoader().getResourceAsStream("Immagini/juventus_stadium.png");
-        //String imagePath = "../src/main/resources/Immagini/juventus_stadium.png";
         try {
-			imageIcon = new ImageIcon(ImageIO.read(imageStream));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        //imageIcon = new ImageIcon(imagePath);
+            imageIcon = new ImageIcon(ImageIO.read(imageStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         imageLabel = new JLabel(imageIcon);
         add(imageLabel, BorderLayout.EAST);
-        
+
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setBackground(new Color(245, 245, 245));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -96,36 +101,84 @@ public class AdminDetailsLuogoPanel extends JPanel {
 
         add(buttonPanel, BorderLayout.SOUTH);
         
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteLuogo();
+            }
+        });
         
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateLuogo();
+            }
+        });
+    }
+    
+    private void updateLuogo() {
+        String nome = nameValueField.getText().trim();
+        String indirizzo = addressValueField.getText().trim();
+        String citta = cityValueField.getText().trim();
+        String nomeFile="juventus_stadium.png";
+
+        if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);
+        boolean success = AdminLuoghiDatabase.updateLuogo(nuovoLuogo);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Luogo aggiornato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
+            logger.info("Luogo aggiornato: " + nuovoLuogo.getNome());
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Errore durante aggiornamento del luogo. Verifica che il nome sia corretto.", "Errore", JOptionPane.ERROR_MESSAGE);
+            logger.error("Errore durante l'aggiornamento del luogo: " + nuovoLuogo.getNome());
+        }
+    }
+    
+    private void deleteLuogo() {
+    	boolean success=AdminLuoghiDatabase.deleteLuogo(luogo);
+    	if(success)
+    	{
+    		JOptionPane.showMessageDialog(this, "Elemento correttamente eliminato", "Eliminazione confermata", JOptionPane.PLAIN_MESSAGE);
+    		logger.info("Luogo eliminato: "+luogo.getNome());
+    	}
+    	else
+    	{
+    		JOptionPane.showMessageDialog(this, "Errore durante l'eliminazione del luogo.", "Errore", JOptionPane.ERROR_MESSAGE);
+            logger.error("Errore durante l'eliminazione del luogo: " + luogo.getNome());
+
+    	}
     }
 
-    // Metodo per creare l'etichetta di testo (es. "Nome:")
     private JLabel createTextLabel(String labelText) {
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
         return label;
     }
 
-    // Metodo per creare il campo di testo modificabile
     private JTextField createEditableField(String value) {
         JTextField textField = new JTextField(value);
         textField.setFont(new Font("Arial", Font.PLAIN, 16));
-        textField.setEditable(true); // Rendi il campo di testo modificabile
+        textField.setEditable(true);
         textField.setBackground(Color.WHITE);
-        textField.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200))); // Light border for clarity
+        textField.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         return textField;
     }
 
-    // Metodo per creare il pannello con etichetta e campo di testo
     private JPanel createLabeledField(JLabel label, JTextField field) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        panel.setOpaque(false); // Set the background of the panel to be transparent
+        panel.setOpaque(false);
 
         label.setFont(new Font("Arial", Font.PLAIN, 14));
         panel.add(label, BorderLayout.NORTH);
         panel.add(field, BorderLayout.CENTER);
-        
+
         return panel;
     }
 
@@ -138,6 +191,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
         button.setBorder(BorderFactory.createEmptyBorder(12, 25, 12, 25));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setPreferredSize(new Dimension(200, 50));
+        button.setOpaque(true); // Garantisce che il colore sia visibile su macOS
         return button;
     }
 
