@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -81,34 +82,24 @@ public class AdminDetailsLuogoPanel extends JPanel {
         InputStream imageStream;
         if(luogo.getNomeFile()==null)
         {
-        	imageStream = getClass().getClassLoader().getResourceAsStream("Immagini/default.png");
-        	try {
-				imageIcon = new ImageIcon(ImageIO.read(imageStream));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        	String path="src/main/resources/Immagini/default.png"; 
+        	imageIcon = new ImageIcon(path);
         }
         else
         {
-        	String path="src/main/resources/Immagini/"+luogo.getNomeFile();
-        	logger.info("Path file: "+ path);
-        	//imageStream = getClass().getClassLoader().getResourceAsStream(path);
-        	imageIcon = new ImageIcon(path);
-        	if(imageIcon==null) {
-        		logger.info("image icon null");
-        		imageStream = getClass().getClassLoader().getResourceAsStream("Immagini/default.png");
-            	try {
-    				imageIcon = new ImageIcon(ImageIO.read(imageStream));
-    			} catch (IOException e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
-        	}
-        	else
-        	{
-        		logger.info("image icon not null");
-        	}
+        	String path="src/main/resources/Immagini/"+luogo.getNomeFile(); 
+            File file = new File(path);
+
+            if (file.exists()) {
+                logger.info("File trovato nelle risorse!");
+                logger.info("Path file: "+ path);
+            	//imageStream = getClass().getClassLoader().getResourceAsStream(path);
+            	imageIcon = new ImageIcon(path);
+            } else {
+                logger.warn("Il file non esiste.");
+                String path2="src/main/resources/Immagini/default.png"; 
+            	imageIcon = new ImageIcon(path2);
+            }
         }
 
        /* try {
