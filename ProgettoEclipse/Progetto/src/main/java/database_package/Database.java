@@ -30,12 +30,12 @@ public class Database {
                 ");";*/
         
     
-        String sql = "CREATE TABLE IF NOT EXISTS luoghi (" +
+       /* String sql = "CREATE TABLE IF NOT EXISTS luoghi (" +
         		"idLuogo INTEGER PRIMARY KEY AUTOINCREMENT," +
         		"nome TEXT NOT NULL UNIQUE, " +
         		"citta TEXT NOT NULL,"+
         		"indirizzo TEXT NOT NULL"+
-        		");";
+        		");";*/
 		
         
     	
@@ -52,19 +52,23 @@ public class Database {
                 ");";*/
 					
     			
-        /*
+        
     	
     	
     	String sql = "CREATE TABLE IF NOT EXISTS settori (" +
-    			"idSettore INTEGER PRIMARY KEY AUTOINCREMENT, " +
-    			"nome TEXT NOT NULL UNIQUE, " +
-    			"prezzo NUMERIC(6,2) NOT NULL, " +
-    			"postiTotali INTEGER, " +
-    			"postiOccupati INTEGER" +
-    			");";
+    		    "idSettore INTEGER PRIMARY KEY AUTOINCREMENT, " +
+    		    "nome TEXT NOT NULL, " +
+    		    "prezzo NUMERIC(6,2) NOT NULL, " +
+    		    "posizione	TEXT NOT NULL CHECK("+"posizione"+" IN ('nord', 'est', 'sud', 'ovest')),"+
+    		    "postiTotali INTEGER, " +
+    		    "postiOccupati INTEGER, " +
+    		    "idEvento INTEGER NOT NULL, " +
+    		    "FOREIGN KEY(idEvento) REFERENCES eventi(idEvento) ON DELETE CASCADE ON UPDATE CASCADE" +
+    		    ");";
+
     			
         
-        
+        /*
     	String sql = "CREATE TABLE IF NOT EXISTS posti (" +
     			"idPosto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+
     			"num INTEGER " +
