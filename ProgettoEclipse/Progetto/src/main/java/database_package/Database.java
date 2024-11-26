@@ -54,7 +54,7 @@ public class Database {
     			
         
     	
-    	
+    	/*
     	String sql = "CREATE TABLE IF NOT EXISTS settori (" +
     		    "idSettore INTEGER PRIMARY KEY AUTOINCREMENT, " +
     		    "nome TEXT NOT NULL, " +
@@ -64,18 +64,22 @@ public class Database {
     		    "postiOccupati INTEGER, " +
     		    "idEvento INTEGER NOT NULL, " +
     		    "FOREIGN KEY(idEvento) REFERENCES eventi(idEvento) ON DELETE CASCADE ON UPDATE CASCADE" +
-    		    ");";
+    		    ");";*/
 
     			
         
-        /*
-    	String sql = "CREATE TABLE IF NOT EXISTS posti (" +
-    			"idPosto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+
-    			"num INTEGER " +
-    			");";
-       
+        
+    	String sql = "CREATE TABLE IF NOT EXISTS posti ("+
+                      "  idPosto INT AUTO_INCREMENT PRIMARY KEY,"+
+                       " num INT NULL,"+
+                       " idSettore INT NOT NULL,"+
+                       " FOREIGN KEY (idSettore) REFERENCES settori(idSettore)"+
+                        "    ON DELETE CASCADE"+
+                         "   ON UPDATE CASCADE"+
+                  "  );";
+                           
     	
-    	
+    	/*
     	String sql = "CREATE TABLE IF NOT EXISTS biglietti (" +
     			"idBiglietto INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
     			");";
