@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,7 +80,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
 
         add(mainPanel, BorderLayout.CENTER);
         
-        InputStream imageStream;
+        //InputStream imageStream;
         if(luogo.getNomeFile()==null)
         {
         	String path="src/main/resources/Immagini/default.png"; 
@@ -101,15 +102,29 @@ public class AdminDetailsLuogoPanel extends JPanel {
             	imageIcon = new ImageIcon(path2);
             }
         }
-
-       /* try {
-            imageIcon = new ImageIcon(ImageIO.read(imageStream));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-        imageLabel = new JLabel(imageIcon);
+        
+        imageLabel = new JLabel();
+        int labelWidth = 650; 
+        int labelHeight = 400; 
+        Image originalImage = imageIcon.getImage();
+        double originalWidth = originalImage.getWidth(null);
+        double originalHeight = originalImage.getHeight(null);
+        double widthRatio = labelWidth / originalWidth;
+        double heightRatio = labelHeight / originalHeight;
+        double scale = Math.max(widthRatio, heightRatio); 
+        int scaledWidth = (int) (originalWidth * scale);
+        int scaledHeight = (int) (originalHeight * scale);
+        Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(scaledImage);
+        imageLabel.setIcon(imageIcon);
+        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+        imageLabel.setVerticalAlignment(JLabel.CENTER);
+        imageLabel.setPreferredSize(new Dimension(labelWidth, labelHeight));
+        imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 50));
         add(imageLabel, BorderLayout.EAST);
+
+
+
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setBackground(new Color(245, 245, 245));

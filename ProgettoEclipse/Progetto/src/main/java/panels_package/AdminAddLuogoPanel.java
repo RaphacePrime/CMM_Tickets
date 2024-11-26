@@ -97,18 +97,33 @@ public class AdminAddLuogoPanel extends JPanel {
         gbc.gridy = 3;
         formPanel.add(addressField, gbc);
 
+        /*
         uploadImageButton = new JButton("Carica immagine");
         uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
         uploadImageButton.setBackground(new Color(100,149,237));
-        uploadImageButton.setForeground(Color.WHITE);
+        uploadImageButton.setForeground(Color.BLACK);
         uploadImageButton.setFocusPainted(false);
         gbc.gridx=0;
         gbc.gridy=4;
         gbc.gridwidth=1;
+        formPanel.add(uploadImageButton, gbc);*/
+        
+        uploadImageButton = new JButton("Carica immagine");
+        uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        uploadImageButton.setBackground(Color.GRAY); // Cornflower blue
+        uploadImageButton.setForeground(Color.BLACK); // Testo bianco per contrasto migliore
+        uploadImageButton.setFocusPainted(false);
+        uploadImageButton.setOpaque(true); // Garantisce che il colore sia visibile su macOS
+        uploadImageButton.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1)); // Bordo visibile per evidenza
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
         formPanel.add(uploadImageButton, gbc);
+
+        
         
         imagePreview = new JLabel();
-        imagePreview.setPreferredSize(new Dimension(150,150));
+        imagePreview.setPreferredSize(new Dimension(350,200));
         imagePreview.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         gbc.gridx=1;
         gbc.gridy=4;
@@ -128,7 +143,7 @@ public class AdminAddLuogoPanel extends JPanel {
                     	Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     	nomeFile=selectedFile.getName();
                     	ImageIcon icon = new ImageIcon(destinationFile.getAbsolutePath());
-                        Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                        Image scaledImage = icon.getImage().getScaledInstance(350, 200, Image.SCALE_SMOOTH);
                         imagePreview.setIcon(new ImageIcon(scaledImage));
 
                         JOptionPane.showMessageDialog(AdminAddLuogoPanel.this, "Immagine caricata con successo!");
