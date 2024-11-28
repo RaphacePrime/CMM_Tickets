@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import classes_package.Luogo;
 import database_package.AdminLuoghiDatabase;
@@ -29,6 +31,10 @@ public class AdminDetailsLuogoPanel extends JPanel {
     private JButton updateButton;
     private JLabel imageLabel;
     private ImageIcon imageIcon=null;
+    private ImageIcon imageIconSmall=null;
+    private JButton uploadImageButton;
+    private JLabel imagePreview;
+    private String nomeFile= null;
     private Luogo luogo;
     private static final Logger logger = LogManager.getLogger(AdminDetailsLuogoPanel.class);
 
@@ -72,6 +78,59 @@ public class AdminDetailsLuogoPanel extends JPanel {
         detailsPanel.add(createLabeledField(cityTextLabel, cityValueField));
         detailsPanel.add(Box.createVerticalStrut(15));
         detailsPanel.add(createLabeledField(addressTextLabel, addressValueField));
+        detailsPanel.add(Box.createVerticalStrut(15));
+        uploadImageButton = new JButton("Carica nuova immagine");
+        uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        uploadImageButton.setBackground(Color.LIGHT_GRAY);
+        uploadImageButton.setForeground(Color.BLACK); // Testo bianco per contrasto migliore
+        uploadImageButton.setFocusPainted(false);
+        uploadImageButton.setOpaque(true); // Garantisce che il colore sia visibile su macOS
+        uploadImageButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Bordo visibile per evidenza
+        
+        detailsPanel.add(uploadImageButton);
+
+        detailsPanel.add(Box.createVerticalStrut(15));
+        
+        imagePreview = new JLabel();
+        imagePreview.setPreferredSize(new Dimension(350,200));
+        imagePreview.setMaximumSize(new Dimension(350,200));
+        imagePreview.setHorizontalAlignment(JLabel.CENTER);
+        imagePreview.setVerticalAlignment(JLabel.CENTER);
+        imagePreview.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        String path3="src/main/resources/Immagini/default.png"; 
+    	imageIconSmall = new ImageIcon(path3);
+        imagePreview.setIcon(imageIconSmall);
+        
+        detailsPanel.add(imagePreview);
+        
+        uploadImageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(AdminDetailsLuogoPanel.this);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String destinationPath = "src/main/resources/Immagini/"+selectedFile.getName();
+                    File destinationFile = new File(destinationPath);
+                    nomeFile = selectedFile.getName(); 
+                    try {
+                    	Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    	nomeFile=selectedFile.getName();
+                    	ImageIcon icon = new ImageIcon(destinationFile.getAbsolutePath());
+                        Image scaledImage = icon.getImage().getScaledInstance(350, 200, Image.SCALE_SMOOTH);
+                        imagePreview.setIcon(new ImageIcon(scaledImage));
+
+                        JOptionPane.showMessageDialog(AdminDetailsLuogoPanel.this, "Immagine caricata con successo!");
+                        //ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
+                        //Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+                        //imagePreview.setIcon(new ImageIcon(scaledImage));
+                    } catch (IOException ex) {
+                    	JOptionPane.showMessageDialog(AdminDetailsLuogoPanel.this, "Errore nel caricamento dell'immagine: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -159,9 +218,9 @@ public class AdminDetailsLuogoPanel extends JPanel {
         String nome = nameValueField.getText().trim();
         String indirizzo = addressValueField.getText().trim();
         String citta = cityValueField.getText().trim();
-        String nomeFile=null;
+        //
 
-        if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty()) {
+        if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty() || nomeFile==null) {
             JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }

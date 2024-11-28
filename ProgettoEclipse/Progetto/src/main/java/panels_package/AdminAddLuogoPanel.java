@@ -110,11 +110,11 @@ public class AdminAddLuogoPanel extends JPanel {
         
         uploadImageButton = new JButton("Carica immagine");
         uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        uploadImageButton.setBackground(Color.GRAY); // Cornflower blue
+        uploadImageButton.setBackground(Color.LIGHT_GRAY); // Cornflower blue
         uploadImageButton.setForeground(Color.BLACK); // Testo bianco per contrasto migliore
         uploadImageButton.setFocusPainted(false);
         uploadImageButton.setOpaque(true); // Garantisce che il colore sia visibile su macOS
-        uploadImageButton.setBorder(BorderFactory.createLineBorder(new Color(70, 130, 180), 1)); // Bordo visibile per evidenza
+        uploadImageButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Bordo visibile per evidenza
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 1;
