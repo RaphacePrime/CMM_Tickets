@@ -6,11 +6,11 @@ public class Biglietto {
 	private int idBiglietto;
 	public String nomeUtilizzatore;
 	public String cognomeUtilizzatore;
-	public Posto posto;
+	int posto;
 	public Utente utente;
 	
 	
-	public Biglietto(int idBiglietto, String nomeUtilizzatore, String cognomeUtilizzatore, Posto posto, Utente utente )
+	public Biglietto(int idBiglietto, String nomeUtilizzatore, String cognomeUtilizzatore, int posto, Utente utente )
 	{
 		this.idBiglietto=idBiglietto;
 		this.nomeUtilizzatore=nomeUtilizzatore;

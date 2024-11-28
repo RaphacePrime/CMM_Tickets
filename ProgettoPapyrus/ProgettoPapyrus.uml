@@ -95,15 +95,6 @@
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_V_-VAKGoEe-7erFtc63XzA" name="evento" visibility="public" type="_FWQN4KGhEe-0Qq1gsZDFHw" association="_V_9G4KGoEe-7erFtc63XzA"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_xXVZoKGmEe-7erFtc63XzA" name="Posto">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_2416YKGmEe-7erFtc63XzA" name="idPosto" visibility="private">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_6zJz0KGmEe-7erFtc63XzA" name="num" visibility="private" isUnique="false">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_DsbaQKGqEe-7erFtc63XzA" name="settore" type="_n2eZUKGkEe-7erFtc63XzA" association="_DsZlEKGqEe-7erFtc63XzA"/>
-    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_FknLQKGnEe-7erFtc63XzA" name="Biglietto">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_LGXjoKGnEe-7erFtc63XzA" name="idBiglietto" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
@@ -114,8 +105,8 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_UDM7wKGnEe-7erFtc63XzA" name="cognomeUtilizzatore" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_N2RJUqGwEe-WTofhe3ArGw" name="posto" type="_xXVZoKGmEe-7erFtc63XzA" association="_N2OtEKGwEe-WTofhe3ArGw"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_UKL-caGwEe-WTofhe3ArGw" name="utente" type="_Oq8MsKGeEe-0Qq1gsZDFHw" association="_UKKJQKGwEe-WTofhe3ArGw"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_L_QzwK2KEe-Z85GeNdcBiw" name="settore" type="_n2eZUKGkEe-7erFtc63XzA" association="_L_IQ4K2KEe-Z85GeNdcBiw"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_sGFtAKGnEe-7erFtc63XzA" memberEnd="_sHiegKGnEe-7erFtc63XzA _sHjsoKGnEe-7erFtc63XzA">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_sHhQYKGnEe-7erFtc63XzA" source="org.eclipse.papyrus">
@@ -130,20 +121,6 @@
       <ownedEnd xmi:type="uml:Property" xmi:id="_V_9t8aGoEe-7erFtc63XzA" name="settore" type="_n2eZUKGkEe-7erFtc63XzA" association="_V_9G4KGoEe-7erFtc63XzA">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_WoJS0KGpEe-7erFtc63XzA" value="*"/>
       </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_DsZlEKGqEe-7erFtc63XzA" memberEnd="_DsazMqGqEe-7erFtc63XzA _DsbaQKGqEe-7erFtc63XzA">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_DsazMKGqEe-7erFtc63XzA" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_DsazMaGqEe-7erFtc63XzA" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_DsazMqGqEe-7erFtc63XzA" name="posto" type="_xXVZoKGmEe-7erFtc63XzA" association="_DsZlEKGqEe-7erFtc63XzA">
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JCxz4KGqEe-7erFtc63XzA" value="*"/>
-      </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_N2OtEKGwEe-WTofhe3ArGw" memberEnd="_N2RJUqGwEe-WTofhe3ArGw _N2SXcaGwEe-WTofhe3ArGw">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_N2RJUKGwEe-WTofhe3ArGw" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_N2RJUaGwEe-WTofhe3ArGw" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_N2SXcaGwEe-WTofhe3ArGw" name="biglietto" type="_FknLQKGnEe-7erFtc63XzA" association="_N2OtEKGwEe-WTofhe3ArGw"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_UKKJQKGwEe-WTofhe3ArGw" memberEnd="_UKL-caGwEe-WTofhe3ArGw _UKUhUKGwEe-WTofhe3ArGw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UKLXYKGwEe-WTofhe3ArGw" source="org.eclipse.papyrus">
@@ -230,6 +207,15 @@
       <ownedEnd xmi:type="uml:Property" xmi:id="_8d01YKcWEe-CCrm8qJvYvg" name="visualizzazione biglietti acquistati" type="_5U3gYKcWEe-CCrm8qJvYvg" association="_8dzAMKcWEe-CCrm8qJvYvg"/>
       <ownedEnd xmi:type="uml:Property" xmi:id="_8d01YacWEe-CCrm8qJvYvg" name="cliente" type="_BlJwQKaCEe-1iLY0R4eYOw" association="_8dzAMKcWEe-CCrm8qJvYvg"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_L_IQ4K2KEe-Z85GeNdcBiw" memberEnd="_L_QzwK2KEe-Z85GeNdcBiw _L_So8K2KEe-Z85GeNdcBiw">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_L_O-kK2KEe-Z85GeNdcBiw" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_L_PloK2KEe-Z85GeNdcBiw" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_L_So8K2KEe-Z85GeNdcBiw" name="biglietto" type="_FknLQKGnEe-7erFtc63XzA" association="_L_IQ4K2KEe-Z85GeNdcBiw">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Uqtg8K2KEe-Z85GeNdcBiw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TK3e0K2KEe-Z85GeNdcBiw" value="*"/>
+      </ownedEnd>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_yVsTwKGwEe-WTofhe3ArGw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yVs60KGwEe-WTofhe3ArGw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
@@ -238,5 +224,6 @@
     </profileApplication>
   </uml:Model>
   <Codegen:GeneratorHint xmi:id="_yYyrEKGwEe-WTofhe3ArGw" base_Element="_ylI4UKDcEe-8nr79RnMfdw" generatorID="Standard Java">
-    <language xmi:type="Codegen:Language" href="pathmap://Codegen_PROFILES/languages.uml#_2Zt6YCjREeayco6FJ_OtTQ"/></Codegen:GeneratorHint>
+    <language xmi:type="Codegen:Language" href="pathmap://Codegen_PROFILES/languages.uml#_2Zt6YCjREeayco6FJ_OtTQ"/>
+  </Codegen:GeneratorHint>
 </xmi:XMI>
