@@ -5,7 +5,7 @@ public class Evento {
     private String nome;
     private String data; 
     private String ora;
-    private int numMaxBigliettiAcquistabili;
+    private int maxBigliettiAPersona;
     private boolean postoNumerato;
     private String dataInizioVendita;
     private int idLuogo; 
@@ -15,7 +15,7 @@ public class Evento {
         this.nome = nome;
         this.data = data;
         this.ora = ora;
-        this.numMaxBigliettiAcquistabili = numMaxBigliettiAcquistabili;
+        this.maxBigliettiAPersona = numMaxBigliettiAcquistabili;
         this.postoNumerato = postoNumerato;
         this.dataInizioVendita = dataInizioVendita;
         this.idLuogo = idLuogo;
@@ -28,6 +28,10 @@ public class Evento {
     
     public String getNome() {
         return nome;
+    }
+    
+    public int getMaxBigliettiAPersona() {
+        return maxBigliettiAPersona;
     }
 
     public String getData() {

@@ -6,25 +6,25 @@ public class Settore {
 	private String nome;
 	private float prezzo;
 	private int postiTotali;
-	public int postiOccupati;
+	public int postiAcquistati;
 	public Evento evento;
 	
-	public Settore(int idSettore, String nome, float prezzo, int postiTotali, int postiOccupati, Evento evento)
+	public Settore(int idSettore, String nome, float prezzo, int postiTotali, int postiAcquistati, Evento evento)
 	{
 		this.idSettore=idSettore;
 		this.nome=nome;
 		this.prezzo=prezzo;
 		this.postiTotali=postiTotali;
-		this.postiOccupati=postiOccupati;
+		this.postiAcquistati=postiAcquistati;
 		this.evento=evento;
 	}
 	
-	public Settore(String nome, float prezzo, int postiTotali, int postiOccupati, Evento evento)
+	public Settore(String nome, float prezzo, int postiTotali, int postiAcquistati, Evento evento)
 	{
 		this.nome=nome;
 		this.prezzo=prezzo;
 		this.postiTotali=postiTotali;
-		this.postiOccupati=postiOccupati;
+		this.postiAcquistati=postiAcquistati;
 		this.evento=evento;
 	}
 	
@@ -40,5 +40,8 @@ public class Settore {
 	 
 	 public int getPostiTotali() { return postiTotali; }
 	 public void setPostiTotali(int postiTotali) { this.postiTotali=postiTotali; }
+	 
+	 public int getPostiAcquistati() { return postiAcquistati; }
+	 public void addPostiAcquistati() { this.postiAcquistati++; }
 	 
 }
