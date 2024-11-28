@@ -2,6 +2,7 @@ package frames_package;
 
 import javax.swing.*;
 import database_package.Database;
+import panels_package.AdminAddEventPanel;
 import panels_package.AdminAddLuogoPanel;
 import panels_package.AdminDetailsLuogoPanel;
 import panels_package.AdminHomePanel;
@@ -23,6 +24,7 @@ public class MainFrame extends JFrame {
     private AdminModifyEventPanel adminModifyEventPanel;
     private AdminModifyLuogoPanel adminModifyLuogoPanel;
     private AdminAddLuogoPanel adminAddLuogoPanel;
+    private AdminAddEventPanel adminAddEventPanel;
 
     public MainFrame() {
         Database.createTables();
@@ -42,6 +44,7 @@ public class MainFrame extends JFrame {
         adminHomePanel = new AdminHomePanel();
         adminModifyLuogoPanel = new AdminModifyLuogoPanel();
         adminAddLuogoPanel = new AdminAddLuogoPanel();
+        adminAddEventPanel = new AdminAddEventPanel();
         userHomePanel = new UserHomePanel();
 
         // Aggiunta dei pannelli al layout
@@ -50,6 +53,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(adminHomePanel, "Admin Home");
         mainPanel.add(adminModifyLuogoPanel, "Admin Modify Luogo");
         mainPanel.add(adminAddLuogoPanel, "Admin Add Luogo");
+        mainPanel.add(adminAddEventPanel, "Admin Add Event");
         mainPanel.add(userHomePanel, "User Home");
 
         // Configurazione delle azioni nei pulsanti
@@ -67,6 +71,7 @@ public class MainFrame extends JFrame {
         });
 
         adminHomePanel.setSwitchToAddLuogoAction(e -> adminHomePanel.setContentPanel(adminAddLuogoPanel));
+        adminHomePanel.setSwitchToAddEventAction(e -> adminHomePanel.setContentPanel(adminAddEventPanel));
 
         adminHomePanel.setLogoutAction(e -> {
             loginPanel.resetFields();
