@@ -178,11 +178,11 @@ public class AdminAddEventPanel extends JPanel {
 
     private void addEvento() {
         String nome = nameField.getText().trim();
-        String data = new SimpleDateFormat("dd/MM/yyyy").format((Date) dateSpinner.getValue());
+        Date data = (Date) dateSpinner.getValue();
         String ora = new SimpleDateFormat("HH:mm").format((Date) timeSpinner.getValue());
-        int maxBiglietti = Integer.parseInt(maxTicketsField.getText().trim());
+        int maxBigliettiAPersona = Integer.parseInt(maxTicketsField.getText().trim());
         boolean postoNumerato = seatNumberedCheckbox.isSelected();
-        String dataInizioVendita = new SimpleDateFormat("dd/MM/yyyy").format((Date) saleStartSpinner.getValue());
+        Date dataInizioVendita = (Date) saleStartSpinner.getValue();
         String idLuogo = (String) locationDropdown.getSelectedItem();
 
         if (nome.isEmpty() || maxTicketsField.getText().trim().isEmpty()) {
@@ -190,7 +190,7 @@ public class AdminAddEventPanel extends JPanel {
             return;
         }
 
-        Evento nuovoEvento = new Evento(0, nome, data, ora, maxBiglietti, postoNumerato, dataInizioVendita, Integer.parseInt(idLuogo.split(" ")[1]));
+        Evento nuovoEvento = new Evento(nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, Integer.parseInt(idLuogo.split(" ")[1]));
         JOptionPane.showMessageDialog(this, "Evento aggiunto con successo!\n" + nuovoEvento, "Successo", JOptionPane.INFORMATION_MESSAGE);
         logger.info("Evento aggiunto: " + nuovoEvento);
     }

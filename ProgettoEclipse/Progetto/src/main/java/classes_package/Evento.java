@@ -1,16 +1,30 @@
 package classes_package;
 
+import java.sql.Time;
+import java.util.Date;
+
 public class Evento {
     private int idEvento;
     private String nome;
-    private String data; 
+    private Date data; 
     private String ora;
     private int maxBigliettiAPersona;
     private boolean postoNumerato;
-    private String dataInizioVendita;
+    private Date dataInizioVendita;
     private int idLuogo; 
 
-    public Evento(int idEvento, String nome, String data, String ora, int numMaxBigliettiAcquistabili, boolean postoNumerato, String dataInizioVendita, int idLuogo) {
+    public Evento(int idEvento, String nome, Date data, String ora, int numMaxBigliettiAcquistabili, boolean postoNumerato, Date dataInizioVendita, int idLuogo) {
+        this.idEvento = idEvento;
+        this.nome = nome;
+        this.data = data;
+        this.ora = ora;
+        this.maxBigliettiAPersona = numMaxBigliettiAcquistabili;
+        this.postoNumerato = postoNumerato;
+        this.dataInizioVendita = dataInizioVendita;
+        this.idLuogo = idLuogo;
+    }
+    
+    public Evento(String nome, Date data, String ora, int numMaxBigliettiAcquistabili, boolean postoNumerato, Date dataInizioVendita, int idLuogo) {
         this.idEvento = idEvento;
         this.nome = nome;
         this.data = data;
@@ -34,12 +48,16 @@ public class Evento {
         return maxBigliettiAPersona;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
     
     public String getOra() {
         return ora;
+    }
+    
+    public Date getDataInizioVendita() {
+        return dataInizioVendita;
     }
 
     public int getIdLuogo() {

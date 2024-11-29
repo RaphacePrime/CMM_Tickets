@@ -45,9 +45,9 @@ public class Database {
 		/*
 		 * String sql = "CREATE TABLE IF NOT EXISTS settori (" +
 		 * "idSettore INTEGER PRIMARY KEY AUTOINCREMENT, " + "nome TEXT NOT NULL, " +
-		 * "prezzo NUMERIC(6,2) NOT NULL, " + "posizione	TEXT NOT NULL CHECK("
+		 * "prezzo NUMERIC(6,2) NOT NULL, " + "posizione	TEXT NOT NULL CHECK(" + "anello INT CHECK (anello IN (1, 2, 3)), "
 		 * +"posizione"+" IN ('nord', 'est', 'sud', 'ovest')),"+ "postiTotali INTEGER, "
-		 * + "postiOccupati INTEGER, " + "idEvento INTEGER NOT NULL, " +
+		 * + "postiAcquistati INTEGER, " + "idEvento INTEGER NOT NULL, " +
 		 * "FOREIGN KEY(idEvento) REFERENCES eventi(idEvento) ON DELETE CASCADE ON UPDATE CASCADE"
 		 * + ");";
 		 */

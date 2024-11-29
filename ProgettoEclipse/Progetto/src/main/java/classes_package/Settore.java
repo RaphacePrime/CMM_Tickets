@@ -5,27 +5,33 @@ public class Settore {
 	private int idSettore;
 	private String nome;
 	private float prezzo;
+	private String posizione;
+	private int anello;
 	private int postiTotali;
 	public int postiAcquistati;
-	public Evento evento;
+	public int idEvento;
 	
-	public Settore(int idSettore, String nome, float prezzo, int postiTotali, int postiAcquistati, Evento evento)
+	public Settore(int idSettore, String nome, float prezzo, String posizione, int anello, int postiTotali, int postiAcquistati, int idEvento)
 	{
 		this.idSettore=idSettore;
 		this.nome=nome;
 		this.prezzo=prezzo;
+		this.posizione=posizione;
+		this.anello=anello;
 		this.postiTotali=postiTotali;
 		this.postiAcquistati=postiAcquistati;
-		this.evento=evento;
+		this.idEvento=idEvento;
 	}
 	
-	public Settore(String nome, float prezzo, int postiTotali, int postiAcquistati, Evento evento)
+	public Settore(String nome, float prezzo, String posizione, int anello, int postiTotali, int postiAcquistati, int idEvento)
 	{
 		this.nome=nome;
 		this.prezzo=prezzo;
+		this.posizione=posizione;
+		this.anello=anello;
 		this.postiTotali=postiTotali;
 		this.postiAcquistati=postiAcquistati;
-		this.evento=evento;
+		this.idEvento=idEvento;
 	}
 	
 	
@@ -38,10 +44,19 @@ public class Settore {
 	 public float getPrezzo() { return prezzo; }
 	 public void setPrezzo(float prezzo) { this.prezzo=prezzo; }
 	 
+	 public String getPosizione() { return posizione; }
+	 public void setPosizione(String posizione) { this.posizione=posizione; }
+	 
+	 public int getAnello() { return anello; }
+	 public void setAnello(int anello) { this.anello=anello; }
+	 
 	 public int getPostiTotali() { return postiTotali; }
 	 public void setPostiTotali(int postiTotali) { this.postiTotali=postiTotali; }
 	 
 	 public int getPostiAcquistati() { return postiAcquistati; }
 	 public void addPostiAcquistati() { this.postiAcquistati++; }
+	 
+	 public int getIdEvento() { return idEvento; }
+	 
 	 
 }

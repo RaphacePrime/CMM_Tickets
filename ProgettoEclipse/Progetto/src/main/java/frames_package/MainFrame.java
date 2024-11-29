@@ -14,6 +14,7 @@ import panels_package.RegistrationPanel;
 import panels_package.UserHomePanel;
 
 import java.awt.*;
+import java.text.ParseException;
 
 public class MainFrame extends JFrame {
     private CardLayout cardLayout;
@@ -59,7 +60,12 @@ public class MainFrame extends JFrame {
 
         // Configurazione delle azioni nei pulsanti
         adminHomePanel.setSwitchToModifyEventAction(e -> {
-            adminModifyEventPanel = new AdminModifyEventPanel();
+            try {
+				adminModifyEventPanel = new AdminModifyEventPanel();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             mainPanel.add(adminModifyEventPanel, "Admin Modify Event");
             adminHomePanel.setContentPanel(adminModifyEventPanel);
         });

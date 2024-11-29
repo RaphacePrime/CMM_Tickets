@@ -6,15 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.sql.Time;
+import java.util.Date;
 import classes_package.Evento;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import java.time.format.DateTimeFormatter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 public class AdminEventsDatabase {
     private static final Logger logger = LogManager.getLogger(AdminEventsDatabase.class);
 
-    public static List<Evento> getAllEvents() {
+    public static List<Evento> getAllEvents() throws ParseException {
         List<Evento> events = new ArrayList<>();
         String sql = "SELECT * FROM eventi";
 
@@ -25,11 +30,13 @@ public class AdminEventsDatabase {
             while (rs.next()) {
                 int idEvento = rs.getInt("idEvento");
                 String nome = rs.getString("nome");
-                String data = rs.getString("data");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd"); // Definisci il formato
+                Date data = sdf.parse(rs.getString("data"));
                 String ora = rs.getString("ora");
-                int numMaxBigliettiAcquistabili = rs.getInt("numMaxBigliettiAcquistabili");
+                int numMaxBigliettiAcquistabili = rs.getInt("maxBigliettiAPersona");
                 boolean postoNumerato = rs.getBoolean("postoNumerato");
-                String dataInizioVendita = rs.getString("dataInizioVendita");
+                //String dataInizioVendita = rs.getString("dataInizioVendita");
+                Date dataInizioVendita = sdf.parse(rs.getString("dataInizioVendita"));
                 int idLuogo = rs.getInt("idLuogo");
 
                 Evento evento = new Evento(idEvento, nome, data, ora, numMaxBigliettiAcquistabili, postoNumerato, dataInizioVendita, idLuogo);

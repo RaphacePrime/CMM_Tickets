@@ -12,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import classes_package.Evento;
 import classes_package.Luogo;
@@ -27,7 +29,7 @@ public class AdminModifyEventPanel extends JPanel {
     private JButton backButton;
     private static Logger logger = LogManager.getLogger(AdminModifyEventPanel.class);
 
-    public AdminModifyEventPanel() {
+    public AdminModifyEventPanel() throws ParseException {
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
@@ -54,7 +56,7 @@ public class AdminModifyEventPanel extends JPanel {
     }
 
 
-    public void fetchAndDisplayEvents() {
+    public void fetchAndDisplayEvents() throws ParseException {
         eventi = AdminEventsDatabase.getAllEvents();
         luoghi = AdminLuoghiDatabase.getAllLuoghi();
         String[] columnNames = {"Nome Evento", "Data", "Luogo", "Città", "Indirizzo"}; 
@@ -67,7 +69,9 @@ public class AdminModifyEventPanel extends JPanel {
             for(int y=0; y<luoghi.size(); y++)
             {
             	data[i][0] = e.getNome();     
-                data[i][1] = e.getData();   
+            	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            	data[i][1] = sdf.format(e.getData());
+                //data[i][1] = e.getData().toLocaleDateString("en-GB");   
                 
                 l=luoghi.get(y);
                 
