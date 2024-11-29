@@ -220,8 +220,8 @@ public class AdminDetailsLuogoPanel extends JPanel {
         String citta = cityValueField.getText().trim();
         //
 
-        if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty() || nomeFile==null) {
-            JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
+        if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty() ) {
+            JOptionPane.showMessageDialog(this, "Tutti i campi tranne l'immagine sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

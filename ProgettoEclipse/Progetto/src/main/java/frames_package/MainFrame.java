@@ -2,6 +2,7 @@ package frames_package;
 
 import javax.swing.*;
 import database_package.Database;
+import panels_package.AdminAddSectorsPanel;
 import panels_package.AdminAddEventPanel;
 import panels_package.AdminAddLuogoPanel;
 import panels_package.AdminDetailsLuogoPanel;
@@ -71,7 +72,12 @@ public class MainFrame extends JFrame {
         });
 
         adminHomePanel.setSwitchToAddLuogoAction(e -> adminHomePanel.setContentPanel(adminAddLuogoPanel));
-        adminHomePanel.setSwitchToAddEventAction(e -> adminHomePanel.setContentPanel(adminAddEventPanel));
+        adminHomePanel.setSwitchToAddEventAction(e -> {
+        	adminAddEventPanel.setSwitchToAddSectorsAction(this);
+        	adminHomePanel.setContentPanel(adminAddEventPanel);
+        	
+        
+        });
 
         adminHomePanel.setLogoutAction(e -> {
             loginPanel.resetFields();
