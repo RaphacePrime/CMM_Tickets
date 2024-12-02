@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import classes_package.Evento;
 import classes_package.Luogo;
+import classes_package.Settore;
 import database_package.AdminLuoghiDatabase;
 import frames_package.MainFrame;
 
@@ -25,9 +26,11 @@ public class AdminAddEventPanel extends JPanel {
     private JComboBox<String> locationDropdown;
     private JButton manageSectorsButton;
     private JButton addButton;
+    private List<Settore> settori;
     private static final Logger logger = LogManager.getLogger(AdminAddEventPanel.class);
 
     public AdminAddEventPanel() {
+    	List<Settore> settori= new ArrayList<>();
         try {
             // Set Nimbus Look and Feel to ensure consistent UI across platforms
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -209,7 +212,7 @@ public class AdminAddEventPanel extends JPanel {
         manageSectorsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdminAddSectorsPanel adminAddSectorsPanel = new AdminAddSectorsPanel();
+                AdminAddSectorsPanel adminAddSectorsPanel = new AdminAddSectorsPanel(settori);
                 mainFrame.adminHomePanel.setContentPanel(adminAddSectorsPanel);
             }
         });

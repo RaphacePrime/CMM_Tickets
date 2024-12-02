@@ -6,15 +6,26 @@ import org.apache.logging.log4j.Logger;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import classes_package.Evento;
+import classes_package.Settore;
 
 public class AdminAddSectorsPanel extends JPanel {
     private JLabel imageLabel;
     private final int IMAGE_WIDTH = 500;
     private final int IMAGE_HEIGHT = 300;
     private JButton lastSelectedButton = null;
+    JTextField nomeField = new JTextField();
+    JTextField prezzoField = new JTextField();
+    JTextField postiTotaliField = new JTextField();
+    private List<Settore> settori= new ArrayList<>();
+    
     private static final Logger logger = LogManager.getLogger(AdminAddSectorsPanel.class);
 
-    public AdminAddSectorsPanel() {
+    public AdminAddSectorsPanel(List<Settore> settori) {
+    	this.settori=settori;
         setLayout(new BorderLayout());
 
         JPanel topButtonPanel = new JPanel();
@@ -78,15 +89,15 @@ public class AdminAddSectorsPanel extends JPanel {
         bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
         bottomPanel.add(new JLabel("Nome Settore:"));
-        JTextField nomeField = new JTextField();
+        nomeField = new JTextField();
         bottomPanel.add(nomeField);
 
         bottomPanel.add(new JLabel("Prezzo:"));
-        JTextField prezzoField = new JTextField();
+        prezzoField = new JTextField();
         bottomPanel.add(prezzoField);
 
         bottomPanel.add(new JLabel("Posti Totali:"));
-        JTextField postiTotaliField = new JTextField();
+        postiTotaliField = new JTextField();
         bottomPanel.add(postiTotaliField);
 
         JButton eliminaButton = new JButton("Elimina settore selezionato");
@@ -138,6 +149,80 @@ public class AdminAddSectorsPanel extends JPanel {
             button.setBackground(new Color(33, 150, 243));
             button.setOpaque(true);
             logger.info("Pulsante cliccato: Posizione (" + x + ", " + y + ")");
+            /*
+            String nome=this.nomeField.getText();
+            float prezzo=Float.parseFloat(this.prezzoField.getText());
+            int postiTotali=Integer.parseInt(this.postiTotaliField.getText());
+            */
+            
+            String posizione;
+            int anello;
+            if(x==4)
+            {
+            	if(y==1)
+            	{
+            		posizione="nord";
+            		anello=3;
+            	}
+            	else if(y==2)
+            	{
+            		posizione="nord";
+            		anello=2;
+            	}
+            	else if(y==3)
+            	{
+            		posizione="nord";
+            		anello=1;
+            	}
+            	else if(y==5)
+            	{
+            		posizione="sud";
+            		anello=1;
+            	}
+            	else if(y==6)
+            	{
+            		posizione="sud";
+            		anello=2;
+            	}
+            	else if(y==7)
+            	{
+            		posizione="sud";
+            		anello=3;
+            	}
+            }
+            else if(y==4)
+            {
+            	if(x==1)
+            	{
+            		posizione="ovest";
+            		anello=3;
+            	}
+            	else if(x==2)
+            	{
+            		posizione="ovest";
+            		anello=2;
+            	}
+            	else if(x==3)
+            	{
+            		posizione="ovest";
+            		anello=1;
+            	}
+            	else if(x==5)
+            	{
+            		posizione="est";
+            		anello=1;
+            	}
+            	else if(x==6)
+            	{
+            		posizione="est";
+            		anello=2;
+            	}
+            	else if(x==7)
+            	{
+            		posizione="est";
+            		anello=3;
+            	}
+            }
         });
 
         panel.add(button, localGbc);
