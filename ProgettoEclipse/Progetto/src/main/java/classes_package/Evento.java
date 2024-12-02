@@ -3,6 +3,10 @@ package classes_package;
 import java.sql.Time;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import login_package.Login;
 public class Evento {
     private int idEvento;
     private String nome;
@@ -12,6 +16,8 @@ public class Evento {
     private boolean postoNumerato;
     private Date dataInizioVendita;
     private int idLuogo; 
+
+    private static Logger logger = LogManager.getLogger(Login.class);
 
     public Evento(int idEvento, String nome, Date data, String ora, int numMaxBigliettiAcquistabili, boolean postoNumerato, Date dataInizioVendita, int idLuogo) {
         this.idEvento = idEvento;
@@ -35,9 +41,9 @@ public class Evento {
         this.idLuogo = idLuogo;
     }
     
-    public int getId()
+    public int getIdEvento()
     {
-    	return idLuogo;
+    	return idEvento;
     }
     
     public String getNome() {
@@ -46,6 +52,10 @@ public class Evento {
     
     public int getMaxBigliettiAPersona() {
         return maxBigliettiAPersona;
+    }
+    
+    public boolean getPostoNumerato() {
+        return postoNumerato;
     }
 
     public Date getData() {
@@ -68,4 +78,9 @@ public class Evento {
     public String toString() {
         return nome + " - " + data + " " + ora;
     }
+    
+    public void showEvent() {
+    	logger.info( idEvento+" "+nome+" "+data+" "+ora+" "+maxBigliettiAPersona+" "+postoNumerato+" "+dataInizioVendita+" "+idLuogo); 
+    }
+    
 }

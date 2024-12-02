@@ -1,5 +1,10 @@
 package classes_package;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import login_package.Login;
+
 public class Settore {
 
 	private int idSettore;
@@ -10,6 +15,8 @@ public class Settore {
 	private int postiTotali;
 	public int postiAcquistati;
 	public int idEvento;
+	
+    private static Logger logger = LogManager.getLogger(Login.class);
 	
 	public Settore(int idSettore, String nome, float prezzo, String posizione, int anello, int postiTotali, int postiAcquistati, int idEvento)
 	{
@@ -58,5 +65,7 @@ public class Settore {
 	 
 	 public int getIdEvento() { return idEvento; }
 	 
-	 
+	 public void showSettore() {
+	    	logger.info( idSettore+" "+nome+" "+prezzo+" "+posizione+" "+anello+" "+postiTotali+" "+postiAcquistati+" "+idEvento); 
+	    }
 }
