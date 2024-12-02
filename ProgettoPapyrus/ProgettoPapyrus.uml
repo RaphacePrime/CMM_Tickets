@@ -77,7 +77,7 @@
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_n2eZUKGkEe-7erFtc63XzA" name="Settore" visibility="public">
+    <packagedElement xmi:type="uml:Class" xmi:id="_n2eZUKGkEe-7erFtc63XzA" name="Settore" visibility="private">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_O9y9oKGmEe-7erFtc63XzA" name="idSettore" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedAttribute>
@@ -90,20 +90,29 @@
       <ownedAttribute xmi:type="uml:Property" xmi:id="_ouCBgKGmEe-7erFtc63XzA" name="postiTotali" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_uJ7CcKGmEe-7erFtc63XzA" name="postiAcquistati">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_uJ7CcKGmEe-7erFtc63XzA" name="postiAcquistati" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_V_-VAKGoEe-7erFtc63XzA" name="evento" visibility="public" type="_FWQN4KGhEe-0Qq1gsZDFHw" association="_V_9G4KGoEe-7erFtc63XzA"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_iWI3cLCxEe-YeNBCryMggw" name="posizione" visibility="private" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_m0D0QLCxEe-YeNBCryMggw" name="anello" visibility="private" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_FknLQKGnEe-7erFtc63XzA" name="Biglietto">
       <ownedAttribute xmi:type="uml:Property" xmi:id="_LGXjoKGnEe-7erFtc63XzA" name="idBiglietto" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedAttribute>
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_QkgAQKGnEe-7erFtc63XzA" name="nomeUtilizzatore" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_QkgAQKGnEe-7erFtc63XzA" name="nomeUtilizzatore" visibility="private" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_UDM7wKGnEe-7erFtc63XzA" name="cognomeUtilizzatore" visibility="private">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="__F-8gLCwEe-YeNBCryMggw" name="posto" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedAttribute>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_UKL-caGwEe-WTofhe3ArGw" name="utente" type="_Oq8MsKGeEe-0Qq1gsZDFHw" association="_UKKJQKGwEe-WTofhe3ArGw"/>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_L_QzwK2KEe-Z85GeNdcBiw" name="settore" type="_n2eZUKGkEe-7erFtc63XzA" association="_L_IQ4K2KEe-Z85GeNdcBiw"/>
