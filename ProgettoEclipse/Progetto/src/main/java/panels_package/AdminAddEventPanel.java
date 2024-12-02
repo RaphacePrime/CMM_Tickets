@@ -28,13 +28,19 @@ public class AdminAddEventPanel extends JPanel {
     private static final Logger logger = LogManager.getLogger(AdminAddEventPanel.class);
 
     public AdminAddEventPanel() {
-    	List<String> nomiluoghi= new ArrayList<>();
-    	List<Luogo> listaluoghi = AdminLuoghiDatabase.getAllLuoghi();
-    	for(int i=0; i<listaluoghi.size(); i++)
-    	{
-    		nomiluoghi.add(listaluoghi.get(i).getNome());
-    	}
-    	
+        try {
+            // Set Nimbus Look and Feel to ensure consistent UI across platforms
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        List<String> nomiluoghi = new ArrayList<>();
+        List<Luogo> listaluoghi = AdminLuoghiDatabase.getAllLuoghi();
+        for (int i = 0; i < listaluoghi.size(); i++) {
+            nomiluoghi.add(listaluoghi.get(i).getNome());
+        }
+
         setLayout(new BorderLayout());
         setBackground(new Color(230, 230, 250));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -151,6 +157,9 @@ public class AdminAddEventPanel extends JPanel {
         manageSectorsButton.setFont(new Font("Arial", Font.PLAIN, 16));
         manageSectorsButton.setBackground(new Color(255, 223, 0));
         manageSectorsButton.setForeground(Color.BLACK);
+        manageSectorsButton.setOpaque(true);
+        manageSectorsButton.setBorderPainted(false);
+        manageSectorsButton.setFocusPainted(false);
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 2;
@@ -160,12 +169,13 @@ public class AdminAddEventPanel extends JPanel {
         addButton.setFont(new Font("Arial", Font.PLAIN, 16));
         addButton.setBackground(new Color(75, 175, 110));
         addButton.setForeground(Color.WHITE);
+        addButton.setOpaque(true);
+        addButton.setBorderPainted(false);
+        addButton.setFocusPainted(false);
         gbc.gridx = 0;
         gbc.gridy = 9;
         formPanel.add(addButton, gbc);
-        
-        
-        
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,15 +205,13 @@ public class AdminAddEventPanel extends JPanel {
         logger.info("Evento aggiunto: " + nuovoEvento);
     }
 
-	public void setSwitchToAddSectorsAction(MainFrame mainFrame) {
-		manageSectorsButton.addActionListener(new ActionListener() {
+    public void setSwitchToAddSectorsAction(MainFrame mainFrame) {
+        manageSectorsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	AdminAddSectorsPanel adminAddSectorsPanel= new AdminAddSectorsPanel();
-        		mainFrame.adminHomePanel.setContentPanel(adminAddSectorsPanel);
+                AdminAddSectorsPanel adminAddSectorsPanel = new AdminAddSectorsPanel();
+                mainFrame.adminHomePanel.setContentPanel(adminAddSectorsPanel);
             }
         });
-		
-		
-	}
+    }
 }

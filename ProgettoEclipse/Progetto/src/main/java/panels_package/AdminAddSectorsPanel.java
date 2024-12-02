@@ -1,6 +1,8 @@
 package panels_package;
 
 import javax.swing.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +12,7 @@ public class AdminAddSectorsPanel extends JPanel {
     private final int IMAGE_WIDTH = 500;
     private final int IMAGE_HEIGHT = 300;
     private JButton lastSelectedButton = null;
+    private static final Logger logger = LogManager.getLogger(AdminAddSectorsPanel.class);
 
     public AdminAddSectorsPanel() {
         setLayout(new BorderLayout());
@@ -25,7 +28,7 @@ public class AdminAddSectorsPanel extends JPanel {
         add(topButtonPanel, BorderLayout.NORTH);
 
         JPanel centralWrapper = new JPanel(new BorderLayout());
-        centralWrapper.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        centralWrapper.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
         JPanel gridPanel = new JPanel(new GridBagLayout());
         gridPanel.setPreferredSize(new Dimension(1000, gridPanel.getPreferredSize().height));
@@ -35,20 +38,21 @@ public class AdminAddSectorsPanel extends JPanel {
 
         String path = "src/main/resources/Immagini/campocalcio.jpg";
         imageLabel = new JLabel();
-        imageLabel.setPreferredSize(new Dimension(IMAGE_WIDTH, IMAGE_HEIGHT));
+        imageLabel.setMinimumSize(new Dimension(IMAGE_WIDTH, IMAGE_HEIGHT));
+        //imageLabel.setMinimumSize(getPreferredSize());
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imageLabel.setVerticalAlignment(SwingConstants.CENTER);
         updateImage(path);
 
         Dimension buttonSize = new Dimension(50, 50);
 
-        addButton(gridPanel, gbc, 4, 1, new Dimension(IMAGE_WIDTH, 50));
-        addButton(gridPanel, gbc, 4, 2, new Dimension(IMAGE_WIDTH, 50));
-        addButton(gridPanel, gbc, 4, 3, new Dimension(IMAGE_WIDTH, 50));
+        addButton(gridPanel, gbc, 4, 1, new Dimension(IMAGE_WIDTH, 30));
+        addButton(gridPanel, gbc, 4, 2, new Dimension(IMAGE_WIDTH, 30));
+        addButton(gridPanel, gbc, 4, 3, new Dimension(IMAGE_WIDTH, 30));
 
-        addButton(gridPanel, gbc, 1, 4, new Dimension(50, IMAGE_HEIGHT));
-        addButton(gridPanel, gbc, 2, 4, new Dimension(50, IMAGE_HEIGHT));
-        addButton(gridPanel, gbc, 3, 4, new Dimension(50, IMAGE_HEIGHT));
+        addButton(gridPanel, gbc, 1, 4, new Dimension(60, IMAGE_HEIGHT));
+        addButton(gridPanel, gbc, 2, 4, new Dimension(60, IMAGE_HEIGHT));
+        addButton(gridPanel, gbc, 3, 4, new Dimension(60, IMAGE_HEIGHT));
 
         gbc.gridx = 4;
         gbc.gridy = 4;
@@ -58,20 +62,20 @@ public class AdminAddSectorsPanel extends JPanel {
         gbc.weighty = 1.0;
         gridPanel.add(imageLabel, gbc);
 
-        addButton(gridPanel, gbc, 5, 4, new Dimension(50, IMAGE_HEIGHT));
-        addButton(gridPanel, gbc, 6, 4, new Dimension(50, IMAGE_HEIGHT));
-        addButton(gridPanel, gbc, 7, 4, new Dimension(50, IMAGE_HEIGHT));
+        addButton(gridPanel, gbc, 5, 4, new Dimension(60, IMAGE_HEIGHT));
+        addButton(gridPanel, gbc, 6, 4, new Dimension(60, IMAGE_HEIGHT));
+        addButton(gridPanel, gbc, 7, 4, new Dimension(60, IMAGE_HEIGHT));
 
-        addButton(gridPanel, gbc, 4, 5, new Dimension(IMAGE_WIDTH, 50));
-        addButton(gridPanel, gbc, 4, 6, new Dimension(IMAGE_WIDTH, 50));
-        addButton(gridPanel, gbc, 4, 7, new Dimension(IMAGE_WIDTH, 50));
+        addButton(gridPanel, gbc, 4, 5, new Dimension(IMAGE_WIDTH, 30));
+        addButton(gridPanel, gbc, 4, 6, new Dimension(IMAGE_WIDTH, 30));
+        addButton(gridPanel, gbc, 4, 7, new Dimension(IMAGE_WIDTH, 30));
 
         centralWrapper.add(gridPanel, BorderLayout.CENTER);
         add(centralWrapper, BorderLayout.CENTER);
 
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new GridLayout(5, 2, 10, 10));
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
         bottomPanel.add(new JLabel("Nome Settore:"));
         JTextField nomeField = new JTextField();
@@ -86,10 +90,14 @@ public class AdminAddSectorsPanel extends JPanel {
         bottomPanel.add(postiTotaliField);
 
         JButton eliminaButton = new JButton("Elimina settore selezionato");
+        eliminaButton.setOpaque(true);
         eliminaButton.addActionListener(e -> {
             if (lastSelectedButton != null) {
                 lastSelectedButton.setText("+");
+                lastSelectedButton.setBackground(Color.WHITE);
                 lastSelectedButton = null;
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleziona un evento da eliminare");
             }
         });
         bottomPanel.add(eliminaButton);
@@ -102,7 +110,14 @@ public class AdminAddSectorsPanel extends JPanel {
 
     private void addButton(JPanel panel, GridBagConstraints gbc, int x, int y, Dimension size) {
         JButton button = new JButton("+");
-        button.setPreferredSize(size);
+        button.setBackground(Color.WHITE);
+        button.setForeground(Color.BLACK);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setMinimumSize(size);
+        button.setFont(new Font("Arial", Font.PLAIN, 14));
+
         GridBagConstraints localGbc = new GridBagConstraints();
         localGbc.gridx = x;
         localGbc.gridy = y;
@@ -114,9 +129,15 @@ public class AdminAddSectorsPanel extends JPanel {
         localGbc.insets = new Insets(5, 5, 5, 5);
 
         button.addActionListener(e -> {
+            if (lastSelectedButton != null) {
+                //lastSelectedButton.setText("+");
+                lastSelectedButton.setBackground(Color.WHITE);
+            }
             lastSelectedButton = button;
             button.setText("X");
-            JOptionPane.showMessageDialog(this, "Pulsante cliccato: Posizione (" + x + ", " + y + ")");
+            button.setBackground(new Color(33, 150, 243));
+            button.setOpaque(true);
+            logger.info("Pulsante cliccato: Posizione (" + x + ", " + y + ")");
         });
 
         panel.add(button, localGbc);
