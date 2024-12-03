@@ -67,6 +67,6 @@ public class Settore {
 	 public void setIdEvento(int idEvento) { this.idEvento=idEvento; }
 	 
 	 public void showSettore() {
-	    	logger.info( idSettore+" "+nome+" "+prezzo+" "+posizione+" "+anello+" "+postiTotali+" "+postiAcquistati+" "+idEvento); 
+	    	logger.info("Settore: "+this.posizione+ ", "+String.valueOf(this.anello)); 
 	    }
 }

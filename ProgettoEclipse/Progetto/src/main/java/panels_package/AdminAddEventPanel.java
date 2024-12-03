@@ -26,11 +26,11 @@ public class AdminAddEventPanel extends JPanel {
     private JComboBox<String> locationDropdown;
     private JButton manageSectorsButton;
     private JButton addButton;
-    private List<Settore> settori;
+    private List<Settore> settori= new ArrayList<>();;
     private static final Logger logger = LogManager.getLogger(AdminAddEventPanel.class);
 
     public AdminAddEventPanel() {
-    	List<Settore> settori= new ArrayList<>();
+    	//List<Settore> settori= new ArrayList<>();
         try {
             // Set Nimbus Look and Feel to ensure consistent UI across platforms
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

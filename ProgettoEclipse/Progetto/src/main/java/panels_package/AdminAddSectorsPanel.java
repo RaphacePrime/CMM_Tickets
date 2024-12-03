@@ -21,7 +21,10 @@ public class AdminAddSectorsPanel extends JPanel {
     JTextField prezzoField = new JTextField();
     JTextField postiTotaliField = new JTextField();
     private List<Settore> settori= new ArrayList<>();
-    
+    private int xlastselected=0;
+    private int ylastselected=0;
+    private int anello=0;
+    private String posizione="";
     private static final Logger logger = LogManager.getLogger(AdminAddSectorsPanel.class);
 
     public AdminAddSectorsPanel(List<Settore> settori) {
@@ -106,6 +109,36 @@ public class AdminAddSectorsPanel extends JPanel {
             if (lastSelectedButton != null) {
                 lastSelectedButton.setText("+");
                 lastSelectedButton.setBackground(Color.WHITE);
+                //lastSelectedButton.setBorder(UIManager.getBorder("TextField.border"));
+                
+                boolean controllo=false;
+                setAnelloPosizione(xlastselected,ylastselected);
+                for(int i=0; i<settori.size();i++)
+                {
+                	Settore s=settori.get(i);
+                	if(s.getAnello()==anello && s.getPosizione()==posizione)
+                	{
+                		settori.remove(i);
+                		
+                		controllo=true;
+                	}                	
+                }
+                if(controllo==false)
+                {
+                	JOptionPane.showMessageDialog(this, "Nessun settore trovato da eliminare");
+                }
+                else
+                {
+                	JOptionPane.showMessageDialog(this, "Settore eliminato correttamente");
+                	logger.info("Lista settori :");
+                	for(int i=0; i<settori.size();i++)
+                    {
+                    	Settore s=settori.get(i);
+                    	s.showSettore();
+                    	                	
+                    }
+                }
+                resetFields();
                 lastSelectedButton = null;
             } else {
                 JOptionPane.showMessageDialog(this, "Seleziona un evento da eliminare");
@@ -140,89 +173,116 @@ public class AdminAddSectorsPanel extends JPanel {
         localGbc.insets = new Insets(5, 5, 5, 5);
 
         button.addActionListener(e -> {
-            if (lastSelectedButton != null) {
-                //lastSelectedButton.setText("+");
-                lastSelectedButton.setBackground(Color.WHITE);
-            }
-            lastSelectedButton = button;
-            button.setText("X");
-            button.setBackground(new Color(33, 150, 243));
-            button.setOpaque(true);
-            logger.info("Pulsante cliccato: Posizione (" + x + ", " + y + ")");
-            /*
+            resetBorders();
+            String errorMessage = "";
             String nome=this.nomeField.getText();
-            float prezzo=Float.parseFloat(this.prezzoField.getText());
-            int postiTotali=Integer.parseInt(this.postiTotaliField.getText());
-            */
+            float prezzo=0;
+            int postiTotali=0;
+            boolean controllo=true;
+            xlastselected=x;
+            ylastselected=y;
             
-            String posizione;
-            int anello;
-            if(x==4)
+            if(button.getText().equals("+"))
             {
-            	if(y==1)
+            	if (nome.isEmpty()){
+                    errorMessage += "- La password deve essere di almeno 8 caratteri.\n";
+                    nomeField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+                    controllo=false;
+                }
+            	
+            	try {
+            		prezzo=Float.parseFloat(this.prezzoField.getText());
+            		if (prezzo<0) {
+                        errorMessage += "- Il prezzo non può essere negativo \n";
+                        prezzoField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+                        controllo=false;
+                    }
+            	}catch(Exception e2)
             	{
-            		posizione="nord";
-            		anello=3;
+            		errorMessage += "- Il prezzo deve essere numerico\n";
+            		prezzoField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            		controllo=false;
             	}
-            	else if(y==2)
+                
+
+                try {
+                	postiTotali=Integer.parseInt(this.postiTotaliField.getText());
+                	if (postiTotali<0) {
+                        errorMessage += "- Il prezzo non può essere negativo \n";
+                        postiTotaliField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+                        controllo=false;
+                    }
+            	}catch(Exception e2)
             	{
-            		posizione="nord";
-            		anello=2;
+            		errorMessage += "- I posti totali devono essere un numero intero \n";
+            		postiTotaliField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            		controllo=false;
             	}
-            	else if(y==3)
+                
+            	if(controllo)
             	{
-            		posizione="nord";
-            		anello=1;
+            		if (lastSelectedButton != null) {
+                        //lastSelectedButton.setText("+");
+                        //lastSelectedButton.setBackground(Color.WHITE);
+                        //lastSelectedButton.setBorder(UIManager.getBorder("TextField.border"));
+            			if(!lastSelectedButton.getText().equals("+"))
+            			{
+            				lastSelectedButton.setBackground(new Color(33, 150, 243));
+            			}
+                    }
+                    lastSelectedButton = null;
+                    button.setText("X");
+                    button.setBackground(new Color(33, 150, 243));
+                    button.setOpaque(true);
+                    logger.info("Pulsante cliccato: Posizione (" + x + ", " + y + ")");
+                    /*
+                    String nome=this.nomeField.getText();
+                    float prezzo=Float.parseFloat(this.prezzoField.getText());
+                    int postiTotali=Integer.parseInt(this.postiTotaliField.getText());
+                    */
+                    
+                    setAnelloPosizione(x,y);
+                    
+                                        
+                    Settore nuovosettore=new Settore(nome,prezzo,posizione,anello, postiTotali,0,0);
+                    nuovosettore.showSettore();
+                    settori.add(nuovosettore);
+                    resetFields();
             	}
-            	else if(y==5)
+            	else
             	{
-            		posizione="sud";
-            		anello=1;
+            		if (!errorMessage.isEmpty()) {
+                        JOptionPane.showMessageDialog(this, errorMessage, "Errore nell'aggiunta del settore", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
             	}
-            	else if(y==6)
-            	{
-            		posizione="sud";
-            		anello=2;
-            	}
-            	else if(y==7)
-            	{
-            		posizione="sud";
-            		anello=3;
-            	}
+
             }
-            else if(y==4)
+            else
             {
-            	if(x==1)
-            	{
-            		posizione="ovest";
-            		anello=3;
-            	}
-            	else if(x==2)
-            	{
-            		posizione="ovest";
-            		anello=2;
-            	}
-            	else if(x==3)
-            	{
-            		posizione="ovest";
-            		anello=1;
-            	}
-            	else if(x==5)
-            	{
-            		posizione="est";
-            		anello=1;
-            	}
-            	else if(x==6)
-            	{
-            		posizione="est";
-            		anello=2;
-            	}
-            	else if(x==7)
-            	{
-            		posizione="est";
-            		anello=3;
-            	}
+            	//resetFields();
+            	if (lastSelectedButton != null) {
+                    //lastSelectedButton.setText("+");
+            		//lastSelectedButton.setBorder(UIManager.getBorder("TextField.border"));
+            		lastSelectedButton.setBackground(new Color(33, 150, 243));
+                }
+                lastSelectedButton = button;
+                button.setBackground(Color.BLUE);
+                setAnelloPosizione(x,y);
+                for(int i=0; i<settori.size();i++)
+                {
+                	Settore s=settori.get(i);
+                	if(s.getAnello()==anello && s.getPosizione()==posizione)
+                	{
+                		nomeField.setText(s.getNome());
+                        prezzoField.setText(String.valueOf(s.getPrezzo()));
+                        postiTotaliField.setText(String.valueOf(s.getPostiTotali()));
+                	}                	
+                }
+                
+                
             }
+                                	        	            
         });
 
         panel.add(button, localGbc);
@@ -234,5 +294,90 @@ public class AdminAddSectorsPanel extends JPanel {
         imageLabel.setIcon(new ImageIcon(scaledImage));
         revalidate();
         repaint();
+    }
+    
+    private void resetBorders() {
+        nomeField.setBorder(UIManager.getBorder("TextField.border"));
+        prezzoField.setBorder(UIManager.getBorder("TextField.border"));
+        postiTotaliField.setBorder(UIManager.getBorder("TextField.border"));
+        
+    }
+    
+    private void resetFields() {
+        nomeField.setText("");
+        prezzoField.setText("");
+        postiTotaliField.setText("");
+        
+    }
+    
+    private void setAnelloPosizione(int x, int y)
+    {
+    	if(x==4)
+        {
+        	if(y==1)
+        	{
+        		posizione="nord";
+        		anello=3;
+        	}
+        	else if(y==2)
+        	{
+        		posizione="nord";
+        		anello=2;
+        	}
+        	else if(y==3)
+        	{
+        		posizione="nord";
+        		anello=1;
+        	}
+        	else if(y==5)
+        	{
+        		posizione="sud";
+        		anello=1;
+        	}
+        	else if(y==6)
+        	{
+        		posizione="sud";
+        		anello=2;
+        	}
+        	else if(y==7)
+        	{
+        		posizione="sud";
+        		anello=3;
+        	}
+        }
+        else if(y==4)
+        {
+        	if(x==1)
+        	{
+        		posizione="ovest";
+        		anello=3;
+        	}
+        	else if(x==2)
+        	{
+        		posizione="ovest";
+        		anello=2;
+        	}
+        	else if(x==3)
+        	{
+        		posizione="ovest";
+        		anello=1;
+        	}
+        	else if(x==5)
+        	{
+        		posizione="est";
+        		anello=1;
+        	}
+        	else if(x==6)
+        	{
+        		posizione="est";
+        		anello=2;
+        	}
+        	else if(x==7)
+        	{
+        		posizione="est";
+        		anello=3;
+        	}
+        }
+
     }
 }
