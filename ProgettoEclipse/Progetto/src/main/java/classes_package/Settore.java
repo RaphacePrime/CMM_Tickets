@@ -64,6 +64,7 @@ public class Settore {
 	 public void addPostiAcquistati() { this.postiAcquistati++; }
 	 
 	 public int getIdEvento() { return idEvento; }
+	 public void setIdEvento(int idEvento) { this.idEvento=idEvento; }
 	 
 	 public void showSettore() {
 	    	logger.info( idSettore+" "+nome+" "+prezzo+" "+posizione+" "+anello+" "+postiTotali+" "+postiAcquistati+" "+idEvento); 

@@ -52,7 +52,7 @@ public class AdminEventsDatabase {
     }
     
     public static boolean addEvento(Evento evento) {
-        String sql = "INSERT INTO eventi (nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO eventi (nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
        
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -97,7 +97,7 @@ public class AdminEventsDatabase {
     }
     
     public static boolean updateEvento(Evento evento, int vecchioId) {
-        String sql = "UPDATE eventi SET nome = ?, data = ?, ora = ?, maxBigliettiAPersona = ?, postoNumerato= ?, dataInizioVendita=? WHERE idEvento = ?";
+        String sql = "UPDATE eventi SET nome = ?, data = ?, ora = ?, maxBigliettiAPersona = ?, postoNumerato= ?, dataInizioVendita=? , idLuogo=? WHERE idEvento = ?";
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
         	pstmt.setString(1, evento.getNome());
@@ -107,6 +107,7 @@ public class AdminEventsDatabase {
             pstmt.setBoolean(5, evento.getPostoNumerato());
             pstmt.setDate(6, (java.sql.Date) evento.getDataInizioVendita());
             pstmt.setInt(7, evento.getIdLuogo());
+            pstmt.setInt(8, vecchioId);
 
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
