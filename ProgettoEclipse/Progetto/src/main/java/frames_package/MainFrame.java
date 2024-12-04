@@ -12,6 +12,7 @@ import panels_package.AdminModifyLuogoPanel;
 import panels_package.LoginPanel;
 import panels_package.RegistrationPanel;
 import panels_package.UserHomePanel;
+import panels_package.UserViewLuogoPanel;
 import utils_package.LookAndFeelUtil;
 
 import java.awt.*;
@@ -28,6 +29,7 @@ public class MainFrame extends JFrame {
     private AdminModifyLuogoPanel adminModifyLuogoPanel;
     private AdminAddLuogoPanel adminAddLuogoPanel;
     private AdminAddEventPanel adminAddEventPanel;
+    private UserViewLuogoPanel userViewLuogoPanel;
 
     public MainFrame() {
         Database.createTables();
@@ -49,6 +51,7 @@ public class MainFrame extends JFrame {
         adminAddLuogoPanel = new AdminAddLuogoPanel();
         adminAddEventPanel = new AdminAddEventPanel();
         userHomePanel = new UserHomePanel();
+        userViewLuogoPanel = new UserViewLuogoPanel();
 
         // Aggiunta dei pannelli al layout
         mainPanel.add(loginPanel, "Login");
@@ -58,6 +61,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(adminAddLuogoPanel, "Admin Add Luogo");
         mainPanel.add(adminAddEventPanel, "Admin Add Event");
         mainPanel.add(userHomePanel, "User Home");
+        mainPanel.add(userViewLuogoPanel, "User View Luogo");
 
         // Configurazione delle azioni nei pulsanti
         adminHomePanel.setSwitchToModifyEventAction(e -> {
@@ -90,6 +94,9 @@ public class MainFrame extends JFrame {
             loginPanel.resetFields();
             cardLayout.show(mainPanel, "Login");
         });
+        
+        userHomePanel.setSwitchToViewLuogoAction(e -> userHomePanel.setContentPanel(userViewLuogoPanel));
+        
 
         add(mainPanel);
 
