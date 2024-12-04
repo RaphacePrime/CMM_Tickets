@@ -11,6 +11,7 @@ import java.util.List;
 
 import classes_package.Evento;
 import classes_package.Settore;
+import utils_package.LookAndFeelUtil;
 
 public class AdminAddSectorsPanel extends JPanel {
     private JLabel imageLabel;
@@ -28,6 +29,7 @@ public class AdminAddSectorsPanel extends JPanel {
     private static final Logger logger = LogManager.getLogger(AdminAddSectorsPanel.class);
 
     public AdminAddSectorsPanel(List<Settore> settori) {
+    	LookAndFeelUtil.setCrossPlatformLookAndFeel();
     	this.settori=settori;
         setLayout(new BorderLayout());
 
@@ -156,10 +158,10 @@ public class AdminAddSectorsPanel extends JPanel {
         JButton button = new JButton("+");
         button.setBackground(Color.WHITE);
         button.setForeground(Color.BLACK);
-        button.setOpaque(true);
+        //button.setOpaque(true);
         button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setMinimumSize(size);
+        //button.setFocusPainted(false);
+        button.setPreferredSize(size);
         button.setFont(new Font("Arial", Font.PLAIN, 14));
 
         GridBagConstraints localGbc = new GridBagConstraints();
@@ -185,7 +187,7 @@ public class AdminAddSectorsPanel extends JPanel {
             if(button.getText().equals("+"))
             {
             	if (nome.isEmpty()){
-                    errorMessage += "- La password deve essere di almeno 8 caratteri.\n";
+                    errorMessage += "- Il nome non può essere vuoto\n";
                     nomeField.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
                     controllo=false;
                 }
