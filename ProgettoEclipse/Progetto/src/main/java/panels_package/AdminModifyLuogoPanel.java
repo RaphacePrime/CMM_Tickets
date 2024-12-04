@@ -15,6 +15,8 @@ import database_package.AdminEventsDatabase;
 import database_package.AdminLuoghiDatabase;
 import database_package.Database;
 import frames_package.MainFrame;
+import utils_package.LookAndFeelUtil;
+
 
 public class AdminModifyLuogoPanel extends JPanel {
     private List<Luogo> luoghi;
@@ -24,7 +26,7 @@ public class AdminModifyLuogoPanel extends JPanel {
     private static Logger logger = LogManager.getLogger(AdminModifyLuogoPanel.class);
 
     public AdminModifyLuogoPanel() {
-    	
+    	LookAndFeelUtil.setCrossPlatformLookAndFeel();
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 

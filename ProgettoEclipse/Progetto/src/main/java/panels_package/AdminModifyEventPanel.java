@@ -20,6 +20,8 @@ import classes_package.Luogo;
 import database_package.AdminEventsDatabase;
 import database_package.AdminLuoghiDatabase;
 import database_package.Database;
+import utils_package.LookAndFeelUtil;
+
 
 public class AdminModifyEventPanel extends JPanel {
     private List<Evento> eventi;
@@ -30,6 +32,7 @@ public class AdminModifyEventPanel extends JPanel {
     private static Logger logger = LogManager.getLogger(AdminModifyEventPanel.class);
 
     public AdminModifyEventPanel() throws ParseException {
+    	LookAndFeelUtil.setCrossPlatformLookAndFeel();
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
