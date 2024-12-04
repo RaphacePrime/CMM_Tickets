@@ -12,6 +12,7 @@ import panels_package.AdminModifyLuogoPanel;
 import panels_package.LoginPanel;
 import panels_package.RegistrationPanel;
 import panels_package.UserHomePanel;
+import utils_package.LookAndFeelUtil;
 
 import java.awt.*;
 import java.text.ParseException;
@@ -97,6 +98,7 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
+    	LookAndFeelUtil.setCrossPlatformLookAndFeel();
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
     }
 }
