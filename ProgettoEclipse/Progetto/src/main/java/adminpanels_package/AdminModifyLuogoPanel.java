@@ -136,7 +136,7 @@ public class AdminModifyLuogoPanel extends JPanel {
         
     }
     
-    public void setSwitchToDetailsEventAction(MainFrame mainFrame) {
+    public void setSwitchToDetailsLuogoAction(MainFrame mainFrame) {
         luogoTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent me) {
                 int row = luogoTable.rowAtPoint(me.getPoint());

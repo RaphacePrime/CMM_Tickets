@@ -77,13 +77,14 @@ public class MainFrame extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+            adminModifyEventPanel.setSwitchToDetailsEventAction(this);
             mainPanel.add(adminModifyEventPanel, "Admin Modify Event");
             adminHomePanel.setContentPanel(adminModifyEventPanel);
         });
 
         adminHomePanel.setSwitchToModifyLuogoAction(e -> {
             adminModifyLuogoPanel = new AdminModifyLuogoPanel();
-            adminModifyLuogoPanel.setSwitchToDetailsEventAction(this); // Passaggio del riferimento al MainFrame
+            adminModifyLuogoPanel.setSwitchToDetailsLuogoAction(this); // Passaggio del riferimento al MainFrame
             mainPanel.add(adminModifyLuogoPanel, "Admin Modify Luogo");
             adminHomePanel.setContentPanel(adminModifyLuogoPanel);
         });

@@ -20,6 +20,7 @@ import classes_package.Luogo;
 import database_package.AdminEventsDatabase;
 import database_package.AdminLuoghiDatabase;
 import database_package.Database;
+import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
 
 
@@ -148,6 +149,33 @@ public class AdminModifyEventPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
+    public void setSwitchToDetailsEventAction(MainFrame mainFrame) {
+        eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent me) {
+                int row = eventTable.rowAtPoint(me.getPoint());
+                if (row >= 0) {
+                    String nomeLuogo = (String) tableModel.getValueAt(row, 0);
+                    logger.info("Luogo cliccato: " + nomeLuogo);
+                    
+                    for (Evento evento : eventi) {
+                        if (evento.getNome().equals(nomeLuogo)) {
+                            AdminDetailsEventPanel detailsPanel;
+							try {
+								detailsPanel = new AdminDetailsEventPanel(evento);
+								mainFrame.adminHomePanel.setContentPanel(detailsPanel);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                            //detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    }    
     
     private static class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
@@ -155,6 +183,10 @@ public class AdminModifyEventPanel extends JPanel {
             setBorder(BorderFactory.createEmptyBorder());  
             setFocusPainted(false);  
         }
+        
+        
+        
+    
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
@@ -171,3 +203,7 @@ public class AdminModifyEventPanel extends JPanel {
         }
     }
 }
+
+
+
+
