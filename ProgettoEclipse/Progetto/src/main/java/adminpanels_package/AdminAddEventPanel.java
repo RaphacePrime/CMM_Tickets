@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +14,9 @@ import org.apache.logging.log4j.Logger;
 import classes_package.Evento;
 import classes_package.Luogo;
 import classes_package.Settore;
+import database_package.AdminEventsDatabase;
 import database_package.AdminLuoghiDatabase;
+import database_package.AdminSectorsDatabase;
 import frames_package.MainFrame;
 
 public class AdminAddEventPanel extends JPanel {
@@ -195,7 +198,12 @@ public class AdminAddEventPanel extends JPanel {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addEvento();
+                try {
+					addEvento();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
 
@@ -206,7 +214,7 @@ public class AdminAddEventPanel extends JPanel {
         //updateLocationDropdown();
     }
 
-    private void addEvento() {
+    private void addEvento() throws ParseException {
         String nome = nameField.getText().trim();
         Date data = (Date) dateSpinner.getValue();
         String ora = new SimpleDateFormat("HH:mm").format((Date) timeSpinner.getValue());
@@ -236,6 +244,15 @@ public class AdminAddEventPanel extends JPanel {
         }
 
         Evento nuovoEvento = new Evento(nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo);
+        AdminEventsDatabase.addEvento(nuovoEvento);
+        int idEv=findIdEvento(nuovoEvento);
+        for(int i=0; i<settori.size();i++)
+        {
+        	Settore s = settori.get(i);
+        	s.setIdEvento(idEv);
+        	AdminSectorsDatabase.addSettore(s);
+        }
+        
         JOptionPane.showMessageDialog(this, "Evento aggiunto con successo!\n" + nuovoEvento, "Successo", JOptionPane.INFORMATION_MESSAGE);
         logger.info("Evento aggiunto: " + nuovoEvento);
     }
@@ -274,5 +291,40 @@ public class AdminAddEventPanel extends JPanel {
             }
         });
     }
+    
+    public void resetFields() {
+        nameField.setText("");
+        //dateSpinner.setValue(new Date());
+        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy");
+        dateSpinner.setEditor(dateEditor);
+        JSpinner.DateEditor saleStartEditor = new JSpinner.DateEditor(saleStartSpinner, "dd/MM/yyyy");
+        saleStartSpinner.setEditor(saleStartEditor);
+        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
+        timeSpinner.setEditor(timeEditor);
+        //timeSpinner.setValue(new Date());
+        maxTicketsField.setText("");
+        seatNumberedCheckbox.setSelected(false);
+        //saleStartSpinner.setValue(new Date());
+        locationDropdown.setSelectedIndex(0);
+        sectorsDropdown.removeAllItems();
+        sectorsDropdown.addItem("Nessun settore aggiunto");
+        settori.clear();
+    }
+    
+    public int findIdEvento(Evento ev) throws ParseException
+    {
+    	int id=0;
+    	List<Evento> evs= AdminEventsDatabase.getAllEvents();
+    	for(int i=0; i<evs.size();i++)
+    	{
+    		if(ev.getNome().equals(evs.get(i).getNome()) && ev.getData().equals(evs.get(i).getData())
+    			&& ev.getOra().equals(evs.get(i).getOra())	)
+    		{
+    			id=evs.get(i).getIdEvento();
+    		}
+    	}
+    	return id;
+    }
+
     
 }
