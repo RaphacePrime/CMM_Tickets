@@ -1,8 +1,8 @@
-package panels_package;
+package login_package;
 
 import javax.swing.*;
 import classes_package.Utente;
-import login_package.Login;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 

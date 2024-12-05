@@ -1,19 +1,20 @@
 package frames_package;
 
 import javax.swing.*;
+
+import adminpanels_package.AdminAddEventPanel;
+import adminpanels_package.AdminAddLuogoPanel;
+import adminpanels_package.AdminAddSectorsPanel;
+import adminpanels_package.AdminDetailsLuogoPanel;
+import adminpanels_package.AdminHomePanel;
+import adminpanels_package.AdminModifyEventPanel;
+import adminpanels_package.AdminModifyLuogoPanel;
 import database_package.Database;
-import panels_package.AdminAddSectorsPanel;
-import panels_package.AdminAddEventPanel;
-import panels_package.AdminAddLuogoPanel;
-import panels_package.AdminDetailsLuogoPanel;
-import panels_package.AdminHomePanel;
-import panels_package.AdminModifyEventPanel;
-import panels_package.AdminModifyLuogoPanel;
-import panels_package.LoginPanel;
-import panels_package.RegistrationPanel;
-import panels_package.UserHomePanel;
-import panels_package.UserViewEventPanel;
-import panels_package.UserViewLuogoPanel;
+import login_package.LoginPanel;
+import login_package.RegistrationPanel;
+import userpanels_package.UserHomePanel;
+import userpanels_package.UserViewEventPanel;
+import userpanels_package.UserViewLuogoPanel;
 import utils_package.LookAndFeelUtil;
 
 import java.awt.*;
@@ -116,7 +117,11 @@ public class MainFrame extends JFrame {
         
         });
         
-
+        userHomePanel.setLogoutAction(e -> {
+            loginPanel.resetFields();
+            cardLayout.show(mainPanel, "Login");
+        });
+        
         add(mainPanel);
 
         // Mostra la schermata di login iniziale

@@ -1,4 +1,4 @@
-package panels_package;
+package adminpanels_package;
 
 import javax.swing.*;
 import org.apache.logging.log4j.LogManager;

@@ -1,4 +1,4 @@
-package panels_package;
+package adminpanels_package;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

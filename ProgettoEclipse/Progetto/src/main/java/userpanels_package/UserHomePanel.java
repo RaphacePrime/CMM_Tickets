@@ -1,4 +1,4 @@
-package panels_package;
+package userpanels_package;
 
 import javax.swing.*;
 import java.awt.*;

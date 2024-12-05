@@ -1,8 +1,11 @@
 
-package panels_package;
+package userpanels_package;
 
 import javax.swing.*;
 import org.apache.logging.log4j.Logger;
+
+import adminpanels_package.AdminDetailsLuogoPanel;
+
 import org.apache.logging.log4j.LogManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
