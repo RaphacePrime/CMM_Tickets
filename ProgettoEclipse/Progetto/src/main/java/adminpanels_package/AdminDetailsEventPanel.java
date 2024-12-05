@@ -221,6 +221,7 @@ public class AdminDetailsEventPanel extends JPanel {
         seatNumberedCheckbox.setSelected(e.getPostoNumerato());
         int indice=0;
         //saleStartSpinner.setValue(new Date());
+       
         for(int i=0; i<listaluoghi.size(); i++)
         {
         	Luogo l = listaluoghi.get(i);
@@ -231,13 +232,25 @@ public class AdminDetailsEventPanel extends JPanel {
         }
         locationDropdown.setSelectedIndex(indice);
         
+        
         settori = AdminSectorsDatabase.getAllSectors();
         sectorsDropdown.removeAllItems();
-        for (int i = 0; i < settori.size(); i++) {
-            nomiSettori.add(settori.get(i).getNome());
-            locationDropdown.addItem(nomiSettori.get(i));
+        int index=0;
+        for (int k = 0; k < settori.size(); k++) 
+        {
+        	
+        	Settore s= settori.get(k);
+        	if(s.getIdEvento()==e.getIdEvento())
+        	{
+        		//index=k;
+        		sectorsDropdown.addItem(s.getNome()+ " " + s.getPosizione()+", anello "+String.valueOf(s.getAnello()));
+        	}
+            //nomiSettori.add(settori.get(index).getNome());	
+            //sectorsDropdown.addItem(nomiSettori.get(index));
+        	
         }
         
+       
         
     }
     
