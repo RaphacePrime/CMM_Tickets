@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
     private AdminAddLuogoPanel adminAddLuogoPanel;
     private AdminAddEventPanel adminAddEventPanel;
     private UserViewLuogoPanel userViewLuogoPanel;
-    //private UserViewEventPanel userViewEventPanel;
+    private UserViewEventPanel userViewEventPanel;
 
     public MainFrame() {
         Database.createTables();
@@ -54,6 +54,7 @@ public class MainFrame extends JFrame {
         adminAddEventPanel = new AdminAddEventPanel();
         userHomePanel = new UserHomePanel();
         userViewLuogoPanel = new UserViewLuogoPanel();
+        //userViewEventPanel = new UserViewEventPanel();
         
 
         // Aggiunta dei pannelli al layout
@@ -65,6 +66,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(adminAddEventPanel, "Admin Add Event");
         mainPanel.add(userHomePanel, "User Home");
         mainPanel.add(userViewLuogoPanel, "User View Luogo");
+        //mainPanel.add(userViewEventPanel, "User View Event");
 
         // Configurazione delle azioni nei pulsanti
         adminHomePanel.setSwitchToModifyEventAction(e -> {
@@ -101,7 +103,18 @@ public class MainFrame extends JFrame {
         });
         
         userHomePanel.setSwitchToViewLuogoAction(e -> userHomePanel.setContentPanel(userViewLuogoPanel));
-        //userHomePanel.setSwitchToViewEventAction(e-> userHomePanel.setContentPanel(userViewEventPanel));
+        userHomePanel.setSwitchToViewEventAction(e-> {
+        
+        	try {
+				userViewEventPanel = new UserViewEventPanel();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	mainPanel.add(userViewEventPanel, "User View Event");
+            userHomePanel.setContentPanel(userViewEventPanel);
+        
+        });
         
 
         add(mainPanel);
