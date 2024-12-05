@@ -66,7 +66,12 @@ public class Settore {
 	 public int getIdEvento() { return idEvento; }
 	 public void setIdEvento(int idEvento) { this.idEvento=idEvento; }
 	 
-	 public void showSettore() {
+	 public void showLoggerSettore() {
 	    	logger.info("Settore: "+this.posizione+ ", "+String.valueOf(this.anello)); 
 	    }
+	 
+	 public String showSettore() {
+	    	return this.getNome()+ " "+ this.getPosizione()+ ", anello "+String.valueOf(this.anello); 
+	    }
+	 
 }

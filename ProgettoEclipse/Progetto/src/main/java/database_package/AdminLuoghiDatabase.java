@@ -38,6 +38,10 @@ public class AdminLuoghiDatabase {
         } catch (SQLException e) {
             logger.error("DB Errore durante il recupero dei luoghi: " + e.getMessage(), e);
         }
+        if (luoghi == null) {
+            luoghi = new ArrayList<>(); // Restituisci una lista vuota se nulla
+        }
+
         return luoghi;
     }
 

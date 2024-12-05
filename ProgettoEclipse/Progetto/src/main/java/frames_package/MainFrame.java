@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
     private AdminAddLuogoPanel adminAddLuogoPanel;
     private AdminAddEventPanel adminAddEventPanel;
     private UserViewLuogoPanel userViewLuogoPanel;
-    private UserViewEventPanel userViewEventPanel;
+    //private UserViewEventPanel userViewEventPanel;
 
     public MainFrame() {
         Database.createTables();
@@ -88,6 +88,8 @@ public class MainFrame extends JFrame {
         adminHomePanel.setSwitchToAddLuogoAction(e -> adminHomePanel.setContentPanel(adminAddLuogoPanel));
         adminHomePanel.setSwitchToAddEventAction(e -> {
         	adminAddEventPanel.setSwitchToAddSectorsAction(this);
+        	adminAddEventPanel.updateSectorsDropdown();
+        	adminAddEventPanel.updateLocationDropdown();
         	adminHomePanel.setContentPanel(adminAddEventPanel);
         	
         
@@ -99,7 +101,7 @@ public class MainFrame extends JFrame {
         });
         
         userHomePanel.setSwitchToViewLuogoAction(e -> userHomePanel.setContentPanel(userViewLuogoPanel));
-        userHomePanel.setSwitchToViewEventAction(e-> userHomePanel.setContentPanel(userViewEventPanel));
+        //userHomePanel.setSwitchToViewEventAction(e-> userHomePanel.setContentPanel(userViewEventPanel));
         
 
         add(mainPanel);

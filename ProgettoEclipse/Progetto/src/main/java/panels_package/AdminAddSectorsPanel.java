@@ -21,16 +21,17 @@ public class AdminAddSectorsPanel extends JPanel {
     JTextField nomeField = new JTextField();
     JTextField prezzoField = new JTextField();
     JTextField postiTotaliField = new JTextField();
-    private List<Settore> settori= new ArrayList<>();
+    //private List<Settore> settori= new ArrayList<>();
     private int xlastselected=0;
     private int ylastselected=0;
     private int anello=0;
     private String posizione="";
     private static final Logger logger = LogManager.getLogger(AdminAddSectorsPanel.class);
+    private AdminAddEventPanel aaep;
 
-    public AdminAddSectorsPanel(List<Settore> settori) {
+    public AdminAddSectorsPanel(AdminAddEventPanel aaep) {
+    	this.aaep=aaep;
     	LookAndFeelUtil.setCrossPlatformLookAndFeel();
-    	this.settori=settori;
         setLayout(new BorderLayout());
 
         JPanel topButtonPanel = new JPanel();
@@ -115,12 +116,12 @@ public class AdminAddSectorsPanel extends JPanel {
                 
                 boolean controllo=false;
                 setAnelloPosizione(xlastselected,ylastselected);
-                for(int i=0; i<settori.size();i++)
+                for(int i=0; i<aaep.settori.size();i++)
                 {
-                	Settore s=settori.get(i);
+                	Settore s=aaep.settori.get(i);
                 	if(s.getAnello()==anello && s.getPosizione()==posizione)
                 	{
-                		settori.remove(i);
+                		aaep.settori.remove(i);
                 		
                 		controllo=true;
                 	}                	
@@ -133,10 +134,10 @@ public class AdminAddSectorsPanel extends JPanel {
                 {
                 	JOptionPane.showMessageDialog(this, "Settore eliminato correttamente");
                 	logger.info("Lista settori :");
-                	for(int i=0; i<settori.size();i++)
+                	for(int i=0; i<aaep.settori.size();i++)
                     {
-                    	Settore s=settori.get(i);
-                    	s.showSettore();
+                    	Settore s=aaep.settori.get(i);
+                    	s.showLoggerSettore();
                     	                	
                     }
                 }
@@ -147,7 +148,25 @@ public class AdminAddSectorsPanel extends JPanel {
             }
         });
         bottomPanel.add(eliminaButton);
-
+        /*
+        JButton backButton = new JButton("Torna indietro");
+        backButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        backButton.setBackground(new Color(75, 175, 110));
+        backButton.setForeground(Color.WHITE);
+        backButton.setOpaque(true);
+        backButton.setBorderPainted(false);
+        backButton.setFocusPainted(false);
+        //gbc.gridx = 0;
+        //gbc.gridy = 10;
+        bottomPanel.add(backButton, gbc);
+        
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                aaep.show();
+            }
+        });
+		*/
         add(bottomPanel, BorderLayout.SOUTH);
 
         calcioButton.addActionListener(e -> updateImage("src/main/resources/Immagini/campocalcio.jpg"));
@@ -163,6 +182,21 @@ public class AdminAddSectorsPanel extends JPanel {
         //button.setFocusPainted(false);
         button.setPreferredSize(size);
         button.setFont(new Font("Arial", Font.PLAIN, 14));
+        setAnelloPosizione(x,y);
+        //logger.info("La lista ha grandezza: "+aaep.settori.size());
+        for(int j=0; j<aaep.settori.size();j++)
+        {
+        	Settore s=aaep.settori.get(j);
+        	if(s.getAnello()==anello && s.getPosizione().equals(posizione))
+        	{
+        		logger.info("Settore trovato!");
+        		button.setText("X");
+                button.setBackground(new Color(33, 150, 243));
+                button.setOpaque(true);
+        	}
+        	
+        }
+        
 
         GridBagConstraints localGbc = new GridBagConstraints();
         localGbc.gridx = x;
@@ -247,8 +281,8 @@ public class AdminAddSectorsPanel extends JPanel {
                     
                                         
                     Settore nuovosettore=new Settore(nome,prezzo,posizione,anello, postiTotali,0,0);
-                    nuovosettore.showSettore();
-                    settori.add(nuovosettore);
+                    nuovosettore.showLoggerSettore();
+                    aaep.settori.add(nuovosettore);
                     resetFields();
             	}
             	else
@@ -271,9 +305,9 @@ public class AdminAddSectorsPanel extends JPanel {
                 lastSelectedButton = button;
                 button.setBackground(Color.BLUE);
                 setAnelloPosizione(x,y);
-                for(int i=0; i<settori.size();i++)
+                for(int i=0; i<aaep.settori.size();i++)
                 {
-                	Settore s=settori.get(i);
+                	Settore s=aaep.settori.get(i);
                 	if(s.getAnello()==anello && s.getPosizione()==posizione)
                 	{
                 		nomeField.setText(s.getNome());
@@ -382,4 +416,76 @@ public class AdminAddSectorsPanel extends JPanel {
         }
 
     }
+    
+    private void setAnelloPosizione(int anello, String posizione,int x, int y)
+    {
+    	if(x==4)
+        {
+        	if(y==1)
+        	{
+        		posizione="nord";
+        		anello=3;
+        	}
+        	else if(y==2)
+        	{
+        		posizione="nord";
+        		anello=2;
+        	}
+        	else if(y==3)
+        	{
+        		posizione="nord";
+        		anello=1;
+        	}
+        	else if(y==5)
+        	{
+        		posizione="sud";
+        		anello=1;
+        	}
+        	else if(y==6)
+        	{
+        		posizione="sud";
+        		anello=2;
+        	}
+        	else if(y==7)
+        	{
+        		posizione="sud";
+        		anello=3;
+        	}
+        }
+        else if(y==4)
+        {
+        	if(x==1)
+        	{
+        		posizione="ovest";
+        		anello=3;
+        	}
+        	else if(x==2)
+        	{
+        		posizione="ovest";
+        		anello=2;
+        	}
+        	else if(x==3)
+        	{
+        		posizione="ovest";
+        		anello=1;
+        	}
+        	else if(x==5)
+        	{
+        		posizione="est";
+        		anello=1;
+        	}
+        	else if(x==6)
+        	{
+        		posizione="est";
+        		anello=2;
+        	}
+        	else if(x==7)
+        	{
+        		posizione="est";
+        		anello=3;
+        	}
+        }
+
+    }
+
 }
