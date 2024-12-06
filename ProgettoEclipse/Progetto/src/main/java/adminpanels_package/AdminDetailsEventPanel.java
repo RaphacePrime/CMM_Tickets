@@ -28,7 +28,7 @@ public class AdminDetailsEventPanel extends JPanel {
     private JSpinner saleStartSpinner;
     private JComboBox<String> locationDropdown;
     private JButton manageSectorsButton;
-    private JButton addButton;
+    private JButton deleteButton;
     private JComboBox<String> sectorsDropdown;
     public List<Settore> settori = new ArrayList<>();
     private List<Luogo> listaluoghi = new ArrayList<>();
@@ -36,6 +36,7 @@ public class AdminDetailsEventPanel extends JPanel {
     private Evento evento;
     private List<Settore> settoriUpdate = new ArrayList<>();
     private List<String> nomiSettori = new ArrayList<>();
+    private JButton updateButton;
 
     public AdminDetailsEventPanel(Evento e) throws ParseException {
         /*try {
@@ -189,16 +190,26 @@ public class AdminDetailsEventPanel extends JPanel {
         gbc.gridy = 9;
         formPanel.add(sectorsDropdown, gbc);
 
-        /*addButton = new JButton("Aggiungi Evento");
-        addButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        addButton.setBackground(new Color(75, 175, 110));
-        addButton.setForeground(Color.WHITE);
-        addButton.setOpaque(true);
-        addButton.setBorderPainted(false);
-        addButton.setFocusPainted(false);
+        updateButton=new JButton("Aggiorna Evento");
+        updateButton.setFont(new Font("Arial",Font.PLAIN, 16)); 
+        updateButton.setBackground(new Color(255, 140, 0)); 
+        updateButton.setForeground(Color.WHITE); 
+        updateButton.setOpaque(true); 
+        updateButton.setBorderPainted(false); 
+        updateButton.setFocusPainted(false);
         gbc.gridx = 0;
         gbc.gridy = 10;
-        formPanel.add(addButton, gbc);*/
+        formPanel.add(updateButton, gbc) ; 
+        deleteButton = new JButton("Elimina Evento (e i settori associati)");
+        deleteButton.setFont(new Font("Arial",Font.PLAIN,16));
+        deleteButton.setBackground(new Color(200, 50, 50)); 
+        deleteButton.setForeground(Color.WHITE); 
+        deleteButton.setOpaque(true);
+        deleteButton.setBorderPainted(false); 
+        deleteButton.setFocusPainted(false);
+        gbc.gridx = 0;
+        gbc.gridy = 11;
+        formPanel.add(deleteButton, gbc);
         updateFields(e);
         
         add(formPanel, BorderLayout.CENTER);
@@ -214,9 +225,12 @@ public class AdminDetailsEventPanel extends JPanel {
         JSpinner.DateEditor saleStartEditor = new JSpinner.DateEditor(saleStartSpinner, "dd/MM/yyyy");
         JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
         
+        SimpleDateFormat timeFormat= new SimpleDateFormat("HH:mm");
+        Date ora = timeFormat.parse(e.getOra());
+        
         dateSpinner.setValue(e.getData());        
         saleStartSpinner.setValue(e.getDataInizioVendita());
-        timeSpinner.setValue(e.getOra());
+        timeSpinner.setValue(ora);
         maxTicketsField.setText(String.valueOf(e.getMaxBigliettiAPersona()));
         seatNumberedCheckbox.setSelected(e.getPostoNumerato());
         
