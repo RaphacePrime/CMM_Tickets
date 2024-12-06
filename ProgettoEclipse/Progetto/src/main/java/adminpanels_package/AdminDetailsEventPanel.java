@@ -243,9 +243,10 @@ public class AdminDetailsEventPanel extends JPanel {
         	if(s.getIdEvento()==e.getIdEvento())
         	{
         		//index=k;
+        		settoriUpdate.add(s);
         		sectorsDropdown.addItem(s.getNome()+ " " + s.getPosizione()+", anello "+String.valueOf(s.getAnello()));
         	}
-            //nomiSettori.add(settori.get(index).getNome());	
+            
             //sectorsDropdown.addItem(nomiSettori.get(index));
         	
         }
