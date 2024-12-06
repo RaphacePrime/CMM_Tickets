@@ -211,16 +211,16 @@ public class AdminDetailsEventPanel extends JPanel {
         nameField.setText(e.getNome());
         //dateSpinner.setValue(new Date());
         JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy");
-        
         JSpinner.DateEditor saleStartEditor = new JSpinner.DateEditor(saleStartSpinner, "dd/MM/yyyy");
-        saleStartSpinner.setEditor(saleStartEditor);
         JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
-        timeSpinner.setEditor(timeEditor);
-        //timeSpinner.setValue(new Date());
+        
+        dateSpinner.setValue(e.getData());        
+        saleStartSpinner.setValue(e.getDataInizioVendita());
+        timeSpinner.setValue(e.getOra());
         maxTicketsField.setText(String.valueOf(e.getMaxBigliettiAPersona()));
         seatNumberedCheckbox.setSelected(e.getPostoNumerato());
+        
         int indice=0;
-        //saleStartSpinner.setValue(new Date());
        
         for(int i=0; i<listaluoghi.size(); i++)
         {
