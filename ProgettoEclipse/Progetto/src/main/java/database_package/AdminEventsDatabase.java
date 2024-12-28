@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -18,6 +19,7 @@ public class AdminEventsDatabase {
     public static List<Evento> getAllEvents() {
         List<Evento> events = new ArrayList<>();
         String sql = "SELECT * FROM eventi";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
@@ -26,11 +28,25 @@ public class AdminEventsDatabase {
             while (rs.next()) {
                 int idEvento = rs.getInt("idEvento");
                 String nome = rs.getString("nome");
-                Date data = rs.getDate("data");
+
+                // Recupero e parsing della colonna data
+                Date data = null;
+                String dataString = rs.getString("data");
+                if (dataString != null) {
+                    data = dateFormat.parse(dataString);
+                }
+
                 String ora = rs.getString("ora");
                 int numMaxBigliettiAcquistabili = rs.getInt("maxBigliettiAPersona");
                 boolean postoNumerato = rs.getBoolean("postoNumerato");
-                Date dataInizioVendita = rs.getDate("dataInizioVendita");
+
+                // Recupero e parsing della colonna dataInizioVendita
+                Date dataInizioVendita = null;
+                String dataInizioVenditaString = rs.getString("dataInizioVendita");
+                if (dataInizioVenditaString != null) {
+                    dataInizioVendita = dateFormat.parse(dataInizioVenditaString);
+                }
+
                 int idLuogo = rs.getInt("idLuogo");
 
                 Evento evento = new Evento(idEvento, nome, data, ora, numMaxBigliettiAcquistabili, postoNumerato, dataInizioVendita, idLuogo);
@@ -39,6 +55,8 @@ public class AdminEventsDatabase {
             }
         } catch (SQLException e) {
             logger.error("Errore durante il recupero degli eventi: " + e.getMessage(), e);
+        } catch (Exception e) {
+            logger.error("Errore durante il parsing delle date: " + e.getMessage(), e);
         }
         return events;
     }
