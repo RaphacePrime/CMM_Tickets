@@ -63,16 +63,17 @@ public class AdminEventsDatabase {
 
     public static boolean addEvento(Evento evento) {
         String sql = "INSERT INTO eventi (nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, evento.getNome());
-            pstmt.setDate(2, new java.sql.Date(evento.getData().getTime()));
+            String dataFormatted = dateFormat.format(evento.getData());
+            pstmt.setString(2, dataFormatted);
             pstmt.setString(3, evento.getOra());
             pstmt.setInt(4, evento.getMaxBigliettiAPersona());
             pstmt.setBoolean(5, evento.getPostoNumerato());
-            pstmt.setDate(6, new java.sql.Date(evento.getDataInizioVendita().getTime()));
+            String dataInizioVenditaFormatted = dateFormat.format(evento.getDataInizioVendita());
+            pstmt.setString(6, dataInizioVenditaFormatted);
             pstmt.setInt(7, evento.getIdLuogo());
-
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted > 0) {
                 logger.info("DB Evento aggiunto con successo: " + evento.getNome());
@@ -85,4 +86,5 @@ public class AdminEventsDatabase {
         }
         return false;
     }
+
 }
