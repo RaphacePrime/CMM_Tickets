@@ -76,24 +76,25 @@ public class AdminSectorsDatabase {
         return false;
     }
     
-    public static boolean deleteSettore(Settore settore) {
-        String sql = "DELETE FROM settore WHERE idSettore = ?";
+    public static boolean deleteSettori(int idEvento) {
+        String sql = "DELETE FROM settori WHERE idEvento = ?";
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, settore.getIdEvento());
+            pstmt.setInt(1, idEvento);
 
             int rowsDeleted = pstmt.executeUpdate();
             if (rowsDeleted > 0) {
-                logger.info("DB Settore eliminato con successo: " + settore.getNome());
+                logger.info("DB Tutti i settori eliminati con successo per idEvento: " + idEvento);
                 return true;
             } else {
-                logger.warn("DB Nessun settore trovato con l' id specificato: " + settore.getIdSettore());
+                logger.warn("DB Nessun settore trovato per idEvento: " + idEvento);
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante l'eliminazione del settore id: " + settore.getIdSettore() + ".DB  Dettagli: " + e.getMessage(), e);
+            logger.error("DB Errore durante l'eliminazione dei settori per idEvento: " + idEvento + ". Dettagli: " + e.getMessage(), e);
         }
         return false;
     }
+
     
     public static boolean updateSettore(Settore settore, int vecchioId) {
         String sql = "UPDATE settori SET nome = ?,  WHERE idSettore = ?";

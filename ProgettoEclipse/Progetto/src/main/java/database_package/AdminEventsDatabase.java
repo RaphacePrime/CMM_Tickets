@@ -51,7 +51,7 @@ public class AdminEventsDatabase {
 
                 Evento evento = new Evento(idEvento, nome, data, ora, numMaxBigliettiAcquistabili, postoNumerato, dataInizioVendita, idLuogo);
                 events.add(evento);
-                logger.info("Evento aggiunto alla lista: " + evento.getNome());
+                //logger.info("Evento aggiunto alla lista: " + evento.getNome());
             }
         } catch (SQLException e) {
             logger.error("Errore durante il recupero degli eventi: " + e.getMessage(), e);
@@ -86,5 +86,51 @@ public class AdminEventsDatabase {
         }
         return false;
     }
+    
+    public static boolean updateEvento(Evento evento, int id) {
+        String sql = "UPDATE eventi SET nome = ?, data = ?, ora = ?, maxBigliettiAPersona = ?, postoNumerato = ?, dataInizioVendita = ?, idLuogo = ? WHERE idEvento = ?";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, evento.getNome());
+            String dataFormatted = dateFormat.format(evento.getData());
+            pstmt.setString(2, dataFormatted);
+            pstmt.setString(3, evento.getOra());
+            pstmt.setInt(4, evento.getMaxBigliettiAPersona());
+            pstmt.setBoolean(5, evento.getPostoNumerato());
+            String dataInizioVenditaFormatted = dateFormat.format(evento.getDataInizioVendita());
+            pstmt.setString(6, dataInizioVenditaFormatted);
+            pstmt.setInt(7, evento.getIdLuogo());
+            pstmt.setInt(8, id);
+            int rowsUpdated = pstmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                logger.info("DB Evento aggiornato con successo: " + evento.getNome());
+                return true;
+            } else {
+                logger.warn("DB Nessun evento aggiornato nel database.");
+            }
+        } catch (SQLException e) {
+            logger.error("Errore durante l'aggiornamento dell'evento: " + e.getMessage(), e);
+        }
+        return false;
+    }
+    
+    public static boolean deleteEvento(int idEvento) {
+        String sql = "DELETE FROM eventi WHERE idEvento = ?";
+        try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idEvento);
+            int rowsDeleted = pstmt.executeUpdate();
+            if (rowsDeleted > 0) {
+                logger.info("DB Evento eliminato con successo, idEvento: " + idEvento);
+                AdminSectorsDatabase.deleteSettori(idEvento);
+                return true;
+            } else {
+                logger.warn("DB Nessun evento trovato con id: " + idEvento);
+            }
+        } catch (SQLException e) {
+            logger.error("Errore durante l'eliminazione dell'evento con id: " + idEvento + ": " + e.getMessage(), e);
+        }
+        return false;
+    }
+
 
 }

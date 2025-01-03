@@ -200,6 +200,15 @@ public class AdminDetailsEventPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 10;
         formPanel.add(updateButton, gbc) ; 
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateEvento();
+            }
+
+			
+        });
+        
         deleteButton = new JButton("Elimina Evento (e i settori associati)");
         deleteButton.setFont(new Font("Arial",Font.PLAIN,16));
         deleteButton.setBackground(new Color(200, 50, 50)); 
@@ -210,12 +219,65 @@ public class AdminDetailsEventPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 11;
         formPanel.add(deleteButton, gbc);
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteEvento();
+            }
+
+			
+
+			
+        });
         updateFields(e);
         
         add(formPanel, BorderLayout.CENTER);
         
         //updateLocationDropdown();
     }
+    
+    private void updateEvento() {
+    	
+        String nome = nameField.getText();
+        if (nome.isEmpty() || maxTicketsField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Date data = (Date) dateSpinner.getValue();
+        String ora = new SimpleDateFormat("HH:mm").format((Date) timeSpinner.getValue());
+        int maxBigliettiAPersona = Integer.parseInt(maxTicketsField.getText());
+        boolean postoNumerato = seatNumberedCheckbox.isSelected();
+        Date dataInizioVendita = (Date) saleStartSpinner.getValue();
+        int idLuogo = listaluoghi.get(locationDropdown.getSelectedIndex()).getIdLuogo();
+
+        // Update the Evento object
+        
+        
+        Evento e2= new Evento(nome,data,ora,maxBigliettiAPersona,postoNumerato,dataInizioVendita,idLuogo);
+        
+
+        // Call the method to update the event in the database
+        if (AdminEventsDatabase.updateEvento(e2,evento.getIdEvento())) {
+            logger.info("Evento aggiornato con successo: " + e2.getNome());
+            JOptionPane.showMessageDialog(this, "Evento aggiornato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            logger.error("Errore durante l'aggiornamento dell'evento: " + e2.getNome());
+            JOptionPane.showMessageDialog(this, "Errore durante l'aggiornamento dell'evento.", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void deleteEvento() {
+    	if (AdminEventsDatabase.deleteEvento(evento.getIdEvento())) {
+            logger.info("Evento eliminato con successo: " + evento.getIdEvento());
+            JOptionPane.showMessageDialog(this, "Evento eliminato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            logger.error("Errore durante l'eliminazione dell'evento: " + evento.getIdEvento());
+            JOptionPane.showMessageDialog(this, "Errore durante l'eliminazione dell'evento.", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+		
+		
+	}
+
 
     
     public void updateFields(Evento e) throws ParseException {
