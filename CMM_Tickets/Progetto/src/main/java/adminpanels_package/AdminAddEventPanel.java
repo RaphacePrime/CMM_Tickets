@@ -245,13 +245,11 @@ public class AdminAddEventPanel extends JPanel {
 
         Evento nuovoEvento = new Evento(nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo);
         AdminEventsDatabase.addEvento(nuovoEvento);
-        
         int idEv=findIdEvento(nuovoEvento);
         for(int i=0; i<settori.size();i++)
         {
         	Settore s = settori.get(i);
         	s.setIdEvento(idEv);
-        	
         	AdminSectorsDatabase.addSettore(s);
         }
         
@@ -313,32 +311,20 @@ public class AdminAddEventPanel extends JPanel {
         settori.clear();
     }
     
-    /*public int findIdEvento(Evento ev) {
-        int id = 0;
-        List<Evento> evs = AdminEventsDatabase.getAllEvents();
-        System.out.println(evs.size() + " - - - - dimensioni lista");
-
-        for (int i = 0; i < evs.size(); i++) {
-            if (ev.getNome().equals(evs.get(i).getNome()) && 
-                ev.getData().equals(evs.get(i).getData()) &&
-                ev.getOra().equals(evs.get(i).getOra())) {
-                
-                id = evs.get(i).getIdEvento();
-                System.out.println(evs.get(i).getIdEvento() + " Nuovo idevento");
-                break; // Exit the loop once a match is found
-            }
-        }
-
-        return id;
-    }*/
-    
-    public int findIdEvento(Evento ev) {
-        List<Evento> evs = AdminEventsDatabase.getAllEvents();
-        int id=evs.getLast().getIdEvento();
-
-        return id;
+    public int findIdEvento(Evento ev) throws ParseException
+    {
+    	int id=0;
+    	List<Evento> evs= AdminEventsDatabase.getAllEvents();
+    	for(int i=0; i<evs.size();i++)
+    	{
+    		if(ev.getNome().equals(evs.get(i).getNome()) && ev.getData().equals(evs.get(i).getData())
+    			&& ev.getOra().equals(evs.get(i).getOra())	)
+    		{
+    			id=evs.get(i).getIdEvento();
+    		}
+    	}
+    	return id;
     }
-
 
     
 }
