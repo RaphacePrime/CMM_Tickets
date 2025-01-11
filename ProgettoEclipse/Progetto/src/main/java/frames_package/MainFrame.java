@@ -5,6 +5,7 @@ import javax.swing.*;
 import adminpanels_package.AdminAddEventPanel;
 import adminpanels_package.AdminAddLuogoPanel;
 import adminpanels_package.AdminAddSectorsPanel;
+import adminpanels_package.AdminDetailsEventPanel;
 import adminpanels_package.AdminDetailsLuogoPanel;
 import adminpanels_package.AdminHomePanel;
 import adminpanels_package.AdminModifyEventPanel;
@@ -25,14 +26,14 @@ public class MainFrame extends JFrame {
     private JPanel mainPanel;
     private LoginPanel loginPanel;
     private RegistrationPanel registrationPanel;
-    public AdminHomePanel adminHomePanel;
-    public UserHomePanel userHomePanel;
-    private AdminModifyEventPanel adminModifyEventPanel;
-    private AdminModifyLuogoPanel adminModifyLuogoPanel;
-    private AdminAddLuogoPanel adminAddLuogoPanel;
-    private AdminAddEventPanel adminAddEventPanel;
-    private UserViewLuogoPanel userViewLuogoPanel;
-    private UserViewEventPanel userViewEventPanel;
+    private static AdminHomePanel adminHomePanel;
+    private static UserHomePanel userHomePanel;
+	private static AdminModifyEventPanel adminModifyEventPanel;
+    private static AdminModifyLuogoPanel adminModifyLuogoPanel;
+    private static AdminAddLuogoPanel adminAddLuogoPanel;
+    private static AdminAddEventPanel adminAddEventPanel;
+    private static UserViewLuogoPanel userViewLuogoPanel;
+    private static UserViewEventPanel userViewEventPanel;
 
     public MainFrame() {
         Database.createTables();
@@ -77,21 +78,21 @@ public class MainFrame extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-            adminModifyEventPanel.setSwitchToDetailsEventAction(this);
+            adminModifyEventPanel.setSwitchToDetailsEventAction();
             mainPanel.add(adminModifyEventPanel, "Admin Modify Event");
             adminHomePanel.setContentPanel(adminModifyEventPanel);
         });
 
         adminHomePanel.setSwitchToModifyLuogoAction(e -> {
             adminModifyLuogoPanel = new AdminModifyLuogoPanel();
-            adminModifyLuogoPanel.setSwitchToDetailsLuogoAction(this); // Passaggio del riferimento al MainFrame
+            adminModifyLuogoPanel.setSwitchToDetailsLuogoAction(); // Passaggio del riferimento al MainFrame
             mainPanel.add(adminModifyLuogoPanel, "Admin Modify Luogo");
             adminHomePanel.setContentPanel(adminModifyLuogoPanel);
         });
 
         adminHomePanel.setSwitchToAddLuogoAction(e -> adminHomePanel.setContentPanel(adminAddLuogoPanel));
         adminHomePanel.setSwitchToAddEventAction(e -> {
-        	adminAddEventPanel.setSwitchToAddSectorsAction(this);
+        	adminAddEventPanel.setSwitchToAddSectorsAction();
         	adminAddEventPanel.updateSectorsDropdown();
         	adminAddEventPanel.updateLocationDropdown();
         	adminHomePanel.setContentPanel(adminAddEventPanel);
@@ -113,7 +114,7 @@ public class MainFrame extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        	userViewEventPanel.setSwitchToDetailsEventAction(this);
+        	userViewEventPanel.setSwitchToDetailsEventAction();
         	mainPanel.add(userViewEventPanel, "User View Event");
             userHomePanel.setContentPanel(userViewEventPanel);
         
@@ -129,7 +130,14 @@ public class MainFrame extends JFrame {
         // Mostra la schermata di login iniziale
         cardLayout.show(mainPanel, "Login");
     }
+    
+    public static void setAdminHomeContentPanel(JPanel panel) {
+		adminHomePanel.setContentPanel(panel);
+	}
 
+	public static void setUserHomeContentPanel(JPanel panel) {
+		userHomePanel.setContentPanel(panel);
+	}
     public static void main(String[] args) {
     	LookAndFeelUtil.setCrossPlatformLookAndFeel();
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));

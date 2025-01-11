@@ -181,6 +181,7 @@ public class UserViewEventPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         
         eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent me) {
                 int row = eventTable.rowAtPoint(me.getPoint());
                 if (row >= 0) {
@@ -193,7 +194,7 @@ public class UserViewEventPanel extends JPanel {
         });
     }
     
-    public void setSwitchToDetailsEventAction(MainFrame mainFrame) {
+    public void setSwitchToDetailsEventAction() {
         eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent me) {
                 int row = eventTable.rowAtPoint(me.getPoint());
@@ -206,7 +207,7 @@ public class UserViewEventPanel extends JPanel {
                             UserDetailsEventPanel detailsPanel;
 							try {
 								detailsPanel = new UserDetailsEventPanel(evento);
-								mainFrame.userHomePanel.setContentPanel(detailsPanel);
+								MainFrame.setUserHomeContentPanel(detailsPanel);
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();

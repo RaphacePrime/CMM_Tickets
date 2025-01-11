@@ -149,7 +149,7 @@ public class AdminModifyEventPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    public void setSwitchToDetailsEventAction(MainFrame mainFrame) {
+    public void setSwitchToDetailsEventAction() {
         eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent me) {
                 int row = eventTable.rowAtPoint(me.getPoint());
@@ -162,7 +162,7 @@ public class AdminModifyEventPanel extends JPanel {
                             AdminDetailsEventPanel detailsPanel;
 							try {
 								detailsPanel = new AdminDetailsEventPanel(evento);
-								mainFrame.adminHomePanel.setContentPanel(detailsPanel);
+								MainFrame.setAdminHomeContentPanel(detailsPanel);
 							} catch (ParseException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();

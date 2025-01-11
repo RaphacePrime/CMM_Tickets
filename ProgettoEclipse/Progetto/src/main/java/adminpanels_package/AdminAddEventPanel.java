@@ -283,13 +283,13 @@ public class AdminAddEventPanel extends JPanel {
         
     }
 
-    public void setSwitchToAddSectorsAction(MainFrame mainFrame) {
+    public void setSwitchToAddSectorsAction() {
         manageSectorsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	logger.info("num settori: "+AdminAddEventPanel.this.settori.size());
                 AdminAddSectorsPanel adminAddSectorsPanel = new AdminAddSectorsPanel(AdminAddEventPanel.this);
-                mainFrame.adminHomePanel.setContentPanel(adminAddSectorsPanel);
+                MainFrame.setAdminHomeContentPanel(adminAddSectorsPanel);
             }
         });
     }

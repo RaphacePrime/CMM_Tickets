@@ -136,7 +136,7 @@ public class AdminModifyLuogoPanel extends JPanel {
         
     }
     
-    public void setSwitchToDetailsLuogoAction(MainFrame mainFrame) {
+    public void setSwitchToDetailsLuogoAction() {
         luogoTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent me) {
                 int row = luogoTable.rowAtPoint(me.getPoint());
@@ -148,7 +148,7 @@ public class AdminModifyLuogoPanel extends JPanel {
                         if (luogo.getNome().equals(nomeLuogo)) {
                             AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);
                             //detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
-                            mainFrame.adminHomePanel.setContentPanel(detailsPanel);
+                            MainFrame.setAdminHomeContentPanel(detailsPanel);
                             break;
                         }
                     }
