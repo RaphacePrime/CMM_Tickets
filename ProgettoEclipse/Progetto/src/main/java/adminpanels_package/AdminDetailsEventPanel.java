@@ -166,7 +166,7 @@ public class AdminDetailsEventPanel extends JPanel {
         gbc.gridy = 7;
         formPanel.add(locationDropdown, gbc);
 
-        manageSectorsButton = new JButton("Gestisci settori");
+        /*manageSectorsButton = new JButton("Gestisci settori");
         manageSectorsButton.setFont(new Font("Arial", Font.PLAIN, 16));
         manageSectorsButton.setBackground(new Color(255, 223, 0));
         manageSectorsButton.setForeground(Color.BLACK);
@@ -176,18 +176,18 @@ public class AdminDetailsEventPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 2;
-        formPanel.add(manageSectorsButton, gbc);
+        formPanel.add(manageSectorsButton, gbc);*/
 
         JLabel sectorsLabel = new JLabel("Settori aggiunti:");
         sectorsLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
-        gbc.gridy = 9;
+        gbc.gridy = 8;
         formPanel.add(sectorsLabel, gbc);
 
         sectorsDropdown = new JComboBox<>();
         sectorsDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 1;
-        gbc.gridy = 9;
+        gbc.gridy = 8;
         formPanel.add(sectorsDropdown, gbc);
 
         updateButton=new JButton("Aggiorna Evento");
@@ -198,7 +198,8 @@ public class AdminDetailsEventPanel extends JPanel {
         updateButton.setBorderPainted(false); 
         updateButton.setFocusPainted(false);
         gbc.gridx = 0;
-        gbc.gridy = 10;
+        gbc.gridy = 9;
+        gbc.gridwidth = 2;
         formPanel.add(updateButton, gbc) ; 
         updateButton.addActionListener(new ActionListener() {
             @Override
@@ -217,7 +218,8 @@ public class AdminDetailsEventPanel extends JPanel {
         deleteButton.setBorderPainted(false); 
         deleteButton.setFocusPainted(false);
         gbc.gridx = 0;
-        gbc.gridy = 11;
+        gbc.gridy = 10;
+        gbc.gridwidth = 2;
         formPanel.add(deleteButton, gbc);
         deleteButton.addActionListener(new ActionListener() {
             @Override
