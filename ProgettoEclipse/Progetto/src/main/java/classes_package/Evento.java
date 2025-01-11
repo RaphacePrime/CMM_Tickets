@@ -17,7 +17,7 @@ public class Evento {
     private Date dataInizioVendita;
     private int idLuogo; 
 
-    private static Logger logger = LogManager.getLogger(Login.class);
+    private static Logger logger = LogManager.getLogger(Evento.class);
 
     public Evento(int idEvento, String nome, Date data, String ora, int numMaxBigliettiAcquistabili, boolean postoNumerato, Date dataInizioVendita, int idLuogo) {
         this.idEvento = idEvento;

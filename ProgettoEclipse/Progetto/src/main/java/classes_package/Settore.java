@@ -16,7 +16,7 @@ public class Settore {
 	public int postiAcquistati;
 	public int idEvento;
 	
-    private static Logger logger = LogManager.getLogger(Login.class);
+    private static Logger logger = LogManager.getLogger(Settore.class);
 	
 	public Settore(int idSettore, String nome, float prezzo, String posizione, int anello, int postiTotali, int postiAcquistati, int idEvento)
 	{
