@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
     private LoginPanel loginPanel;
     private RegistrationPanel registrationPanel;
     public AdminHomePanel adminHomePanel;
-    private UserHomePanel userHomePanel;
+    public UserHomePanel userHomePanel;
     private AdminModifyEventPanel adminModifyEventPanel;
     private AdminModifyLuogoPanel adminModifyLuogoPanel;
     private AdminAddLuogoPanel adminAddLuogoPanel;
@@ -113,6 +113,7 @@ public class MainFrame extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+        	userViewEventPanel.setSwitchToDetailsEventAction(this);
         	mainPanel.add(userViewEventPanel, "User View Event");
             userHomePanel.setContentPanel(userViewEventPanel);
         

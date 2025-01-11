@@ -4,6 +4,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import adminpanels_package.AdminDetailsEventPanel;
+import adminpanels_package.AdminModifyEventPanel;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -14,6 +21,7 @@ import classes_package.Evento;
 import classes_package.Luogo;
 import database_package.AdminEventsDatabase;
 import database_package.AdminLuoghiDatabase;
+import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
 
 public class UserViewEventPanel extends JPanel {
@@ -26,65 +34,83 @@ public class UserViewEventPanel extends JPanel {
     private JTextField eventSearchField;
     private JComboBox<String> luogoComboBox;
     private JTextField maxTicketsField;
+    private static Logger logger = LogManager.getLogger(UserViewEventPanel.class);
 
     public UserViewEventPanel() throws ParseException {
         LookAndFeelUtil.setCrossPlatformLookAndFeel();
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
 
-        // Titolo sopra i filtri
         JLabel filterTitleLabel = new JLabel("Filtra Eventi", JLabel.CENTER);
         filterTitleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         filterTitleLabel.setForeground(new Color(60, 63, 65)); 
         add(filterTitleLabel, BorderLayout.NORTH);
-
-        // Pannello dei filtri
+        
+        // Pannello dei filtri orizzontale
         JPanel filterPanel = new JPanel();
-        filterPanel.setLayout(new BoxLayout(filterPanel, BoxLayout.Y_AXIS));
-        filterPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        filterPanel.setLayout(new GridBagLayout()); // Layout più preciso per i filtri
         filterPanel.setBackground(new Color(240, 240, 240));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.anchor = GridBagConstraints.WEST;
 
         // Filtro "Acquistabile Ora"
         availableNowCheckBox = new JCheckBox("Acquistabile Ora");
-        availableNowCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        filterPanel.add(availableNowCheckBox);
+        availableNowCheckBox.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        filterPanel.add(availableNowCheckBox, gbc);
 
         // Filtro "Nome Evento"
+        JLabel eventSearchLabel = new JLabel("Nome Evento");
+        eventSearchLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 1;
+        filterPanel.add(eventSearchLabel, gbc);
+
         eventSearchField = new JTextField(15);
-        eventSearchField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        eventSearchField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        filterPanel.add(createLabeledField("Nome Evento", eventSearchField));
+        gbc.gridx = 2;
+        filterPanel.add(eventSearchField, gbc);
 
         // Filtro "Luogo"
+        JLabel luogoLabel = new JLabel("Luogo");
+        luogoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 3;
+        filterPanel.add(luogoLabel, gbc);
+
         luogoComboBox = new JComboBox<>();
         luogoComboBox.addItem("Seleziona Luogo");
         for (Luogo luogo : AdminLuoghiDatabase.getAllLuoghi()) {
             luogoComboBox.addItem(luogo.getNome());
         }
-        luogoComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        filterPanel.add(createLabeledField("Luogo", luogoComboBox));
+        gbc.gridx = 4;
+        filterPanel.add(luogoComboBox, gbc);
 
         // Filtro "Max Biglietti Acquistabili"
-        maxTicketsField = new JTextField(15);
-        maxTicketsField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
-        maxTicketsField.setAlignmentX(Component.CENTER_ALIGNMENT);
-        filterPanel.add(createLabeledField("Max Biglietti Acquistabili", maxTicketsField));
+        JLabel maxTicketsLabel = new JLabel("Max Biglietti");
+        maxTicketsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 5;
+        filterPanel.add(maxTicketsLabel, gbc);
+
+        maxTicketsField = new JTextField(10);
+        gbc.gridx = 6;
+        filterPanel.add(maxTicketsField, gbc);
 
         // Bottone "Applica Filtri"
         applyButton = new JButton("Applica Filtri");
         applyButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        applyButton.setBackground(new Color(33, 150, 243)); 
+        applyButton.setBackground(new Color(33, 150, 243));
         applyButton.setForeground(Color.WHITE);
         applyButton.setFocusPainted(false);
-        applyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        applyButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40)); 
         applyButton.setOpaque(true);
         applyButton.setBorderPainted(false);
         applyButton.addActionListener(e -> applyFilters());
-        filterPanel.add(applyButton);
+        gbc.gridx = 7;
+        gbc.gridy = 0;
+        filterPanel.add(applyButton, gbc);
 
-        // Aggiunta del pannello dei filtri al pannello principale
-        add(filterPanel, BorderLayout.WEST);
+        // Aggiunta del pannello dei filtri sopra la tabella
+        add(filterPanel, BorderLayout.NORTH);
 
         // Carica e mostra gli eventi iniziali
         fetchAndDisplayEvents();
@@ -153,7 +179,47 @@ public class UserViewEventPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(eventTable);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Lista Eventi"));
         add(scrollPane, BorderLayout.CENTER);
+        
+        eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent me) {
+                int row = eventTable.rowAtPoint(me.getPoint());
+                if (row >= 0) {
+                    
+                    String nomeEvento = (String) tableModel.getValueAt(row, 0);
+                   logger.info("Evento cliccato: " + nomeEvento);
+                    
+                }
+            }
+        });
     }
+    
+    public void setSwitchToDetailsEventAction(MainFrame mainFrame) {
+        eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent me) {
+                int row = eventTable.rowAtPoint(me.getPoint());
+                if (row >= 0) {
+                    String nomeLuogo = (String) tableModel.getValueAt(row, 0);
+                    logger.info("Evento cliccato: " + nomeLuogo);
+                    
+                    for (Evento evento : eventi) {
+                        if (evento.getNome().equals(nomeLuogo)) {
+                            UserDetailsEventPanel detailsPanel;
+							try {
+								detailsPanel = new UserDetailsEventPanel(evento);
+								mainFrame.userHomePanel.setContentPanel(detailsPanel);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                            //detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
+                            
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+    } 
 
     private void applyFilters() {
         String nomeEvento = eventSearchField.getText();
@@ -188,8 +254,8 @@ public class UserViewEventPanel extends JPanel {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             data[i][1] = sdf.format(e.getData());
             data[i][2] = l.getNome();
-            data[i][3] = l.getCittà();
-            data[i][4] = l.getIndirizzo();
+            data[i][3] = l.getIndirizzo();
+            data[i][4] = l.getCittà();
         }
 
         tableModel.setDataVector(data, columnNames);

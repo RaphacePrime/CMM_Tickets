@@ -91,7 +91,7 @@ public class LoginPanel extends JPanel {
     }
 
     // Metodo per gestire l'azione di login
-    private void loginAction() {
+    private void loginAction() {/*
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
         Utente utente = Login.autentica(username, password);
@@ -105,7 +105,8 @@ public class LoginPanel extends JPanel {
             }
         } else {
             JOptionPane.showMessageDialog(this, "Credenziali non valide", "Errore", JOptionPane.ERROR_MESSAGE);
-        }
+        }*/
+    	cardLayout.show(mainPanel, "User Home");
     }
 
     private JPanel createLabeledField(String labelText, JTextField textField) {
