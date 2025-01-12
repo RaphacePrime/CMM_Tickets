@@ -277,11 +277,67 @@
       <node xmi:type="uml:OpaqueAction" xmi:id="_823C0NDLEe-Khq0KHYcsfA" name="Termina sessione" incoming="__c6fENDLEe-Khq0KHYcsfA" outgoing="_C590wNDMEe-Khq0KHYcsfA"/>
       <node xmi:type="uml:OpaqueAction" xmi:id="_BVRu4NDMEe-Khq0KHYcsfA" name="Logout" incoming="_C590wNDMEe-Khq0KHYcsfA" outgoing="_FocNMNDMEe-Khq0KHYcsfA"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:StateMachine" xmi:id="_etp-INDMEe-Khq0KHYcsfA" name="StateMachine24">
+      <region xmi:type="uml:Region" xmi:id="_fNO2ENDMEe-Khq0KHYcsfA" name="Login">
+        <transition xmi:type="uml:Transition" xmi:id="_-Fu0QNDMEe-Khq0KHYcsfA" source="_voRsMNDMEe-Khq0KHYcsfA" target="_69aYcNDMEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_IfW6gNDNEe-Khq0KHYcsfA" name="login [non corretto]" source="_69aYcNDMEe-Khq0KHYcsfA" target="_69aYcNDMEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_RNV-UNDNEe-Khq0KHYcsfA" name="click registrazione" source="_69aYcNDMEe-Khq0KHYcsfA" target="_O4dKkNDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_V_vWUNDNEe-Khq0KHYcsfA" name="invio dati [corretto]" source="_O4dKkNDNEe-Khq0KHYcsfA" target="_69aYcNDMEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_ZcM2INDNEe-Khq0KHYcsfA" name="invio dati [non corretto]" source="_O4dKkNDNEe-Khq0KHYcsfA" target="_O4dKkNDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_wxru0NDNEe-Khq0KHYcsfA" name="login [corretto]" source="_69aYcNDMEe-Khq0KHYcsfA" target="_vDThcNDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_7iB2gNDOEe-Khq0KHYcsfA" source="_69aYcNDMEe-Khq0KHYcsfA" target="_6tKrENDOEe-Khq0KHYcsfA"/>
+        <subvertex xmi:type="uml:Pseudostate" xmi:id="_voRsMNDMEe-Khq0KHYcsfA" name=""/>
+        <subvertex xmi:type="uml:State" xmi:id="_69aYcNDMEe-Khq0KHYcsfA" name="Attesa Dati"/>
+        <subvertex xmi:type="uml:State" xmi:id="_O4dKkNDNEe-Khq0KHYcsfA" name="Attesa Dati Registrazione"/>
+        <subvertex xmi:type="uml:FinalState" xmi:id="_6tKrENDOEe-Khq0KHYcsfA" name=""/>
+      </region>
+      <region xmi:type="uml:Region" xmi:id="_f-VtcNDNEe-Khq0KHYcsfA" name="Homepage">
+        <transition xmi:type="uml:Transition" xmi:id="_HqTsYNDOEe-Khq0KHYcsfA" name="click visualizza eventi" source="_vDThcNDNEe-Khq0KHYcsfA" target="_13Ka4NDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_K6QaMNDOEe-Khq0KHYcsfA" name="click i miei ordini" source="_vDThcNDNEe-Khq0KHYcsfA" target="_DiXmoNDOEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_NqjXkNDOEe-Khq0KHYcsfA" name="click carrello" source="_vDThcNDNEe-Khq0KHYcsfA" target="_APkZINDOEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_PcsqoNDOEe-Khq0KHYcsfA" name="click visualizza luoghi" source="_vDThcNDNEe-Khq0KHYcsfA" target="_67LHUNDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_Yo8-0NDOEe-Khq0KHYcsfA" name="acquisto carrello" source="_APkZINDOEe-Khq0KHYcsfA" target="_UnAMUNDOEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_akNxoNDOEe-Khq0KHYcsfA" source="_UnAMUNDOEe-Khq0KHYcsfA" target="_DiXmoNDOEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_eiBD8NDOEe-Khq0KHYcsfA" name="seleziona città/applica" source="_13Ka4NDNEe-Khq0KHYcsfA" target="_13Ka4NDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_m0OKsNDOEe-Khq0KHYcsfA" name="seleziona evento" source="_13Ka4NDNEe-Khq0KHYcsfA" target="_h9BLMNDOEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_oliXUNDOEe-Khq0KHYcsfA" name="torna indietro" source="_h9BLMNDOEe-Khq0KHYcsfA" target="_13Ka4NDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_raDGUNDOEe-Khq0KHYcsfA" name="aggiungi al carrello / aggiorna carrello" source="_h9BLMNDOEe-Khq0KHYcsfA" target="_APkZINDOEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_uPqokNDOEe-Khq0KHYcsfA" name="seleziona altra pagina" source="_DiXmoNDOEe-Khq0KHYcsfA" target="_vDThcNDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_wIkD4NDOEe-Khq0KHYcsfA" name="seleziona altra pagina" source="_67LHUNDNEe-Khq0KHYcsfA" target="_vDThcNDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_0L6kkNDOEe-Khq0KHYcsfA" name="seleziona altra pagina" source="_APkZINDOEe-Khq0KHYcsfA" target="_vDThcNDNEe-Khq0KHYcsfA"/>
+        <transition xmi:type="uml:Transition" xmi:id="_3Zt9UNDOEe-Khq0KHYcsfA" name="seleziona altra pagina" source="_13Ka4NDNEe-Khq0KHYcsfA" target="_vDThcNDNEe-Khq0KHYcsfA"/>
+        <subvertex xmi:type="uml:State" xmi:id="_vDThcNDNEe-Khq0KHYcsfA" name="Homepage"/>
+        <subvertex xmi:type="uml:State" xmi:id="_13Ka4NDNEe-Khq0KHYcsfA" name="Eventi">
+          <doActivity xmi:type="uml:Activity" xmi:id="_5rH0sNDNEe-Khq0KHYcsfA" name="mostra eventi"/>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_67LHUNDNEe-Khq0KHYcsfA" name="Luoghi">
+          <doActivity xmi:type="uml:Activity" xmi:id="_9fkWsNDNEe-Khq0KHYcsfA" name="visualizza luoghi"/>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_APkZINDOEe-Khq0KHYcsfA" name="Carrello">
+          <doActivity xmi:type="uml:Activity" xmi:id="_CiBj8NDOEe-Khq0KHYcsfA" name="visualizza carrello"/>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_DiXmoNDOEe-Khq0KHYcsfA" name="I miei Ordini">
+          <doActivity xmi:type="uml:Activity" xmi:id="_GV_k0NDOEe-Khq0KHYcsfA" name="visualizza ordini"/>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_UnAMUNDOEe-Khq0KHYcsfA" name="Pagina Acquisto">
+          <doActivity xmi:type="uml:Activity" xmi:id="_XHCgINDOEe-Khq0KHYcsfA" name="pagamento"/>
+        </subvertex>
+        <subvertex xmi:type="uml:State" xmi:id="_h9BLMNDOEe-Khq0KHYcsfA" name="Visualizza Evento">
+          <doActivity xmi:type="uml:Activity" xmi:id="_lsmbUNDOEe-Khq0KHYcsfA" name="info"/>
+        </subvertex>
+      </region>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_yVsTwKGwEe-WTofhe3ArGw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yVs60KGwEe-WTofhe3ArGw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
       </eAnnotations>
       <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_zMARoNDMEe-Khq0KHYcsfA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zMFKINDMEe-Khq0KHYcsfA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
     </profileApplication>
   </uml:Model>
   <Codegen:GeneratorHint xmi:id="_yYyrEKGwEe-WTofhe3ArGw" base_Element="_ylI4UKDcEe-8nr79RnMfdw" generatorID="Standard Java">
