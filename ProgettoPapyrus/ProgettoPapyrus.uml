@@ -225,6 +225,58 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TK3e0K2KEe-Z85GeNdcBiw" value="*"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_mAVeYNDIEe-Khq0KHYcsfA" name="" node="_olzEwNDIEe-Khq0KHYcsfA _0aMf4NDIEe-Khq0KHYcsfA _I2DgENDJEe-Khq0KHYcsfA _PzaTwNDJEe-Khq0KHYcsfA _XqousNDJEe-Khq0KHYcsfA _eXqnYNDJEe-Khq0KHYcsfA _1cfN4NDJEe-Khq0KHYcsfA _6zQeQNDJEe-Khq0KHYcsfA _89NNUNDJEe-Khq0KHYcsfA _-150UNDJEe-Khq0KHYcsfA _A2lSoNDKEe-Khq0KHYcsfA _B1TksNDKEe-Khq0KHYcsfA _GCeIsNDKEe-Khq0KHYcsfA _Px2YENDKEe-Khq0KHYcsfA _WvLWkNDKEe-Khq0KHYcsfA _0YuOUNDKEe-Khq0KHYcsfA _823C0NDLEe-Khq0KHYcsfA _BVRu4NDMEe-Khq0KHYcsfA">
+      <edge xmi:type="uml:ControlFlow" xmi:id="_Kpd-cNDJEe-Khq0KHYcsfA" target="_I2DgENDJEe-Khq0KHYcsfA" source="_olzEwNDIEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_NMn3sNDJEe-Khq0KHYcsfA" target="_0aMf4NDIEe-Khq0KHYcsfA" source="_I2DgENDJEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_UqsLwNDJEe-Khq0KHYcsfA" target="_PzaTwNDJEe-Khq0KHYcsfA" source="_0aMf4NDIEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_dIQ1ANDJEe-Khq0KHYcsfA" target="_XqousNDJEe-Khq0KHYcsfA" source="_PzaTwNDJEe-Khq0KHYcsfA">
+        <guard xmi:type="uml:LiteralString" xmi:id="_ukRG8NDLEe-Khq0KHYcsfA" name="2" value="accesso non valido"/>
+      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_l4q6sNDJEe-Khq0KHYcsfA" target="_eXqnYNDJEe-Khq0KHYcsfA" source="_XqousNDJEe-Khq0KHYcsfA">
+        <guard xmi:type="uml:LiteralString" xmi:id="_xg3a8NDLEe-Khq0KHYcsfA" name="3" value="username non esistente"/>
+      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_nv_BoNDJEe-Khq0KHYcsfA" target="_I2DgENDJEe-Khq0KHYcsfA" source="_eXqnYNDJEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_s6taENDJEe-Khq0KHYcsfA" target="_I2DgENDJEe-Khq0KHYcsfA" source="_XqousNDJEe-Khq0KHYcsfA">
+        <guard xmi:type="uml:LiteralString" xmi:id="_0s1AoNDLEe-Khq0KHYcsfA" name="4" value="username esistente"/>
+      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_5G8tcNDJEe-Khq0KHYcsfA" target="_1cfN4NDJEe-Khq0KHYcsfA" source="_PzaTwNDJEe-Khq0KHYcsfA">
+        <guard xmi:type="uml:LiteralString" xmi:id="_r44ewNDLEe-Khq0KHYcsfA" name="1" value="accesso consentito"/>
+      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_IemM4NDKEe-Khq0KHYcsfA" target="_6zQeQNDJEe-Khq0KHYcsfA" source="_1cfN4NDJEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_I58FENDKEe-Khq0KHYcsfA" target="_A2lSoNDKEe-Khq0KHYcsfA" source="_1cfN4NDJEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_J8-2cNDKEe-Khq0KHYcsfA" target="_GCeIsNDKEe-Khq0KHYcsfA" source="_1cfN4NDJEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_K2VgUNDKEe-Khq0KHYcsfA" target="_B1TksNDKEe-Khq0KHYcsfA" source="_A2lSoNDKEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_MOC6INDKEe-Khq0KHYcsfA" target="_89NNUNDJEe-Khq0KHYcsfA" source="_6zQeQNDJEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_NvxyoNDKEe-Khq0KHYcsfA" target="_-150UNDJEe-Khq0KHYcsfA" source="_89NNUNDJEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_TSB6QNDKEe-Khq0KHYcsfA" target="_Px2YENDKEe-Khq0KHYcsfA" source="_B1TksNDKEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_UNPlUNDKEe-Khq0KHYcsfA" target="_Px2YENDKEe-Khq0KHYcsfA" source="_GCeIsNDKEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_VSJX4NDKEe-Khq0KHYcsfA" target="_Px2YENDKEe-Khq0KHYcsfA" source="_-150UNDJEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_YQh0kNDKEe-Khq0KHYcsfA" target="_WvLWkNDKEe-Khq0KHYcsfA" source="_Px2YENDKEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_eUYNYNDKEe-Khq0KHYcsfA" target="_PzaTwNDJEe-Khq0KHYcsfA" source="_WvLWkNDKEe-Khq0KHYcsfA">
+        <guard xmi:type="uml:LiteralString" xmi:id="_4RrncNDLEe-Khq0KHYcsfA" name="5" value="aggiornamento e modifica"/>
+      </edge>
+      <edge xmi:type="uml:ControlFlow" xmi:id="__c6fENDLEe-Khq0KHYcsfA" target="_823C0NDLEe-Khq0KHYcsfA" source="_WvLWkNDKEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_C590wNDMEe-Khq0KHYcsfA" target="_BVRu4NDMEe-Khq0KHYcsfA" source="_823C0NDLEe-Khq0KHYcsfA"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_FocNMNDMEe-Khq0KHYcsfA" target="_0YuOUNDKEe-Khq0KHYcsfA" source="_BVRu4NDMEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:InitialNode" xmi:id="_olzEwNDIEe-Khq0KHYcsfA" name="" outgoing="_Kpd-cNDJEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_0aMf4NDIEe-Khq0KHYcsfA" name="Login Utente" incoming="_NMn3sNDJEe-Khq0KHYcsfA" outgoing="_UqsLwNDJEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:MergeNode" xmi:id="_I2DgENDJEe-Khq0KHYcsfA" name="" incoming="_Kpd-cNDJEe-Khq0KHYcsfA _nv_BoNDJEe-Khq0KHYcsfA _s6taENDJEe-Khq0KHYcsfA" outgoing="_NMn3sNDJEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:MergeNode" xmi:id="_PzaTwNDJEe-Khq0KHYcsfA" name="" incoming="_UqsLwNDJEe-Khq0KHYcsfA _eUYNYNDKEe-Khq0KHYcsfA" outgoing="_dIQ1ANDJEe-Khq0KHYcsfA _5G8tcNDJEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:MergeNode" xmi:id="_XqousNDJEe-Khq0KHYcsfA" name="" incoming="_dIQ1ANDJEe-Khq0KHYcsfA" outgoing="_l4q6sNDJEe-Khq0KHYcsfA _s6taENDJEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_eXqnYNDJEe-Khq0KHYcsfA" name="Registrazione Utente" incoming="_l4q6sNDJEe-Khq0KHYcsfA" outgoing="_nv_BoNDJEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:ForkNode" xmi:id="_1cfN4NDJEe-Khq0KHYcsfA" name="" incoming="_5G8tcNDJEe-Khq0KHYcsfA" outgoing="_IemM4NDKEe-Khq0KHYcsfA _I58FENDKEe-Khq0KHYcsfA _J8-2cNDKEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_6zQeQNDJEe-Khq0KHYcsfA" name="Visualizza eventi" incoming="_IemM4NDKEe-Khq0KHYcsfA" outgoing="_MOC6INDKEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_89NNUNDJEe-Khq0KHYcsfA" name="Seleziona evento" incoming="_MOC6INDKEe-Khq0KHYcsfA" outgoing="_NvxyoNDKEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_-150UNDJEe-Khq0KHYcsfA" name="Aggiungi carrello" incoming="_NvxyoNDKEe-Khq0KHYcsfA" outgoing="_VSJX4NDKEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_A2lSoNDKEe-Khq0KHYcsfA" name="Carrello" incoming="_I58FENDKEe-Khq0KHYcsfA" outgoing="_K2VgUNDKEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_B1TksNDKEe-Khq0KHYcsfA" name="Acquisto carrello" incoming="_K2VgUNDKEe-Khq0KHYcsfA" outgoing="_TSB6QNDKEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_GCeIsNDKEe-Khq0KHYcsfA" name="Visualizza ordini" incoming="_J8-2cNDKEe-Khq0KHYcsfA" outgoing="_UNPlUNDKEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:JoinNode" xmi:id="_Px2YENDKEe-Khq0KHYcsfA" name="" incoming="_TSB6QNDKEe-Khq0KHYcsfA _UNPlUNDKEe-Khq0KHYcsfA _VSJX4NDKEe-Khq0KHYcsfA" outgoing="_YQh0kNDKEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:MergeNode" xmi:id="_WvLWkNDKEe-Khq0KHYcsfA" name="" incoming="_YQh0kNDKEe-Khq0KHYcsfA" outgoing="_eUYNYNDKEe-Khq0KHYcsfA __c6fENDLEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_0YuOUNDKEe-Khq0KHYcsfA" name="" incoming="_FocNMNDMEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_823C0NDLEe-Khq0KHYcsfA" name="Termina sessione" incoming="__c6fENDLEe-Khq0KHYcsfA" outgoing="_C590wNDMEe-Khq0KHYcsfA"/>
+      <node xmi:type="uml:OpaqueAction" xmi:id="_BVRu4NDMEe-Khq0KHYcsfA" name="Logout" incoming="_C590wNDMEe-Khq0KHYcsfA" outgoing="_FocNMNDMEe-Khq0KHYcsfA"/>
+    </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_yVsTwKGwEe-WTofhe3ArGw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yVs60KGwEe-WTofhe3ArGw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
@@ -233,6 +285,5 @@
     </profileApplication>
   </uml:Model>
   <Codegen:GeneratorHint xmi:id="_yYyrEKGwEe-WTofhe3ArGw" base_Element="_ylI4UKDcEe-8nr79RnMfdw" generatorID="Standard Java">
-    <language xmi:type="Codegen:Language" href="pathmap://Codegen_PROFILES/languages.uml#_2Zt6YCjREeayco6FJ_OtTQ"/>
-  </Codegen:GeneratorHint>
+    <language xmi:type="Codegen:Language" href="pathmap://Codegen_PROFILES/languages.uml#_2Zt6YCjREeayco6FJ_OtTQ"/></Codegen:GeneratorHint>
 </xmi:XMI>
