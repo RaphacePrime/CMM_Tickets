@@ -1,8 +1,14 @@
 package userpanels_package;
 
 import javax.swing.*;
+
+import classes_package.Biglietto;
+import classes_package.Settore;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserHomePanel extends JPanel {
     private JButton logoutButton;
@@ -13,12 +19,13 @@ public class UserHomePanel extends JPanel {
     private JPanel contentPanel;
 	private JButton switchToCartButton;
 	private JButton switchToMyOrderButton;
+	private List<Biglietto> biglietti = new ArrayList<>();
 
     public UserHomePanel() {
         
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
-
+        
        
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
@@ -70,7 +77,7 @@ public class UserHomePanel extends JPanel {
         navBar.setPreferredSize(new Dimension(150, 200));
         navBar.setLayout(new GridLayout(0, 1, 0, 10));
 
-        String[] buttonLabels = {"Visualizza eventi", "Visualizza luoghi", "Carrello", "I miei ordini"};
+        String[] buttonLabels = {"Visualizza eventi", "Carrello", "I miei ordini"};
         for (String label : buttonLabels) {
             JButton button = createNavBarButton(label);
             navBar.add(button);
@@ -80,9 +87,9 @@ public class UserHomePanel extends JPanel {
                 switchToViewEventButton = button;
             }
             
-            if (label.equals("Visualizza luoghi")) {
+            /*if (label.equals("Visualizza luoghi")) {
                 switchToViewLuogoButton = button;
-            }
+            }*/
             
             if(label.equals("Carrello")) {
             	switchToCartButton = button;
@@ -145,9 +152,9 @@ public class UserHomePanel extends JPanel {
         switchToViewEventButton.addActionListener(action);
     }
     
-    public void setSwitchToViewLuogoAction(ActionListener action) {
+    /*public void setSwitchToViewLuogoAction(ActionListener action) {
         switchToViewLuogoButton.addActionListener(action);
-    }
+    }*/
     
     public void setSwitchToCart(ActionListener action) {
     	switchToCartButton.addActionListener(action);

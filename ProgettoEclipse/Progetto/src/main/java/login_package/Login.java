@@ -13,6 +13,7 @@ import database_package.Database;
 
 public class Login {
     private static Logger logger = LogManager.getLogger(Login.class);
+    public static int loginId;
 
     public static Utente autentica(String username, String password) {
         try {
@@ -30,6 +31,7 @@ public class Login {
 
                     if (decryptedPassword.equals(password)) {
                         int id = rs.getInt("id");
+                        loginId=id;
                         String codiceFiscale = rs.getString("codiceFiscale");
                         String telefono = rs.getString("telefono");
                         String email = rs.getString("email");

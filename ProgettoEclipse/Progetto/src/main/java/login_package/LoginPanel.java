@@ -13,6 +13,7 @@ public class LoginPanel extends JPanel {
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton switchToRegisterButton;
+    public static String usernameUtente;
     
     private ActionListener switchToRegisterAction;
     
@@ -102,11 +103,12 @@ public class LoginPanel extends JPanel {
                 cardLayout.show(mainPanel, "Admin Home");
             } else {
                 cardLayout.show(mainPanel, "User Home");
+                usernameUtente=utente.getUsername();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Credenziali non valide", "Errore", JOptionPane.ERROR_MESSAGE);
         }
-    	//cardLayout.show(mainPanel, "User Home");
+    	//cardLayout.show(mainPanel, "User Home"); //usernameUtente="Raphael";
     }
 
     private JPanel createLabeledField(String labelText, JTextField textField) {

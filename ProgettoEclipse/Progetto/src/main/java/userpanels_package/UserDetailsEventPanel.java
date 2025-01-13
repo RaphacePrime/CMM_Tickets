@@ -11,12 +11,16 @@ import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import classes_package.Biglietto;
 import classes_package.Evento;
 import classes_package.Luogo;
 import classes_package.Settore;
 import database_package.AdminEventsDatabase;
 import database_package.AdminLuoghiDatabase;
 import database_package.AdminSectorsDatabase;
+import login_package.Login;
+import login_package.LoginPanel;
 
 public class UserDetailsEventPanel extends JPanel {
     private JTextField nameField;
@@ -26,14 +30,14 @@ public class UserDetailsEventPanel extends JPanel {
     private JTextField seatNumberedField;
     private JTextField saleStartField;
     private JTextField locationField;
-    private JButton deleteButton;
+    private JButton updateButton;
     private JComboBox<String> sectorsDropdown;
+    private JComboBox<Integer> ticketCountDropdown;
     private List<Settore> settori = new ArrayList<>();
+    private List<Settore> settoriDiEvento = new ArrayList<>();
     private List<Luogo> listaluoghi = new ArrayList<>();
     private static final Logger logger = LogManager.getLogger(UserDetailsEventPanel.class);
     private Evento evento;
-    private List<Settore> settoriUpdate = new ArrayList<>();
-    private JButton updateButton;
 
     public UserDetailsEventPanel(Evento e) throws ParseException {
         this.evento = e;
@@ -167,25 +171,66 @@ public class UserDetailsEventPanel extends JPanel {
         gbc.gridy = 8;
         formPanel.add(sectorsDropdown, gbc);
 
-        updateButton = new JButton("Aggiungi al carrello");
-        updateButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        JLabel ticketCountLabel = new JLabel("Numero di biglietti:");
+        ticketCountLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
         gbc.gridy = 9;
-        gbc.gridwidth = 2;
-        formPanel.add(updateButton, gbc);
+        formPanel.add(ticketCountLabel, gbc);
 
-        /*deleteButton = new JButton("Elimina Evento");
-        deleteButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        ticketCountDropdown = new JComboBox<>();
+        ticketCountDropdown.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 1;
+        gbc.gridy = 9;
+        formPanel.add(ticketCountDropdown, gbc);
+
+        updateButton = new JButton("Aggiungi al carrello");
+        updateButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        updateButton.setBackground(new Color(0, 128, 0));
+        updateButton.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 10;
         gbc.gridwidth = 2;
-        formPanel.add(deleteButton, gbc);*/
+        formPanel.add(updateButton, gbc);
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+					addToCart();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+
+			
+        });
 
         add(formPanel, BorderLayout.CENTER);
         updateFields(e);
     }
 
-    public void updateFields(Evento e) throws ParseException {
+	public void addToCart() throws ParseException {
+		int num=Integer.parseInt(ticketCountDropdown.getSelectedItem().toString());
+		Settore s=findSettore();
+		if(s==null) {logger.info("Settore null");};
+		for(int i=0; i<num; i++)
+		{
+			UserCarrelloPanel.addBiglietto(new Biglietto("","",0,Login.loginId,s.getIdSettore(),this.evento.getIdEvento()));
+			System.out.println("IdUTENTE: "+Login.loginId+" IdSETTORE: "+s.getIdSettore()+ "evento.idevento: "+this.evento.getIdEvento() + "s.idevento: "+s.getIdEvento());
+		}
+		
+	}
+
+
+	private Settore findSettore() {
+        int selectedIndex = sectorsDropdown.getSelectedIndex();
+        if (selectedIndex >= 0 && selectedIndex < settoriDiEvento.size()) {
+            return settoriDiEvento.get(selectedIndex);
+        }
+        return null;
+    }
+
+	public void updateFields(Evento e) throws ParseException {
         nameField.setText(e.getNome());
         dateField.setText(new SimpleDateFormat("dd/MM/yyyy").format(e.getData()));
         timeField.setText(e.getOra());
@@ -204,8 +249,21 @@ public class UserDetailsEventPanel extends JPanel {
         sectorsDropdown.removeAllItems();
         for (Settore s : settori) {
             if (s.getIdEvento() == e.getIdEvento()) {
-                sectorsDropdown.addItem(s.getNome()+" "+s.getPosizione()+ " anello "+s.getAnello());
+            	settoriDiEvento.add(s);
+            	String output=outputSettori(s);
+                sectorsDropdown.addItem(output);
             }
         }
+
+        ticketCountDropdown.removeAllItems();
+        int maxTickets = e.getMaxBigliettiAPersona();
+        for (int i = 1; i <= maxTickets; i++) {
+            ticketCountDropdown.addItem(i);
+        }
+    }
+    
+    public static String outputSettori(Settore s)
+    {
+    	return s.getNome()+" "+s.getPosizione()+ " anello "+s.getAnello()+" - "+s.getPrezzo()+"$ - "+(s.getPostiTotali()-s.getPostiAcquistati())+" rimanenti";
     }
 }

@@ -13,6 +13,7 @@ import adminpanels_package.AdminModifyLuogoPanel;
 import database_package.Database;
 import login_package.LoginPanel;
 import login_package.RegistrationPanel;
+import userpanels_package.UserCarrelloPanel;
 import userpanels_package.UserHomePanel;
 import userpanels_package.UserViewEventPanel;
 import userpanels_package.UserViewLuogoPanel;
@@ -34,6 +35,7 @@ public class MainFrame extends JFrame {
     private static AdminAddEventPanel adminAddEventPanel;
     private static UserViewLuogoPanel userViewLuogoPanel;
     private static UserViewEventPanel userViewEventPanel;
+    private static UserCarrelloPanel userCarrelloPanel;
 
     public MainFrame() {
         Database.createTables();
@@ -105,7 +107,7 @@ public class MainFrame extends JFrame {
             cardLayout.show(mainPanel, "Login");
         });
         
-        userHomePanel.setSwitchToViewLuogoAction(e -> userHomePanel.setContentPanel(userViewLuogoPanel));
+        //userHomePanel.setSwitchToViewLuogoAction(e -> userHomePanel.setContentPanel(userViewLuogoPanel));
         userHomePanel.setSwitchToViewEventAction(e-> {
         
         	try {
@@ -117,6 +119,19 @@ public class MainFrame extends JFrame {
         	userViewEventPanel.setSwitchToDetailsEventAction();
         	mainPanel.add(userViewEventPanel, "User View Event");
             userHomePanel.setContentPanel(userViewEventPanel);
+        
+        });
+        userHomePanel.setSwitchToCart(e-> {
+        
+        	try {
+				userCarrelloPanel = new UserCarrelloPanel();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	//userViewEventPanel.setSwitchToDetailsEventAction();
+        	mainPanel.add(userCarrelloPanel, "User Carrello");
+            userHomePanel.setContentPanel(userCarrelloPanel);
         
         });
         
