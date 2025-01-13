@@ -65,7 +65,6 @@ public class UserCarrelloPanel extends JPanel {
         acquistaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aggiungi la logica di acquisto qui
                 JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!");
             }
         });
@@ -75,92 +74,133 @@ public class UserCarrelloPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-  private JPanel createBigliettoPanel(Biglietto biglietto) throws ParseException {
-    EventoSettoreResult esr = this.findEventoSettore(biglietto);
-    Evento ev = esr.getEvento();
-    Settore s = esr.getSettore();
+    private JPanel createBigliettoPanel(Biglietto biglietto) throws ParseException {
+        EventoSettoreResult esr = this.findEventoSettore(biglietto);
+        Evento ev = esr.getEvento();
+        Settore s = esr.getSettore();
 
-    if (ev == null || s == null) {
-        JOptionPane.showMessageDialog(this, 
-            "Errore: Evento o Settore non trovati per il biglietto con ID evento " 
-            + biglietto.getIdEvento() + " e ID settore " + biglietto.getIdSettore(), 
-            "Errore", JOptionPane.ERROR_MESSAGE);
-        return new JPanel(); // Ritorna un pannello vuoto o gestisci diversamente.
+        if (ev == null || s == null) {
+            JOptionPane.showMessageDialog(this, 
+                "Errore: Evento o Settore non trovati per il biglietto con ID evento " 
+                + biglietto.getIdEvento() + " e ID settore " + biglietto.getIdSettore(), 
+                "Errore", JOptionPane.ERROR_MESSAGE);
+            return new JPanel();
+        }
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(Color.LIGHT_GRAY);
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(150, 150, 150), 1),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Left side - Image
+        String path = "src/main/resources/Immagini/campocalcio.jpg"; 
+        JLabel imageLabel = new JLabel();
+        updateImage(path, imageLabel);
+        
+        // Set gridx and gridy for image
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 5;  // Image spans 5 rows vertically
+        panel.add(imageLabel, gbc);
+
+        // Form elements - Labels and Text Fields
+        gbc.gridheight = 1; // Reset gridheight for the form elements
+
+        JLabel idUtenteLabel = new JLabel("Evento:");
+        idUtenteLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        panel.add(idUtenteLabel, gbc);
+
+        JTextField idUtenteField = new JTextField(ev.getNome());
+        idUtenteField.setFont(new Font("Arial", Font.PLAIN, 14));
+        idUtenteField.setEditable(false);
+        gbc.gridx = 2;
+        panel.add(idUtenteField, gbc);
+
+        JLabel idSettoreLabel = new JLabel("Settore: ");
+        idSettoreLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panel.add(idSettoreLabel, gbc);
+
+        JTextField idSettoreField = new JTextField(UserDetailsEventPanel.outputSettori(s));
+        idSettoreField.setFont(new Font("Arial", Font.PLAIN, 14));
+        idSettoreField.setEditable(false);
+        gbc.gridx = 2;
+        panel.add(idSettoreField, gbc);
+
+        JLabel nomeLabel = new JLabel("Nome Utilizzatore:");
+        nomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        panel.add(nomeLabel, gbc);
+
+        JTextField nomeField = new JTextField(biglietto.getNomeUtilizzatore());
+        nomeField.setFont(new Font("Arial", Font.PLAIN, 14));
+        nomeField.setEditable(biglietto.getNomeUtilizzatore().isEmpty());
+        gbc.gridx = 2;
+        panel.add(nomeField, gbc);
+
+        JLabel cognomeLabel = new JLabel("Cognome Utilizzatore:");
+        cognomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panel.add(cognomeLabel, gbc);
+
+        JTextField cognomeField = new JTextField(biglietto.getCognomeUtilizzatore());
+        cognomeField.setFont(new Font("Arial", Font.PLAIN, 14));
+        cognomeField.setEditable(biglietto.getCognomeUtilizzatore().isEmpty());
+        gbc.gridx = 2;
+        panel.add(cognomeField, gbc);
+
+        JLabel postoLabel = new JLabel("Acquistatore:");
+        postoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        panel.add(postoLabel, gbc);
+
+        JTextField postoField = new JTextField(String.valueOf(LoginPanel.usernameUtente));
+        postoField.setFont(new Font("Arial", Font.PLAIN, 14));
+        postoField.setEditable(false);
+        gbc.gridx = 2;
+        panel.add(postoField, gbc);
+
+        // Delete button
+        JButton deleteButton = new JButton("Elimina Biglietto");
+        deleteButton.setFont(new Font("Arial", Font.PLAIN, 14));
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                biglietti.remove(biglietto);
+                // Refresh the panel after deletion
+                removeAll();
+                revalidate();
+                repaint();
+                
+            }
+        });
+
+        // Set position for delete button
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        gbc.gridheight = 5;
+        panel.add(deleteButton, gbc);
+
+        return panel;
     }
 
-    JPanel panel = new JPanel(new GridBagLayout());
-    panel.setBackground(Color.LIGHT_GRAY);
-    panel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(150, 150, 150), 1),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)
-    ));
-
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.insets = new Insets(5, 5, 5, 5);
-
-    JLabel idUtenteLabel = new JLabel("Evento:");
-    idUtenteLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    panel.add(idUtenteLabel, gbc);
-
-    JTextField idUtenteField = new JTextField(ev.getNome());
-    idUtenteField.setFont(new Font("Arial", Font.PLAIN, 14));
-    idUtenteField.setEditable(false);
-    gbc.gridx = 1;
-    panel.add(idUtenteField, gbc);
-
-    JLabel idSettoreLabel = new JLabel("Settore: ");
-    idSettoreLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-    gbc.gridx = 0;
-    gbc.gridy = 1;
-    panel.add(idSettoreLabel, gbc);
-
-    JTextField idSettoreField = new JTextField(UserDetailsEventPanel.outputSettori(s));
-    idSettoreField.setFont(new Font("Arial", Font.PLAIN, 14));
-    idSettoreField.setEditable(false);
-    gbc.gridx = 1;
-    panel.add(idSettoreField, gbc);
-
-    JLabel nomeLabel = new JLabel("Nome Utilizzatore:");
-    nomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-    gbc.gridx = 0;
-    gbc.gridy = 2;
-    panel.add(nomeLabel, gbc);
-
-    JTextField nomeField = new JTextField(biglietto.getNomeUtilizzatore());
-    nomeField.setFont(new Font("Arial", Font.PLAIN, 14));
-    nomeField.setEditable(biglietto.getNomeUtilizzatore().isEmpty());
-    gbc.gridx = 1;
-    panel.add(nomeField, gbc);
-
-    JLabel cognomeLabel = new JLabel("Cognome Utilizzatore:");
-    cognomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-    gbc.gridx = 0;
-    gbc.gridy = 3;
-    panel.add(cognomeLabel, gbc);
-
-    JTextField cognomeField = new JTextField(biglietto.getCognomeUtilizzatore());
-    cognomeField.setFont(new Font("Arial", Font.PLAIN, 14));
-    cognomeField.setEditable(biglietto.getCognomeUtilizzatore().isEmpty());
-    gbc.gridx = 1;
-    panel.add(cognomeField, gbc);
-
-    JLabel postoLabel = new JLabel("Acquistatore:");
-    postoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-    gbc.gridx = 0;
-    gbc.gridy = 4;
-    panel.add(postoLabel, gbc);
-
-    JTextField postoField = new JTextField(String.valueOf(LoginPanel.usernameUtente));
-    postoField.setFont(new Font("Arial", Font.PLAIN, 14));
-    postoField.setEditable(false);
-    gbc.gridx = 1;
-    panel.add(postoField, gbc);
-
-    return panel;
-}
+  private void updateImage(String path, JLabel label) {
+      ImageIcon imageIcon = new ImageIcon(path);
+      Image image = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Resize image
+      label.setIcon(new ImageIcon(image));
+  }
 public static void addBiglietto(Biglietto biglietto) {
         try {
 			biglietti.add(biglietto);
