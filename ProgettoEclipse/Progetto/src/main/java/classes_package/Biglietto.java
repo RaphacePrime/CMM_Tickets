@@ -1,5 +1,16 @@
 package classes_package;
 
+import java.text.ParseException;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import database_package.AdminEventsDatabase;
+import database_package.AdminLuoghiDatabase;
+import database_package.AdminSectorsDatabase;
+import userpanels_package.UserDetailsEventPanel;
+
 public class Biglietto {
 
     private int idBiglietto;
@@ -8,6 +19,7 @@ public class Biglietto {
     private int posto;
     private int idUtente;
     private int idSettore;
+    private static final Logger logger = LogManager.getLogger(Biglietto.class);
 
     public Biglietto( String nomeUtilizzatore, String cognomeUtilizzatore, int posto, int idUtente, int idSettore, int idEvento) {
         this.idBiglietto = 0;
@@ -41,9 +53,28 @@ public class Biglietto {
     public void setIdSettore(int idSettore) { this.idSettore = idSettore; }
     
     public int getIdEvento() {
-    	int idevento=0;
-    	return idevento;
+        int idEvento = 0; // Valore predefinito, nel caso in cui non venga trovato alcun settore.
+        List<Settore> sectors;
+        
+        try {
+            // Recupero la lista di tutti i settori utilizzando il metodo getAllSectors.
+            sectors = AdminSectorsDatabase.getAllSectors();
+
+            // Itero sulla lista per trovare il settore corrispondente all'idSettore dell'oggetto corrente.
+            for (Settore settore : sectors) {
+                if (settore.getIdSettore() == this.getIdSettore()) {
+                    idEvento = settore.getIdEvento();
+                    break; // Esco dal ciclo appena trovato il settore corrispondente.
+                }
+            }
+        } catch (ParseException e) {
+            logger.error("Errore durante il recupero dei settori: " + e.getMessage(), e);
+        }
+
+        return idEvento;
     }
+
+
     
     
 }

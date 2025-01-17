@@ -1,6 +1,9 @@
 package userpanels_package;
 
 import javax.swing.*;
+
+import ch.qos.logback.classic.Logger;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,15 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import classes_package.Biglietto;
 import classes_package.Evento;
+import classes_package.Luogo;
 import classes_package.Settore;
 import database_package.AdminEventsDatabase;
+import database_package.AdminLuoghiDatabase;
 import database_package.AdminSectorsDatabase;
 import login_package.LoginPanel;
 
 public class UserCarrelloPanel extends JPanel {
     private static  List<Biglietto> biglietti = new ArrayList<>();
-    private  List<Settore> settori = new ArrayList<>();
-    private  List<Evento> eventi = new ArrayList<>();
+    private  static List<Settore> settori = new ArrayList<>();
+    private  static List<Evento> eventi = new ArrayList<>();
     private JButton acquistaButton;
 
     public UserCarrelloPanel() throws ParseException {
@@ -77,6 +82,7 @@ public class UserCarrelloPanel extends JPanel {
     private JPanel createBigliettoPanel(Biglietto biglietto) throws ParseException {
         EventoSettoreResult esr = this.findEventoSettore(biglietto);
         Evento ev = esr.getEvento();
+        System.out.print(ev.getIdEvento());
         Settore s = esr.getSettore();
 
         if (ev == null || s == null) {
@@ -99,7 +105,19 @@ public class UserCarrelloPanel extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         // Left side - Image
-        String path = "src/main/resources/Immagini/campocalcio.jpg"; 
+
+        String pathplace="a";
+        List<Luogo> luoghi=AdminLuoghiDatabase.getAllLuoghi();
+        for(int i=0; i<luoghi.size();i++)
+        {
+        	System.out.println(ev.getIdLuogo() + " lista:"+luoghi.get(i).getIdLuogo());
+        	if(ev.getIdLuogo()==luoghi.get(i).getIdLuogo())
+        	{
+        		pathplace=luoghi.get(i).getNomeFile();
+        	}
+        }
+        String path = "src/main/resources/Immagini/"+pathplace; 
+        System.out.println(path);
         JLabel imageLabel = new JLabel();
         updateImage(path, imageLabel);
         
@@ -196,26 +214,55 @@ public class UserCarrelloPanel extends JPanel {
         return panel;
     }
 
-  private void updateImage(String path, JLabel label) {
+    private void updateImage(String path, JLabel label) {
       ImageIcon imageIcon = new ImageIcon(path);
       Image image = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Resize image
       label.setIcon(new ImageIcon(image));
   }
-public static void addBiglietto(Biglietto biglietto) {
-        try {
-			biglietti.add(biglietto);
-			System.out.println ("Da UserDetail "+biglietto.getIdEvento()+" "+biglietto.getIdSettore());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+  	public static void addBiglietto(Biglietto biglietto, int numselected) throws ParseException {
+		try {
+				biglietti.add(biglietto);
+				System.out.println ("Da UserDetail "+biglietto.getIdEvento()+" "+biglietto.getIdSettore());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
+  
+  	public static boolean ticketCountControl(Biglietto biglietto, int numselected) throws ParseException
+  	{  		
+  		EventoSettoreResult esr=findEventoSettore(biglietto);
+  		int nmax=esr.getEvento().getMaxBigliettiAPersona();
+  		int attuali=0;
+  		for(int i=0; i<biglietti.size();i++)
+  		{
+  			EventoSettoreResult esr2=findEventoSettore(biglietti.get(i));
+  			if(esr.getEvento().getIdEvento()==esr2.getEvento().getIdEvento())
+  			{
+  				attuali++;
+  			}
+  		}
+  		if((numselected+attuali)>nmax)
+  		{
+  			int restante = nmax - attuali; // Calcolo quanti elementi possono essere ancora aggiunti.
+  		    JOptionPane.showMessageDialog(
+  		        null, 
+  		        "Non puoi acquistare " + numselected + ".  Biglietti dell'evento nel carrello: " + attuali + 
+  		        " dell'evento nel carrello. Il massimo consentito è " + nmax + ". Puoi aggiungere al massimo altri " + restante + " elementi.", 
+  		        "Limite raggiunto", 
+  		        JOptionPane.WARNING_MESSAGE
+  		    );
+  		    return false;
+  		}
+  		return true;
+  		
+  	}
 
     public static void clearCarrello() {
         biglietti.clear();
     }
     
-    public EventoSettoreResult findEventoSettore(Biglietto b) throws ParseException {
+    public static EventoSettoreResult findEventoSettore(Biglietto b) throws ParseException {
         Evento ev = null;
         Settore s = null;
 
@@ -251,6 +298,9 @@ public static void addBiglietto(Biglietto biglietto) {
     }
 
 }
+
+
+
 class EventoSettoreResult {
     Evento evento;
     Settore settore;

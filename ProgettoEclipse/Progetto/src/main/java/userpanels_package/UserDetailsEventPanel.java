@@ -213,12 +213,15 @@ public class UserDetailsEventPanel extends JPanel {
 		int num=Integer.parseInt(ticketCountDropdown.getSelectedItem().toString());
 		Settore s=findSettore();
 		if(s==null) {logger.info("Settore null");};
-		for(int i=0; i<num; i++)
+		boolean control=UserCarrelloPanel.ticketCountControl(new Biglietto("","",0,Login.loginId,s.getIdSettore(),this.evento.getIdEvento()),num);
+		if(control==true)
 		{
-			UserCarrelloPanel.addBiglietto(new Biglietto("","",0,Login.loginId,s.getIdSettore(),this.evento.getIdEvento()));
-			System.out.println("IdUTENTE: "+Login.loginId+" IdSETTORE: "+s.getIdSettore()+ "evento.idevento: "+this.evento.getIdEvento() + "s.idevento: "+s.getIdEvento());
+			for(int i=0; i<num; i++)
+			{
+				UserCarrelloPanel.addBiglietto(new Biglietto("","",0,Login.loginId,s.getIdSettore(),this.evento.getIdEvento()),num);
+				System.out.println("IdUTENTE: "+Login.loginId+" IdSETTORE: "+s.getIdSettore()+ "evento.idevento: "+this.evento.getIdEvento() + "s.idevento: "+s.getIdEvento());
+			}
 		}
-		
 	}
 
 
