@@ -5,10 +5,9 @@ public class Biglietto {
     private int idBiglietto;
     private String nomeUtilizzatore;
     private String cognomeUtilizzatore;
-    int posto;
+    private int posto;
     private int idUtente;
     private int idSettore;
-    private int idEvento;
 
     public Biglietto( String nomeUtilizzatore, String cognomeUtilizzatore, int posto, int idUtente, int idSettore, int idEvento) {
         this.idBiglietto = 0;
@@ -17,7 +16,6 @@ public class Biglietto {
         this.posto = posto;
         this.idUtente = idUtente;
         this.idSettore = idSettore;
-        this.idEvento = idEvento;
     }
 
     public int getIdBiglietto() { return idBiglietto; }
@@ -38,6 +36,10 @@ public class Biglietto {
     public int getIdSettore() { return idSettore; }
     public void setIdSettore(int idSettore) { this.idSettore = idSettore; }
     
-    public int getIdEvento() { return idEvento; }
-    public void setIdEvento(int idEvento) { this.idEvento = idEvento; }
+    public int getIdEvento() {
+    	int idevento=0;
+    	return idevento;
+    }
+    
+    
 }
