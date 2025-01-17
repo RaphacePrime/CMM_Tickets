@@ -18,7 +18,11 @@ public class Biglietto {
         this.idSettore = idSettore;
     }
 
-    public int getIdBiglietto() { return idBiglietto; }
+    public Biglietto() {
+		
+	}
+
+	public int getIdBiglietto() { return idBiglietto; }
     public void setIdBiglietto(int idBiglietto) { this.idBiglietto = idBiglietto; }
 
     public String getNomeUtilizzatore() { return nomeUtilizzatore; }
