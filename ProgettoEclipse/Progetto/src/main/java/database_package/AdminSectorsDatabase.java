@@ -121,4 +121,23 @@ public class AdminSectorsDatabase {
         }
         return false;
     }
+
+	public static boolean ticketAcquired(int idSettore) {
+		String sql = "UPDATE settori SET postiAcquistati = postiAcquistati + 1 WHERE idSettore = ?;";
+		try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        	pstmt.setInt(1, idSettore);
+        	
+        	int rowsUpdated = pstmt.executeUpdate();
+            if (rowsUpdated > 0) {
+                logger.info("DB postiAcquistati aggiornato con successo id: " + idSettore);
+                return true;
+            } else {
+                logger.warn("DB Nessun settore trovato con l'id specificato: " + idSettore);
+            }
+        } catch (SQLException e) {
+            logger.error("DB Errore durante l'aggiornamento dei postiAcquistati con idSettore: " + idSettore + ".DB Dettagli: " + e.getMessage(), e);
+        }
+        return false;
+		
+	}
 }
