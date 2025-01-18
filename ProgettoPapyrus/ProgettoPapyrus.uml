@@ -401,6 +401,21 @@
     <message xmi:type="uml:Message" xmi:id="_swhpwNTvEe-fYtUftOZMVw"/>
     <message xmi:type="uml:Message" xmi:id="_gwBTANT0Ee-xiOY5FAmDvA" name="4.2: conferma/errore" messageSort="asynchCall" receiveEvent="_gwOuYNT0Ee-xiOY5FAmDvA" sendEvent="_gwOHUNT0Ee-xiOY5FAmDvA"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:Model" xmi:id="_ZjtUgNV8Ee-0l8uZDbt6qg" name="SitoWeb">
+    <packagedElement xmi:type="uml:Component" xmi:id="_dtIA8NV8Ee-0l8uZDbt6qg" name="Admin">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_wdiL8NV8Ee-0l8uZDbt6qg" client="_dtIA8NV8Ee-0l8uZDbt6qg" supplier="_iXNxgNV8Ee-0l8uZDbt6qg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_excksNV8Ee-0l8uZDbt6qg" name="Login">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_zfKJ4NV8Ee-0l8uZDbt6qg" client="_excksNV8Ee-0l8uZDbt6qg" supplier="_iXNxgNV8Ee-0l8uZDbt6qg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Component" xmi:id="_fmXagNV8Ee-0l8uZDbt6qg" name="User">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_0y-iMNV8Ee-0l8uZDbt6qg" client="_fmXagNV8Ee-0l8uZDbt6qg" supplier="_iXNxgNV8Ee-0l8uZDbt6qg"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_hYT5QNV8Ee-0l8uZDbt6qg" name="Frame">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_q3g-oNV8Ee-0l8uZDbt6qg" client="_hYT5QNV8Ee-0l8uZDbt6qg" supplier="_excksNV8Ee-0l8uZDbt6qg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_iXNxgNV8Ee-0l8uZDbt6qg" name="Database"/>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_yVsTwKGwEe-WTofhe3ArGw">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yVs60KGwEe-WTofhe3ArGw" source="http://www.eclipse.org/uml2/2.0.0/UML">
       <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
