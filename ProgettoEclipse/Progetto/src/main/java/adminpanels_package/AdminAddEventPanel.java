@@ -244,19 +244,27 @@ public class AdminAddEventPanel extends JPanel {
         }
 
         Evento nuovoEvento = new Evento(nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo);
-        AdminEventsDatabase.addEvento(nuovoEvento);
-        
-        int idEv=findIdEvento(nuovoEvento);
-        for(int i=0; i<settori.size();i++)
+        boolean esito=AdminEventsDatabase.addEvento(nuovoEvento);
+        if(esito)
         {
-        	Settore s = settori.get(i);
-        	s.setIdEvento(idEv);
-        	
-        	AdminSectorsDatabase.addSettore(s);
+        	int idEv=findIdEvento(nuovoEvento);
+            for(int i=0; i<settori.size();i++)
+            {
+            	Settore s = settori.get(i);
+            	s.setIdEvento(idEv);
+            	
+            	AdminSectorsDatabase.addSettore(s);
+            }
+            
+            JOptionPane.showMessageDialog(this, "Evento aggiunto con successo!\n" + nuovoEvento, "Successo", JOptionPane.INFORMATION_MESSAGE);
+            logger.info("Evento aggiunto: " + nuovoEvento);
+        }
+        else
+        {
+        	JOptionPane.showMessageDialog(this, "Impossibile aggiungere evento, dati errati o evento già presente in quella data!\n" + nuovoEvento, "Errore", JOptionPane.ERROR_MESSAGE);
+            logger.info("Evento non aggiunto: " + nuovoEvento);
         }
         
-        JOptionPane.showMessageDialog(this, "Evento aggiunto con successo!\n" + nuovoEvento, "Successo", JOptionPane.INFORMATION_MESSAGE);
-        logger.info("Evento aggiunto: " + nuovoEvento);
     }
 
     public void updateSectorsDropdown() {

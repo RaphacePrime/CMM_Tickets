@@ -61,7 +61,7 @@ public class AdminEventsDatabase {
         return events;
     }
 
-    public static boolean addEvento(Evento evento) {
+   /* public static boolean addEvento(Evento evento) {
         String sql = "INSERT INTO eventi (nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -86,7 +86,57 @@ public class AdminEventsDatabase {
         }
         return false;
     }
-    
+    */
+    public static boolean addEvento(Evento evento) {
+        // SQL per verificare se esiste già un evento con lo stesso nome e data
+        String checkSql = "SELECT COUNT(*) FROM eventi WHERE nome = ? AND data = ?";
+        String insertSql = "INSERT INTO eventi (nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try (Connection conn = Database.getConnection(); 
+             PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+
+            // Impostiamo i parametri per la query di controllo
+            checkStmt.setString(1, evento.getNome());
+            String dataFormatted = dateFormat.format(evento.getData());
+            checkStmt.setString(2, dataFormatted);
+
+            // Eseguiamo la query di controllo
+            try (ResultSet rs = checkStmt.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    // Se esiste già un evento con lo stesso nome e data, ritorniamo false
+                    logger.warn("Evento con lo stesso nome e data già presente nel database.");
+                    return false;
+                }
+            }
+
+            // Procediamo con l'inserimento dell'evento se non esiste già
+            try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+                pstmt.setString(1, evento.getNome());
+                pstmt.setString(2, dataFormatted);
+                pstmt.setString(3, evento.getOra());
+                pstmt.setInt(4, evento.getMaxBigliettiAPersona());
+                pstmt.setBoolean(5, evento.getPostoNumerato());
+                String dataInizioVenditaFormatted = dateFormat.format(evento.getDataInizioVendita());
+                pstmt.setString(6, dataInizioVenditaFormatted);
+                pstmt.setInt(7, evento.getIdLuogo());
+                
+                int rowsInserted = pstmt.executeUpdate();
+                if (rowsInserted > 0) {
+                    logger.info("DB Evento aggiunto con successo: " + evento.getNome());
+                    return true;
+                } else {
+                    logger.warn("DB Nessun evento aggiunto al database.");
+                }
+            }
+
+        } catch (SQLException e) {
+            logger.error("Errore durante l'inserimento dell'evento: " + e.getMessage(), e);
+        }
+
+        return false;
+    }
+
     public static boolean updateEvento(Evento evento, int id) {
         String sql = "UPDATE eventi SET nome = ?, data = ?, ora = ?, maxBigliettiAPersona = ?, postoNumerato = ?, dataInizioVendita = ?, idLuogo = ? WHERE idEvento = ?";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
