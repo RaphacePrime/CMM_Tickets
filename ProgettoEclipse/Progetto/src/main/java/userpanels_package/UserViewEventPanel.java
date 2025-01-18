@@ -257,16 +257,32 @@ public class UserViewEventPanel extends JPanel {
         boolean acquistabileOra = availableNowCheckBox.isSelected();
         String maxBigliettiStr = maxTicketsField.getText();
         int maxBiglietti = (maxBigliettiStr.isEmpty()) ? Integer.MAX_VALUE : Integer.parseInt(maxBigliettiStr);
-
+        List<Evento> filteredEvents;
         // Filtro eventi
-        List<Evento> filteredEvents = AdminEventsDatabase.getAllEvents().stream()
-            .filter(event -> 
-                (nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase())) &&
-                (luogo.equals("Seleziona Luogo") || event.getIdLuogo() == luoghi.stream().filter(l -> l.getNome().equals(luogo)).findFirst().get().getIdLuogo()) &&
-                (acquistabileOra ? event.getDataInizioVendita().before(new Date()) : true) &&
-                (event.getMaxBigliettiAPersona() <= maxBiglietti)
-            )
-            .toList();
+        if(acquistabileOra)
+        {
+        	filteredEvents = AdminEventsDatabase.getAllEvents().stream()
+                    .filter(event -> 
+                        (nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase())) &&
+                        (luogo.equals("Seleziona Luogo") || event.getIdLuogo() == luoghi.stream().filter(l -> l.getNome().equals(luogo)).findFirst().get().getIdLuogo()) &&
+                        (acquistabileOra ? event.getDataInizioVendita().before(new Date()) : true) && 
+                        (event.getData().after(new Date())) &&
+                        (event.getMaxBigliettiAPersona() <= maxBiglietti)
+                    )
+                    .toList();
+        }
+        else
+        {
+        	filteredEvents = AdminEventsDatabase.getAllEvents().stream()
+                    .filter(event -> 
+                        (nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase())) &&
+                        (luogo.equals("Seleziona Luogo") || event.getIdLuogo() == luoghi.stream().filter(l -> l.getNome().equals(luogo)).findFirst().get().getIdLuogo()) &&
+                        (acquistabileOra ? event.getDataInizioVendita().before(new Date()) : true) && 
+                        (event.getMaxBigliettiAPersona() <= maxBiglietti)
+                    )
+                    .toList();
+        }
+        
         
         // Refresh the event table
         updateEventTable(filteredEvents);
