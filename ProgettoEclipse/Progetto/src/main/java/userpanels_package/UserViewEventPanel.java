@@ -264,7 +264,7 @@ public class UserViewEventPanel extends JPanel {
                 (nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase())) &&
                 (luogo.equals("Seleziona Luogo") || event.getIdLuogo() == luoghi.stream().filter(l -> l.getNome().equals(luogo)).findFirst().get().getIdLuogo()) &&
                 (acquistabileOra ? event.getDataInizioVendita().before(new Date()) : true) &&
-                (event.getMaxBigliettiAPersona() >= maxBiglietti)
+                (event.getMaxBigliettiAPersona() <= maxBiglietti)
             )
             .toList();
         
