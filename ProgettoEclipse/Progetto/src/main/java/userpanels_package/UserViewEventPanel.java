@@ -151,11 +151,28 @@ public class UserViewEventPanel extends JPanel {
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component comp = super.prepareRenderer(renderer, row, column);
+                int dateColumnIndex = 1; 
+                try {
+                    String dateStr = (String) getValueAt(row, dateColumnIndex);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date eventDate = sdf.parse(dateStr);
+                    Date today = new Date();
+
+                    if (eventDate.before(today)) {
+                        comp.setBackground(new Color(255, 204, 204)); 
+                        
+                    } else {
+                        comp.setBackground(new Color(204, 255, 204)); 
+                    }
+                } catch (ParseException e) {
+                    logger.error("Errore nel parsing della data: " + e.getMessage());
+                }
+
+                // Selezione della cella
                 if (isCellSelected(row, column)) {
-                    comp.setBackground(new Color(75, 110, 175)); 
+                    comp.setBackground(new Color(75, 110, 175));
                     comp.setForeground(Color.WHITE);
                 } else {
-                    comp.setBackground(Color.WHITE); 
                     comp.setForeground(Color.BLACK);
                 }
                 return comp;
@@ -199,28 +216,40 @@ public class UserViewEventPanel extends JPanel {
             public void mousePressed(java.awt.event.MouseEvent me) {
                 int row = eventTable.rowAtPoint(me.getPoint());
                 if (row >= 0) {
-                    String nomeLuogo = (String) tableModel.getValueAt(row, 0);
-                    logger.info("Evento cliccato: " + nomeLuogo);
-                    
-                    for (Evento evento : eventi) {
-                        if (evento.getNome().equals(nomeLuogo)) {
-                            UserDetailsEventPanel detailsPanel;
-							try {
-								detailsPanel = new UserDetailsEventPanel(evento);
-								MainFrame.setUserHomeContentPanel(detailsPanel);
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-                            //detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
-                            
-                            break;
+                    String nomeEvento = (String) tableModel.getValueAt(row, 0);
+                    String dataEventoStr = (String) tableModel.getValueAt(row, 1);
+                    logger.info("Evento cliccato: " + nomeEvento);
+
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        Date dataEvento = sdf.parse(dataEventoStr);
+
+                        for (Evento evento : eventi) {
+                            if (evento.getNome().equals(nomeEvento) && dataEvento.equals(evento.getData())) {
+                                Date today = new Date();
+
+                                if (!dataEvento.before(today)) {
+                                    UserDetailsEventPanel detailsPanel = new UserDetailsEventPanel(evento);
+                                    MainFrame.setUserHomeContentPanel(detailsPanel);
+                                    break;
+                                } else {
+                                    JOptionPane.showMessageDialog(
+                                        null,
+                                        "L'evento si è svolto in data " + dataEventoStr + "! Non è disponibile all'acquisto",
+                                        "Evento bloccato",
+                                        JOptionPane.WARNING_MESSAGE
+                                    );
+                                }
+                            }
                         }
+                    } catch (ParseException e) {
+                        logger.error("Errore nel parsing della data: " + e.getMessage());
                     }
                 }
             }
         });
-    } 
+    }
+
 
     private void applyFilters() {
         String nomeEvento = eventSearchField.getText();

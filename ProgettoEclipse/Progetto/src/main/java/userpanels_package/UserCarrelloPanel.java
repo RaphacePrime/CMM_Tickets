@@ -247,8 +247,9 @@ public class UserCarrelloPanel extends JPanel {
   			int restante = nmax - attuali; // Calcolo quanti elementi possono essere ancora aggiunti.
   		    JOptionPane.showMessageDialog(
   		        null, 
-  		        "Non puoi acquistare " + numselected + ".  Biglietti dell'evento nel carrello: " + attuali + 
-  		        " dell'evento nel carrello. Il massimo consentito è " + nmax + ". Puoi aggiungere al massimo altri " + restante + " elementi.", 
+  		        "Non puoi acquistare " + numselected + " biglietti perchè il massimo consentito è " + nmax + 
+  		        ". Puoi aggiungere al massimo altri " + restante + " elementi. (Nel carrello "+
+  		        " attualmente ne hai "+attuali+" dello stesso evento)", 
   		        "Limite raggiunto", 
   		        JOptionPane.WARNING_MESSAGE
   		    );
@@ -298,7 +299,6 @@ public class UserCarrelloPanel extends JPanel {
     }
 
 }
-
 
 
 class EventoSettoreResult {
