@@ -182,5 +182,28 @@ public class AdminEventsDatabase {
         return false;
     }
 
+	public static boolean updateEventWithDefaultLuogo(int idLuogo) {
+		String sql = "UPDATE eventi SET idLuogo = 0 WHERE idLuogo = ?";
+
+	    try (Connection conn = Database.getConnection(); 
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        // Impostiamo il parametro per l'ID del luogo da aggiornare
+	        pstmt.setInt(1, idLuogo);
+
+	        // Eseguiamo l'update
+	        int rowsUpdated = pstmt.executeUpdate();
+	        if (rowsUpdated > 0) {
+	            logger.info("Aggiornamento Luogo default completato con successo. " + rowsUpdated + " eventi aggiornati.");
+	            return true;
+	        } else {
+	            logger.warn("default luogo Nessun evento trovato con idLuogo = " + idLuogo);
+	        }
+	    } catch (SQLException e) {
+	        logger.error("Errore durante l'aggiornamento dell'evento per inserire default luogo: " + e.getMessage(), e);
+	    }
+	    return false;
+	}
+
 
 }

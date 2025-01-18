@@ -67,6 +67,19 @@ public class TestAdminEventsDatabase {
 
        
     }
+    
+    @Test
+    @Order(5)
+    public void testUpdateEventWithDefaultLuogo() throws SQLException {
+       
+        // Elimina l'evento
+        boolean result = AdminEventsDatabase.updateEventWithDefaultLuogo(14); 
+        assertTrue(result);
+
+       
+    }
+    
+    
 
     
 

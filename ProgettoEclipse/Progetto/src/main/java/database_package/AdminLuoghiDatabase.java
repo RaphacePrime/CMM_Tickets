@@ -68,7 +68,7 @@ public class AdminLuoghiDatabase {
         return false;
     }
 
-    public static boolean deleteLuogo(Luogo luogo) {
+    public static boolean deleteLuogo(Luogo luogo) { //quando viene eliminato un luogo, mettere il luogo di default per gli eventi che hanno quell'id luogo
         String sql = "DELETE FROM luoghi WHERE nome = ?";
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -77,6 +77,7 @@ public class AdminLuoghiDatabase {
             int rowsDeleted = pstmt.executeUpdate();
             if (rowsDeleted > 0) {
                 logger.info("DB Luogo eliminato con successo: " + luogo.getNome());
+                AdminEventsDatabase.updateEventWithDefaultLuogo(luogo.getIdLuogo());
                 return true;
             } else {
                 logger.warn("DB Nessun luogo trovato con il nome specificato: " + luogo.getNome());
