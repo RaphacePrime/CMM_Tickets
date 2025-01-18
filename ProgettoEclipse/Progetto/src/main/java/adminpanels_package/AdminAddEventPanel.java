@@ -258,6 +258,15 @@ public class AdminAddEventPanel extends JPanel {
             
             JOptionPane.showMessageDialog(this, "Evento aggiunto con successo!\n" + nuovoEvento, "Successo", JOptionPane.INFORMATION_MESSAGE);
             logger.info("Evento aggiunto: " + nuovoEvento);
+            
+            nameField.setText("");
+            maxTicketsField.setText("");
+            seatNumberedCheckbox.setSelected(false);
+            locationDropdown.setSelectedIndex(0);
+            sectorsDropdown.removeAllItems();
+            settori.clear();
+            
+            
         }
         else
         {
