@@ -17,6 +17,7 @@ import classes_package.Settore;
 import database_package.AdminEventsDatabase;
 import database_package.AdminLuoghiDatabase;
 import database_package.AdminSectorsDatabase;
+import database_package.TicketsDatabase;
 import login_package.LoginPanel;
 
 public class UserCarrelloPanel extends JPanel {
@@ -71,13 +72,123 @@ public class UserCarrelloPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!");
+            	buyCart();
+                
             }
+
+			
         });
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.setBackground(new Color(230, 230, 250));
         buttonPanel.add(acquistaButton);
         add(buttonPanel, BorderLayout.SOUTH);
     }
+    
+    private void buyCart() {
+    	
+    	if(biglietti.size()==0)
+    	{
+    		JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Non hai nessun biglietto nel carrello");
+    		return;
+    	}
+    	boolean hasError = false;
+        for (Component comp : getComponents()) {
+            if (comp instanceof JScrollPane) {
+                JScrollPane scrollPane = (JScrollPane) comp;
+                JViewport viewport = scrollPane.getViewport();
+                Component view = viewport.getView();
+                if (view instanceof JPanel) {
+                    JPanel contentPanel = (JPanel) view;
+                    for (Component bigliettoPanel : contentPanel.getComponents()) {
+                        if (bigliettoPanel instanceof JPanel) {
+                            JPanel panel = (JPanel) bigliettoPanel;
+                            for (Component fieldComp : panel.getComponents()) {
+                                if (fieldComp instanceof JTextField) {
+                                    JTextField textField = (JTextField) fieldComp;
+
+                                    // Controlla se il campo è Nome o Cognome
+                                    if(textField.getText()==null)
+                                    {
+                                    	JOptionPane.showMessageDialog(UserCarrelloPanel.this, 
+                                                "Per favore, compila tutti i campi Nome e Cognome Utilizzatore.", 
+                                                "Errore", 
+                                                JOptionPane.ERROR_MESSAGE);
+                                            return;
+                                    }
+                                    if(textField.getText().equals("") || textField.getText().isEmpty())
+                                    {
+                                    	textField.setBorder(BorderFactory.createLineBorder(Color.RED));
+                                    	hasError=true;
+                                    }
+                                    else
+                                    {
+                                    	textField.setBorder(UIManager.getBorder("TextField.border"));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (hasError) {
+            JOptionPane.showMessageDialog(UserCarrelloPanel.this, 
+                "Per favore, compila tutti i campi Nome e Cognome Utilizzatore.", 
+                "Errore", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int b=0;        
+    	int nome0cognome1=0;
+        for (Component comp : getComponents()) 
+        {
+            if (comp instanceof JScrollPane) 
+            {
+                JScrollPane scrollPane = (JScrollPane) comp;
+                JViewport viewport = scrollPane.getViewport();
+                Component view = viewport.getView();
+                if (view instanceof JPanel) 
+                {
+                    JPanel contentPanel = (JPanel) view;
+                    for (Component bigliettoPanel : contentPanel.getComponents()) 
+                    {
+                        if (bigliettoPanel instanceof JPanel) 
+                        {
+                        	int editable=0;
+                            JPanel panel = (JPanel) bigliettoPanel;
+                            for (Component fieldComp : panel.getComponents()) 
+                            {
+                                if (fieldComp instanceof JTextField) 
+                                {
+                                    JTextField textField = (JTextField) fieldComp;
+                                    System.out.println(textField.getName());
+                                    if(textField.isEditable())
+                                    {
+                                    	editable++;
+                                    	if(nome0cognome1==0)
+                                    	{
+                                    		biglietti.get(b).setNomeUtilizzatore(textField.getText());
+                                    		nome0cognome1++;
+                                    	}
+                                    	else
+                                    	{
+                                    		biglietti.get(b).setCognomeUtilizzatore(textField.getText());
+                                    		nome0cognome1--;
+                                    	}                                   	
+                                    } 
+                                }
+                            }
+                            System.out.println("IN QUESTO PANELLO CI SONO "+ editable+" ELEMNTI EDITABILI");
+                            TicketsDatabase.addTicket(biglietti.get(b));
+                            b++;
+                        }
+                    }
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!"); 
+    }
+        
 
     private JPanel createBigliettoPanel(Biglietto biglietto) throws ParseException {
         EventoSettoreResult esr = this.findEventoSettore(biglietto);
@@ -125,13 +236,16 @@ public class UserCarrelloPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridheight = 5;  // Image spans 5 rows vertically
+        gbc.gridheight = 5;  
         panel.add(imageLabel, gbc);
 
         // Form elements - Labels and Text Fields
         gbc.gridheight = 1; // Reset gridheight for the form elements
+        gbc.gridheight = 1; 
 
         JLabel idUtenteLabel = new JLabel("Evento:");
         idUtenteLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        
         gbc.gridx = 1;
         gbc.gridy = 0;
         panel.add(idUtenteLabel, gbc);
@@ -144,6 +258,7 @@ public class UserCarrelloPanel extends JPanel {
 
         JLabel idSettoreLabel = new JLabel("Settore: ");
         idSettoreLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        
         gbc.gridx = 1;
         gbc.gridy = 1;
         panel.add(idSettoreLabel, gbc);
@@ -156,6 +271,7 @@ public class UserCarrelloPanel extends JPanel {
 
         JLabel nomeLabel = new JLabel("Nome Utilizzatore:");
         nomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        
         gbc.gridx = 1;
         gbc.gridy = 2;
         panel.add(nomeLabel, gbc);
@@ -163,11 +279,13 @@ public class UserCarrelloPanel extends JPanel {
         JTextField nomeField = new JTextField(biglietto.getNomeUtilizzatore());
         nomeField.setFont(new Font("Arial", Font.PLAIN, 14));
         nomeField.setEditable(biglietto.getNomeUtilizzatore().isEmpty());
+        nomeField.setEditable(true);
         gbc.gridx = 2;
         panel.add(nomeField, gbc);
 
         JLabel cognomeLabel = new JLabel("Cognome Utilizzatore:");
         cognomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        
         gbc.gridx = 1;
         gbc.gridy = 3;
         panel.add(cognomeLabel, gbc);
@@ -175,11 +293,13 @@ public class UserCarrelloPanel extends JPanel {
         JTextField cognomeField = new JTextField(biglietto.getCognomeUtilizzatore());
         cognomeField.setFont(new Font("Arial", Font.PLAIN, 14));
         cognomeField.setEditable(biglietto.getCognomeUtilizzatore().isEmpty());
+        cognomeField.setEditable(true);
         gbc.gridx = 2;
         panel.add(cognomeField, gbc);
 
         JLabel postoLabel = new JLabel("Acquistatore:");
         postoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        
         gbc.gridx = 1;
         gbc.gridy = 4;
         panel.add(postoLabel, gbc);
@@ -193,11 +313,13 @@ public class UserCarrelloPanel extends JPanel {
         // Delete button
         JButton deleteButton = new JButton("Elimina Biglietto");
         deleteButton.setFont(new Font("Arial", Font.PLAIN, 14));
+        
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 biglietti.remove(biglietto);
                 // Refresh the panel after deletion
+ 
                 removeAll();
                 revalidate();
                 repaint();
