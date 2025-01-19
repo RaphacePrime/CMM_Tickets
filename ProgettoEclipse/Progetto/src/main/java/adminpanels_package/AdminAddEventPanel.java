@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -231,6 +232,19 @@ public class AdminAddEventPanel extends JPanel {
 
         if (nome.isEmpty() || maxTicketsField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (data.before(new Date())) {
+            JOptionPane.showMessageDialog(this, "La data dell'evento deve essere futura.", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(dataInizioVendita);
+        calendario.add(Calendar.DAY_OF_MONTH, 1);
+        Date giornoSuccessivoInizioVendita = calendario.getTime();
+        if (data.before(giornoSuccessivoInizioVendita)) {
+            JOptionPane.showMessageDialog(this, "La data di inizio vendita deve essere almeno un giorno prima rispetto alla data dell'evento.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
         int idLuogo=0;
