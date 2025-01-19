@@ -72,7 +72,6 @@ public class UserCarrelloPanel extends JPanel {
         acquistaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!");
             	buyCart();
                 
             }
@@ -106,8 +105,6 @@ public class UserCarrelloPanel extends JPanel {
                             for (Component fieldComp : panel.getComponents()) {
                                 if (fieldComp instanceof JTextField) {
                                     JTextField textField = (JTextField) fieldComp;
-
-                                    // Controlla se il campo è Nome o Cognome
                                     if(textField.getText()==null)
                                     {
                                     	JOptionPane.showMessageDialog(UserCarrelloPanel.this, 
@@ -189,6 +186,7 @@ public class UserCarrelloPanel extends JPanel {
         }
         JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!"); 
         this.clearCarrello();
+        UserHomePanel.switchToMyOrdersButton.doClick();
         
         }
         
@@ -326,11 +324,10 @@ public class UserCarrelloPanel extends JPanel {
                 removeAll();
                 revalidate();
                 repaint();
-                
+                UserHomePanel.switchToCartButton.doClick();
             }
         });
 
-        // Set position for delete button
         gbc.gridx = 3;
         gbc.gridy = 0;
         gbc.gridheight = 5;
@@ -349,7 +346,6 @@ public class UserCarrelloPanel extends JPanel {
 				biglietti.add(biglietto);
 				System.out.println ("Da UserDetail "+biglietto.getIdEvento()+" "+biglietto.getIdSettore());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     }

@@ -197,7 +197,6 @@ public class UserDetailsEventPanel extends JPanel {
                 try {
 					addToCart();
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
@@ -229,9 +228,13 @@ public class UserDetailsEventPanel extends JPanel {
 			{
 				for(int i=0; i<num; i++)
 				{
+					
 					UserCarrelloPanel.addBiglietto(new Biglietto("","",0,Login.loginId,s.getIdSettore(),this.evento.getIdEvento()),num);
 					System.out.println("IdUTENTE: "+Login.loginId+" IdSETTORE: "+s.getIdSettore()+ "evento.idevento: "+this.evento.getIdEvento() + "s.idevento: "+s.getIdEvento());
 				}
+				JOptionPane.showMessageDialog(null,"Biglietti aggiunti al carrello con successo", "Successo",JOptionPane.INFORMATION_MESSAGE);
+				UserHomePanel.switchToCartButton.doClick();
+			  		
 			}
 		}
 	}

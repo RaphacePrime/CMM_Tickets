@@ -17,8 +17,8 @@ public class UserHomePanel extends JPanel {
     private JButton switchToViewLuogoButton;
     private JButton switchToViewEventButton;
     private JPanel contentPanel;
-	private JButton switchToCartButton;
-	private JButton switchToMyOrdersButton;
+	static JButton switchToCartButton;
+	static JButton switchToMyOrdersButton;
 	private List<Biglietto> biglietti = new ArrayList<>();
 
     public UserHomePanel() {
@@ -86,11 +86,7 @@ public class UserHomePanel extends JPanel {
             if (label.equals("Visualizza eventi")) {
                 switchToViewEventButton = button;
             }
-            
-            /*if (label.equals("Visualizza luoghi")) {
-                switchToViewLuogoButton = button;
-            }*/
-            
+        
             if(label.equals("Carrello")) {
             	switchToCartButton = button;
             }
