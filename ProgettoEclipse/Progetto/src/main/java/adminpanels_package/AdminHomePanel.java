@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 
 public class AdminHomePanel extends JPanel {
     private JButton logoutButton; 
-    private JButton switchToModifyEventButton;
-    private JButton switchToModifyLuogoButton;
+    static JButton switchToModifyEventButton;
+    static JButton switchToModifyLuogoButton;
     private JButton switchToAddLuogoButton;
     private JButton switchToAddEventButton;
     private JPanel contentPanel; 

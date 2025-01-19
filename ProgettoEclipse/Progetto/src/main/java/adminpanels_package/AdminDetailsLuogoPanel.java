@@ -236,6 +236,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Errore durante aggiornamento del luogo. Verifica che il nome sia corretto.", "Errore", JOptionPane.ERROR_MESSAGE);
             logger.error("Errore durante l'aggiornamento del luogo: " + nuovoLuogo.getNome());
         }
+        AdminHomePanel.switchToModifyLuogoButton.doClick();
     }
     
     private void deleteLuogo() {
@@ -251,6 +252,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
             logger.error("Errore durante l'eliminazione del luogo: " + luogo.getNome());
 
     	}
+    	AdminHomePanel.switchToModifyLuogoButton.doClick();
     }
 
     private JLabel createTextLabel(String labelText) {

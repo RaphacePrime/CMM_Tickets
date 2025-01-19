@@ -266,6 +266,7 @@ public class AdminDetailsEventPanel extends JPanel {
             logger.error("Errore durante l'aggiornamento dell'evento: " + e2.getNome());
             JOptionPane.showMessageDialog(this, "Errore durante l'aggiornamento dell'evento.", "Errore", JOptionPane.ERROR_MESSAGE);
         }
+        AdminHomePanel.switchToModifyEventButton.doClick();
     }
     
     private void deleteEvento() {
@@ -276,6 +277,7 @@ public class AdminDetailsEventPanel extends JPanel {
             logger.error("Errore durante l'eliminazione dell'evento: " + evento.getIdEvento());
             JOptionPane.showMessageDialog(this, "Errore durante l'eliminazione dell'evento.", "Errore", JOptionPane.ERROR_MESSAGE);
         }
+    	AdminHomePanel.switchToModifyEventButton.doClick();
 		
 		
 	}
