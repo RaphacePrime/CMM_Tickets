@@ -39,13 +39,6 @@ public class AdminModifyLuogoPanel extends JPanel {
 
         fetchAndDisplayLuoghi();
 
-
-        /*backButton = new JButton("Torna alla Home Admin");
-        backButton.setFont(new Font("Arial", Font.PLAIN, 14));
-        backButton.setBackground(new Color(75, 110, 175));
-        backButton.setForeground(Color.WHITE);
-        backButton.setFocusPainted(false);
-        add(backButton, BorderLayout.SOUTH);*/
     }
 
     public void setBackToAdminHomeAction(ActionListener action) {
@@ -110,26 +103,6 @@ public class AdminModifyLuogoPanel extends JPanel {
         header.setBackground(new Color(75, 110, 175));
         header.setForeground(Color.WHITE);
 
-        
-        /*luogoTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent me) {
-                int row = luogoTable.rowAtPoint(me.getPoint());
-                if (row >= 0) {
-                    
-                    String nomeLuogo = (String) tableModel.getValueAt(row, 0);
-                    logger.info("Luogo cliccato: " + nomeLuogo);                    
-                    for (Luogo luogo : luoghi) {
-                        if (luogo.getNome().equals(nomeLuogo)) {
-                            AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);                            
-                            break;
-                        }
-                    }
-                    
-                }
-            }
-        });*/
-
-        
         JScrollPane scrollPane = new JScrollPane(luogoTable);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Lista Luoghi"));
         add(scrollPane, BorderLayout.CENTER);
@@ -147,7 +120,6 @@ public class AdminModifyLuogoPanel extends JPanel {
                     for (Luogo luogo : luoghi) {
                         if (luogo.getNome().equals(nomeLuogo)) {
                             AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);
-                            //detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
                             MainFrame.setAdminHomeContentPanel(detailsPanel);
                             break;
                         }
