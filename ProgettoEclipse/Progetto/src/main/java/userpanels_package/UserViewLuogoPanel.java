@@ -14,8 +14,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 import classes_package.Luogo;
-import database_package.AdminEventsDatabase;
-import database_package.AdminLuoghiDatabase;
+import database_package.EventsDatabase;
+import database_package.LuoghiDatabase;
 import database_package.Database;
 import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
@@ -57,7 +57,7 @@ public class UserViewLuogoPanel extends JPanel {
 
 
     public void fetchAndDisplayLuoghi() {
-        luoghi = AdminLuoghiDatabase.getAllLuoghi();
+        luoghi = LuoghiDatabase.getAllLuoghi();
         String[] columnNames = {"Nome", "Città", "Indirizzo"}; 
         Object[][] data = new Object[luoghi.size()][3]; 
 

@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import classes_package.Luogo;
-import database_package.AdminLuoghiDatabase;
+import database_package.LuoghiDatabase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -198,7 +198,7 @@ public class AdminAddLuogoPanel extends JPanel {
         }
 
         Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);
-        boolean success = AdminLuoghiDatabase.addLuogo(nuovoLuogo);
+        boolean success = LuoghiDatabase.addLuogo(nuovoLuogo);
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Luogo aggiunto con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);

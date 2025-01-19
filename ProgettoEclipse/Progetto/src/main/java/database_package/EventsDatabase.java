@@ -13,8 +13,8 @@ import classes_package.Evento;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AdminEventsDatabase {
-    private static final Logger logger = LogManager.getLogger(AdminEventsDatabase.class);
+public class EventsDatabase {
+    private static final Logger logger = LogManager.getLogger(EventsDatabase.class);
 
     public static List<Evento> getAllEvents() {
         List<Evento> events = new ArrayList<>();
@@ -171,7 +171,7 @@ public class AdminEventsDatabase {
             int rowsDeleted = pstmt.executeUpdate();
             if (rowsDeleted > 0) {
                 logger.info("DB Evento eliminato con successo, idEvento: " + idEvento);
-                AdminSectorsDatabase.deleteSettori(idEvento);
+                SectorsDatabase.deleteSettori(idEvento);
                 return true;
             } else {
                 logger.warn("DB Nessun evento trovato con id: " + idEvento);

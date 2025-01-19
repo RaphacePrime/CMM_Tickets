@@ -15,9 +15,9 @@ import classes_package.Biglietto;
 import classes_package.Evento;
 import classes_package.Luogo;
 import classes_package.Settore;
-import database_package.AdminEventsDatabase;
-import database_package.AdminLuoghiDatabase;
-import database_package.AdminSectorsDatabase;
+import database_package.EventsDatabase;
+import database_package.LuoghiDatabase;
+import database_package.SectorsDatabase;
 import database_package.TicketsDatabase;
 import login_package.LoginPanel;
 
@@ -219,7 +219,7 @@ public class UserCarrelloPanel extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         String pathplace="a";
-        List<Luogo> luoghi=AdminLuoghiDatabase.getAllLuoghi();
+        List<Luogo> luoghi=LuoghiDatabase.getAllLuoghi();
         for(int i=0; i<luoghi.size();i++)
         {
         	System.out.println(ev.getIdLuogo() + " lista:"+luoghi.get(i).getIdLuogo());
@@ -392,7 +392,7 @@ public class UserCarrelloPanel extends JPanel {
         Evento ev = null;
         Settore s = null;
 
-        eventi = AdminEventsDatabase.getAllEvents();
+        eventi = EventsDatabase.getAllEvents();
         if(eventi.isEmpty())
         {
         	System.out.println("Eventi è vuota");
@@ -408,7 +408,7 @@ public class UserCarrelloPanel extends JPanel {
             System.err.println("Evento non trovato per ID: " + b.getIdEvento());
         }
 
-        settori = AdminSectorsDatabase.getAllSectors();
+        settori = SectorsDatabase.getAllSectors();
         for (Settore settore : settori) {
             if (ev != null && ev.getIdEvento() == settore.getIdEvento() && b.getIdSettore() == settore.getIdSettore()) {
                 s = settore;

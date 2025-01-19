@@ -17,7 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import classes_package.Luogo;
-import database_package.AdminLuoghiDatabase;
+import database_package.LuoghiDatabase;
 
 public class AdminDetailsLuogoPanel extends JPanel {
     private JLabel nameTextLabel;
@@ -226,7 +226,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
         }
 
         Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);
-        boolean success = AdminLuoghiDatabase.updateLuogo(nuovoLuogo,this.luogo.getIdLuogo());
+        boolean success = LuoghiDatabase.updateLuogo(nuovoLuogo,this.luogo.getIdLuogo());
 
         if (success) {
             JOptionPane.showMessageDialog(this, "Luogo aggiornato con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
@@ -240,7 +240,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
     }
     
     private void deleteLuogo() {
-    	boolean success=AdminLuoghiDatabase.deleteLuogo(luogo);
+    	boolean success=LuoghiDatabase.deleteLuogo(luogo);
     	if(success)
     	{
     		JOptionPane.showMessageDialog(this, "Elemento correttamente eliminato", "Eliminazione confermata", JOptionPane.PLAIN_MESSAGE);

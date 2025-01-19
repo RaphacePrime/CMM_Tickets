@@ -61,7 +61,7 @@ public class TicketsDatabase {
             int rowsAffected = stmt.executeUpdate();
             if(rowsAffected > 0)
             {
-            	AdminSectorsDatabase.ticketAcquired(biglietto.getIdSettore());
+            	SectorsDatabase.ticketAcquired(biglietto.getIdSettore());
             }
             return rowsAffected > 0; // restituisce true se il biglietto è stato aggiunto correttamente
 

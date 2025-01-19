@@ -15,9 +15,9 @@ import org.apache.logging.log4j.Logger;
 import classes_package.Evento;
 import classes_package.Luogo;
 import classes_package.Settore;
-import database_package.AdminEventsDatabase;
-import database_package.AdminLuoghiDatabase;
-import database_package.AdminSectorsDatabase;
+import database_package.EventsDatabase;
+import database_package.LuoghiDatabase;
+import database_package.SectorsDatabase;
 import frames_package.MainFrame;
 
 public class AdminAddEventPanel extends JPanel {
@@ -43,7 +43,7 @@ public class AdminAddEventPanel extends JPanel {
         }*/
 
         List<String> nomiluoghi = new ArrayList<>();
-        listaluoghi = AdminLuoghiDatabase.getAllLuoghi();
+        listaluoghi = LuoghiDatabase.getAllLuoghi();
         for (int i = 0; i < listaluoghi.size(); i++) {
             nomiluoghi.add(listaluoghi.get(i).getNome());
         }
@@ -258,7 +258,7 @@ public class AdminAddEventPanel extends JPanel {
         }
 
         Evento nuovoEvento = new Evento(nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo);
-        boolean esito=AdminEventsDatabase.addEvento(nuovoEvento);
+        boolean esito=EventsDatabase.addEvento(nuovoEvento);
         if(esito)
         {
         	int idEv=findIdEvento(nuovoEvento);
@@ -267,7 +267,7 @@ public class AdminAddEventPanel extends JPanel {
             	Settore s = settori.get(i);
             	s.setIdEvento(idEv);
             	
-            	AdminSectorsDatabase.addSettore(s);
+            	SectorsDatabase.addSettore(s);
             }
             
             JOptionPane.showMessageDialog(this, "Evento aggiunto con successo!\n" + nuovoEvento, "Successo", JOptionPane.INFORMATION_MESSAGE);
@@ -304,7 +304,7 @@ public class AdminAddEventPanel extends JPanel {
     
     public void updateLocationDropdown() {
     	List<String> nomiluoghi = new ArrayList<>();
-        listaluoghi = AdminLuoghiDatabase.getAllLuoghi();
+        listaluoghi = LuoghiDatabase.getAllLuoghi();
         locationDropdown.removeAllItems();
         for (int i = 0; i < listaluoghi.size(); i++) {
             nomiluoghi.add(listaluoghi.get(i).getNome());
@@ -364,7 +364,7 @@ public class AdminAddEventPanel extends JPanel {
     }*/
     
     public int findIdEvento(Evento ev) {
-        List<Evento> evs = AdminEventsDatabase.getAllEvents();
+        List<Evento> evs = EventsDatabase.getAllEvents();
         int id=evs.getLast().getIdEvento();
 
         return id;

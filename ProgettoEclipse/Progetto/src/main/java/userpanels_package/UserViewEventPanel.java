@@ -19,8 +19,8 @@ import java.util.Date;
 import java.util.List;
 import classes_package.Evento;
 import classes_package.Luogo;
-import database_package.AdminEventsDatabase;
-import database_package.AdminLuoghiDatabase;
+import database_package.EventsDatabase;
+import database_package.LuoghiDatabase;
 import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
 
@@ -80,7 +80,7 @@ public class UserViewEventPanel extends JPanel {
 
         luogoComboBox = new JComboBox<>();
         luogoComboBox.addItem("Seleziona Luogo");
-        for (Luogo luogo : AdminLuoghiDatabase.getAllLuoghi()) {
+        for (Luogo luogo : LuoghiDatabase.getAllLuoghi()) {
             luogoComboBox.addItem(luogo.getNome());
         }
         gbc.gridx = 4;
@@ -117,8 +117,8 @@ public class UserViewEventPanel extends JPanel {
     }
 
     public void fetchAndDisplayEvents() throws ParseException {
-        eventi = AdminEventsDatabase.getAllEvents();
-        luoghi = AdminLuoghiDatabase.getAllLuoghi();
+        eventi = EventsDatabase.getAllEvents();
+        luoghi = LuoghiDatabase.getAllLuoghi();
         String[] columnNames = {"Nome Evento", "Data", "Luogo", "Città", "Indirizzo"};
         Object[][] data = new Object[eventi.size()][5]; 
 
@@ -261,7 +261,7 @@ public class UserViewEventPanel extends JPanel {
         // Filtro eventi
         if(acquistabileOra)
         {
-        	filteredEvents = AdminEventsDatabase.getAllEvents().stream()
+        	filteredEvents = EventsDatabase.getAllEvents().stream()
                     .filter(event -> 
                         (nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase())) &&
                         (luogo.equals("Seleziona Luogo") || event.getIdLuogo() == luoghi.stream().filter(l -> l.getNome().equals(luogo)).findFirst().get().getIdLuogo()) &&
@@ -273,7 +273,7 @@ public class UserViewEventPanel extends JPanel {
         }
         else
         {
-        	filteredEvents = AdminEventsDatabase.getAllEvents().stream()
+        	filteredEvents = EventsDatabase.getAllEvents().stream()
                     .filter(event -> 
                         (nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase())) &&
                         (luogo.equals("Seleziona Luogo") || event.getIdLuogo() == luoghi.stream().filter(l -> l.getNome().equals(luogo)).findFirst().get().getIdLuogo()) &&

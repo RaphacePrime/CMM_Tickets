@@ -15,9 +15,9 @@ import org.apache.logging.log4j.Logger;
 import classes_package.Evento;
 import classes_package.Luogo;
 import classes_package.Settore;
-import database_package.AdminEventsDatabase;
-import database_package.AdminLuoghiDatabase;
-import database_package.AdminSectorsDatabase;
+import database_package.EventsDatabase;
+import database_package.LuoghiDatabase;
+import database_package.SectorsDatabase;
 import frames_package.MainFrame;
 
 public class AdminDetailsEventPanel extends JPanel {
@@ -48,7 +48,7 @@ public class AdminDetailsEventPanel extends JPanel {
 
     	this.evento=e;
         List<String> nomiluoghi = new ArrayList<>();
-        listaluoghi = AdminLuoghiDatabase.getAllLuoghi();
+        listaluoghi = LuoghiDatabase.getAllLuoghi();
         for (int i = 0; i < listaluoghi.size(); i++) {
             nomiluoghi.add(listaluoghi.get(i).getNome());
         }
@@ -272,7 +272,7 @@ public class AdminDetailsEventPanel extends JPanel {
         
 
         // Call the method to update the event in the database
-        if (AdminEventsDatabase.updateEvento(e2,evento.getIdEvento())) {
+        if (EventsDatabase.updateEvento(e2,evento.getIdEvento())) {
             logger.info("Evento aggiornato con successo: " + e2.getNome());
             JOptionPane.showMessageDialog(this, "Evento aggiornato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -283,7 +283,7 @@ public class AdminDetailsEventPanel extends JPanel {
     }
     
     private void deleteEvento() {
-    	if (AdminEventsDatabase.deleteEvento(evento.getIdEvento())) {
+    	if (EventsDatabase.deleteEvento(evento.getIdEvento())) {
             logger.info("Evento eliminato con successo: " + evento.getIdEvento());
             JOptionPane.showMessageDialog(this, "Evento eliminato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -326,7 +326,7 @@ public class AdminDetailsEventPanel extends JPanel {
         locationDropdown.setSelectedIndex(indice);
         
         
-        settori = AdminSectorsDatabase.getAllSectors();
+        settori = SectorsDatabase.getAllSectors();
         sectorsDropdown.removeAllItems();
         int index=0;
         for (int k = 0; k < settori.size(); k++) 
@@ -351,7 +351,7 @@ public class AdminDetailsEventPanel extends JPanel {
     public int findIdEvento(Evento ev) throws ParseException
     {
     	int id=0;
-    	List<Evento> evs= AdminEventsDatabase.getAllEvents();
+    	List<Evento> evs= EventsDatabase.getAllEvents();
     	for(int i=0; i<evs.size();i++)
     	{
     		if(ev.getNome().equals(evs.get(i).getNome()) && ev.getData().equals(evs.get(i).getData())

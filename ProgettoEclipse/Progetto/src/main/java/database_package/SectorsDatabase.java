@@ -19,8 +19,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 
-public class AdminSectorsDatabase {
-    private static final Logger logger = LogManager.getLogger(AdminEventsDatabase.class);
+public class SectorsDatabase {
+    private static final Logger logger = LogManager.getLogger(EventsDatabase.class);
 
     public static List<Settore> getAllSectors() throws ParseException {
         List<Settore> sectors = new ArrayList<>();

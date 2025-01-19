@@ -2,7 +2,7 @@ package test_package;
 import static org.junit.jupiter.api.Assertions.*;
 
 import classes_package.Evento;
-import database_package.AdminEventsDatabase;
+import database_package.EventsDatabase;
 import database_package.Database;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ public class TestAdminEventsDatabase {
     @Order(1)
     public void testGetAllEvents() throws SQLException {
 
-        List<Evento> events = AdminEventsDatabase.getAllEvents();
+        List<Evento> events = EventsDatabase.getAllEvents();
         assertNotNull(events);
         
     }
@@ -36,7 +36,7 @@ public class TestAdminEventsDatabase {
         Evento evento = new Evento("Concerto", Date.valueOf("2025-01-18"), "20:00", 100, true, Date.valueOf("2025-01-10"), 1);
         
         // Aggiungi l'evento al database
-        boolean result = AdminEventsDatabase.addEvento(evento);
+        boolean result = EventsDatabase.addEvento(evento);
         assertTrue(result);
         
         
@@ -51,7 +51,7 @@ public class TestAdminEventsDatabase {
         Evento updatedEvento = new Evento("Concerto aggiornato", Date.valueOf("2025-01-19"), "21:00", 150, false, Date.valueOf("2025-01-12"), 2);
         
         // Aggiorna l'evento
-        boolean result = AdminEventsDatabase.updateEvento(updatedEvento, 111); 
+        boolean result = EventsDatabase.updateEvento(updatedEvento, 111); 
         assertTrue(result);
 
        
@@ -62,7 +62,7 @@ public class TestAdminEventsDatabase {
     public void testDeleteEvento() throws SQLException {
        
         // Elimina l'evento
-        boolean result = AdminEventsDatabase.deleteEvento(111); 
+        boolean result = EventsDatabase.deleteEvento(111); 
         assertTrue(result);
 
        
@@ -73,7 +73,7 @@ public class TestAdminEventsDatabase {
     public void testUpdateEventWithDefaultLuogo() throws SQLException {
        
         // Elimina l'evento
-        boolean result = AdminEventsDatabase.updateEventWithDefaultLuogo(14); 
+        boolean result = EventsDatabase.updateEventWithDefaultLuogo(14); 
         assertTrue(result);
 
        

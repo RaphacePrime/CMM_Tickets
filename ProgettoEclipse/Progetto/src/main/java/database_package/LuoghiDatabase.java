@@ -11,8 +11,8 @@ import classes_package.Luogo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class AdminLuoghiDatabase {
-    private static final Logger logger = LogManager.getLogger(AdminLuoghiDatabase.class);
+public class LuoghiDatabase {
+    private static final Logger logger = LogManager.getLogger(LuoghiDatabase.class);
 
     public static List<Luogo> getAllLuoghi() {
         List<Luogo> luoghi = new ArrayList<>();
@@ -77,7 +77,7 @@ public class AdminLuoghiDatabase {
             int rowsDeleted = pstmt.executeUpdate();
             if (rowsDeleted > 0) {
                 logger.info("DB Luogo eliminato con successo: " + luogo.getNome());
-                AdminEventsDatabase.updateEventWithDefaultLuogo(luogo.getIdLuogo());
+                EventsDatabase.updateEventWithDefaultLuogo(luogo.getIdLuogo());
                 return true;
             } else {
                 logger.warn("DB Nessun luogo trovato con il nome specificato: " + luogo.getNome());

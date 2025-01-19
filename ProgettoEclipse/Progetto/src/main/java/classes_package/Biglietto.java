@@ -6,9 +6,9 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import database_package.AdminEventsDatabase;
-import database_package.AdminLuoghiDatabase;
-import database_package.AdminSectorsDatabase;
+import database_package.EventsDatabase;
+import database_package.LuoghiDatabase;
+import database_package.SectorsDatabase;
 import userpanels_package.UserDetailsEventPanel;
 
 public class Biglietto {
@@ -58,7 +58,7 @@ public class Biglietto {
         
         try {
             // Recupero la lista di tutti i settori utilizzando il metodo getAllSectors.
-            sectors = AdminSectorsDatabase.getAllSectors();
+            sectors = SectorsDatabase.getAllSectors();
 
             // Itero sulla lista per trovare il settore corrispondente all'idSettore dell'oggetto corrente.
             for (Settore settore : sectors) {

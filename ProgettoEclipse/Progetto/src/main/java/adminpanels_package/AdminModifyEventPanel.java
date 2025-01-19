@@ -17,8 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import classes_package.Evento;
 import classes_package.Luogo;
-import database_package.AdminEventsDatabase;
-import database_package.AdminLuoghiDatabase;
+import database_package.EventsDatabase;
+import database_package.LuoghiDatabase;
 import database_package.Database;
 import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
@@ -61,8 +61,8 @@ public class AdminModifyEventPanel extends JPanel {
 
 
     public void fetchAndDisplayEvents() throws ParseException {
-        eventi = AdminEventsDatabase.getAllEvents();
-        luoghi = AdminLuoghiDatabase.getAllLuoghi();
+        eventi = EventsDatabase.getAllEvents();
+        luoghi = LuoghiDatabase.getAllLuoghi();
         String[] columnNames = {"Nome Evento", "Data", "Luogo", "Città", "Indirizzo"}; 
         Object[][] data = new Object[eventi.size()][5]; 
 

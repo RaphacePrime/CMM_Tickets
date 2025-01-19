@@ -16,9 +16,9 @@ import classes_package.Biglietto;
 import classes_package.Evento;
 import classes_package.Luogo;
 import classes_package.Settore;
-import database_package.AdminEventsDatabase;
-import database_package.AdminLuoghiDatabase;
-import database_package.AdminSectorsDatabase;
+import database_package.EventsDatabase;
+import database_package.LuoghiDatabase;
+import database_package.SectorsDatabase;
 import login_package.Login;
 import login_package.LoginPanel;
 
@@ -41,7 +41,7 @@ public class UserDetailsEventPanel extends JPanel {
 
     public UserDetailsEventPanel(Evento e) throws ParseException {
         this.evento = e;
-        listaluoghi = AdminLuoghiDatabase.getAllLuoghi();
+        listaluoghi = LuoghiDatabase.getAllLuoghi();
 
         setLayout(new BorderLayout());
         setBackground(new Color(230, 230, 250));
@@ -258,7 +258,7 @@ public class UserDetailsEventPanel extends JPanel {
             }
         }
 
-        settori = AdminSectorsDatabase.getAllSectors();
+        settori = SectorsDatabase.getAllSectors();
         sectorsDropdown.removeAllItems();
         for (Settore s : settori) {
             if (s.getIdEvento() == e.getIdEvento()) {
