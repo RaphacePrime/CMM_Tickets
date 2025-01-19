@@ -234,10 +234,7 @@ public class UserDetailsEventPanel extends JPanel {
 				}
 			}
 		}
-		
 	}
-
-
 	private Settore findSettore() {
         int selectedIndex = sectorsDropdown.getSelectedIndex();
         if (selectedIndex >= 0 && selectedIndex < settoriDiEvento.size()) {
@@ -281,5 +278,10 @@ public class UserDetailsEventPanel extends JPanel {
     public static String outputSettori(Settore s)
     {
     	return s.getNome()+" "+s.getPosizione()+ " anello "+s.getAnello()+" - "+s.getPrezzo()+"$ - "+(s.getPostiTotali()-s.getPostiAcquistati())+" rimanenti";
+    }
+    
+    public static String outputSettoriSmall(Settore s)
+    {
+    	return s.getNome()+" "+s.getPosizione()+ " anello "+s.getAnello()+" - "+s.getPrezzo()+"$";
     }
 }

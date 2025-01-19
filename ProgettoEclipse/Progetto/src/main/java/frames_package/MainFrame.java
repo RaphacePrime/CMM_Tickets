@@ -15,6 +15,7 @@ import login_package.LoginPanel;
 import login_package.RegistrationPanel;
 import userpanels_package.UserCarrelloPanel;
 import userpanels_package.UserHomePanel;
+import userpanels_package.UserMyOrdersPanel;
 import userpanels_package.UserViewEventPanel;
 import userpanels_package.UserViewLuogoPanel;
 import utils_package.LookAndFeelUtil;
@@ -36,6 +37,7 @@ public class MainFrame extends JFrame {
     private static UserViewLuogoPanel userViewLuogoPanel;
     private static UserViewEventPanel userViewEventPanel;
     private static UserCarrelloPanel userCarrelloPanel;
+    private static UserMyOrdersPanel userMyOrdersPanel;
 
     public MainFrame() {
         Database.createTables();
@@ -134,6 +136,21 @@ public class MainFrame extends JFrame {
             userHomePanel.setContentPanel(userCarrelloPanel);
         
         });
+        
+        userHomePanel.setSwitchToMyOrders(e-> {
+            
+        	try {
+				userMyOrdersPanel = new UserMyOrdersPanel();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	//userViewEventPanel.setSwitchToDetailsEventAction();
+        	mainPanel.add(userMyOrdersPanel, "User My Orders");
+            userHomePanel.setContentPanel(userMyOrdersPanel);
+        
+        });
+        
         
         userHomePanel.setLogoutAction(e -> {
             loginPanel.resetFields();

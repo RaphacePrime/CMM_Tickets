@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import classes_package.Biglietto;
@@ -186,8 +187,10 @@ public class UserCarrelloPanel extends JPanel {
                 }
             }
         }
-        JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!"); 
-    }
+        //JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!"); 
+        this.clearCarrello();
+        
+        }
         
 
     private JPanel createBigliettoPanel(Biglietto biglietto) throws ParseException {
@@ -215,8 +218,6 @@ public class UserCarrelloPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Left side - Image
-
         String pathplace="a";
         List<Luogo> luoghi=AdminLuoghiDatabase.getAllLuoghi();
         for(int i=0; i<luoghi.size();i++)
@@ -232,15 +233,15 @@ public class UserCarrelloPanel extends JPanel {
         JLabel imageLabel = new JLabel();
         updateImage(path, imageLabel);
         
-        // Set gridx and gridy for image
+        
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridheight = 5;  // Image spans 5 rows vertically
+        gbc.gridheight = 5;  
         gbc.gridheight = 5;  
         panel.add(imageLabel, gbc);
 
-        // Form elements - Labels and Text Fields
-        gbc.gridheight = 1; // Reset gridheight for the form elements
+        
+        gbc.gridheight = 1; 
         gbc.gridheight = 1; 
 
         JLabel idUtenteLabel = new JLabel("Evento:");
@@ -250,9 +251,10 @@ public class UserCarrelloPanel extends JPanel {
         gbc.gridy = 0;
         panel.add(idUtenteLabel, gbc);
 
-        JTextField idUtenteField = new JTextField(ev.getNome());
+        JTextField idUtenteField = new JTextField(ev.getNome() +" del "+new SimpleDateFormat("dd/MM/yyyy").format(esr.getEvento().getData()));
         idUtenteField.setFont(new Font("Arial", Font.PLAIN, 14));
         idUtenteField.setEditable(false);
+        idUtenteField.setPreferredSize(new Dimension(300,30));
         gbc.gridx = 2;
         panel.add(idUtenteField, gbc);
 
@@ -263,9 +265,10 @@ public class UserCarrelloPanel extends JPanel {
         gbc.gridy = 1;
         panel.add(idSettoreLabel, gbc);
 
-        JTextField idSettoreField = new JTextField(UserDetailsEventPanel.outputSettori(s));
+        JTextField idSettoreField = new JTextField(UserDetailsEventPanel.outputSettoriSmall(s));
         idSettoreField.setFont(new Font("Arial", Font.PLAIN, 14));
         idSettoreField.setEditable(false);
+        idSettoreField.setPreferredSize(new Dimension(300,30));
         gbc.gridx = 2;
         panel.add(idSettoreField, gbc);
 
@@ -280,6 +283,7 @@ public class UserCarrelloPanel extends JPanel {
         nomeField.setFont(new Font("Arial", Font.PLAIN, 14));
         nomeField.setEditable(biglietto.getNomeUtilizzatore().isEmpty());
         nomeField.setEditable(true);
+        nomeField.setPreferredSize(new Dimension(300,30));
         gbc.gridx = 2;
         panel.add(nomeField, gbc);
 
@@ -294,6 +298,7 @@ public class UserCarrelloPanel extends JPanel {
         cognomeField.setFont(new Font("Arial", Font.PLAIN, 14));
         cognomeField.setEditable(biglietto.getCognomeUtilizzatore().isEmpty());
         cognomeField.setEditable(true);
+        cognomeField.setPreferredSize(new Dimension(300,30));
         gbc.gridx = 2;
         panel.add(cognomeField, gbc);
 
@@ -307,10 +312,10 @@ public class UserCarrelloPanel extends JPanel {
         JTextField postoField = new JTextField(String.valueOf(LoginPanel.usernameUtente));
         postoField.setFont(new Font("Arial", Font.PLAIN, 14));
         postoField.setEditable(false);
+        postoField.setPreferredSize(new Dimension(300,30));
         gbc.gridx = 2;
         panel.add(postoField, gbc);
 
-        // Delete button
         JButton deleteButton = new JButton("Elimina Biglietto");
         deleteButton.setFont(new Font("Arial", Font.PLAIN, 14));
         
@@ -318,8 +323,6 @@ public class UserCarrelloPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 biglietti.remove(biglietto);
-                // Refresh the panel after deletion
- 
                 removeAll();
                 revalidate();
                 repaint();
@@ -382,7 +385,7 @@ public class UserCarrelloPanel extends JPanel {
   	}
 
     public static void clearCarrello() {
-        biglietti.clear();
+        biglietti.clear();        
     }
     
     public static EventoSettoreResult findEventoSettore(Biglietto b) throws ParseException {

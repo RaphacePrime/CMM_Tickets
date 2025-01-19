@@ -18,7 +18,7 @@ public class UserHomePanel extends JPanel {
     private JButton switchToViewEventButton;
     private JPanel contentPanel;
 	private JButton switchToCartButton;
-	private JButton switchToMyOrderButton;
+	private JButton switchToMyOrdersButton;
 	private List<Biglietto> biglietti = new ArrayList<>();
 
     public UserHomePanel() {
@@ -96,7 +96,7 @@ public class UserHomePanel extends JPanel {
             }
                         
             if(label.equals("I miei ordini")) {
-            	switchToMyOrderButton = button;
+            	switchToMyOrdersButton = button;
             }
         }
 
@@ -160,7 +160,7 @@ public class UserHomePanel extends JPanel {
     	switchToCartButton.addActionListener(action);
     }
     
-    public void setSwitchToMyOrder(ActionListener action) {
-    	switchToMyOrderButton.addActionListener(action);
+    public void setSwitchToMyOrders(ActionListener action) {
+    	switchToMyOrdersButton.addActionListener(action);
     }
 }
