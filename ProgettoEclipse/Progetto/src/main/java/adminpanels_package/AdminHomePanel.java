@@ -9,7 +9,7 @@ public class AdminHomePanel extends JPanel {
     static JButton switchToModifyEventButton;
     static JButton switchToModifyLuogoButton;
     private JButton switchToAddLuogoButton;
-    private JButton switchToAddEventButton;
+    static JButton switchToAddEventButton;
     private JPanel contentPanel; 
 
     public AdminHomePanel() {
