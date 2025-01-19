@@ -293,6 +293,7 @@ public class AdminAddEventPanel extends JPanel {
     public void updateSectorsDropdown() {
     	logger.info("num settori in update: "+AdminAddEventPanel.this.settori.size());
         if (settori.isEmpty()) {
+        	sectorsDropdown.removeAllItems();
             sectorsDropdown.addItem("Nessun settore aggiunto");
         } else {
         	sectorsDropdown.removeAllItems();
