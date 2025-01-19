@@ -116,8 +116,13 @@ public class UserMyOrdersPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 3;
         panel.add(postoLabel, gbc);
+        
 
         JTextField postoField = new JTextField(String.valueOf(biglietto.getPosto()));
+        if(biglietto.getPosto()==0)
+        {
+        	postoField=new JTextField("Posto non numerato");
+        }
         postoField.setFont(new Font("Arial", Font.PLAIN, 14));
         postoField.setEditable(false);
         postoField.setPreferredSize(new Dimension(300,30));

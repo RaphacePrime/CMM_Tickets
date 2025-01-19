@@ -72,7 +72,7 @@ public class UserCarrelloPanel extends JPanel {
         acquistaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!");
+                //JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!");
             	buyCart();
                 
             }
@@ -187,7 +187,7 @@ public class UserCarrelloPanel extends JPanel {
                 }
             }
         }
-        //JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!"); 
+        JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!"); 
         this.clearCarrello();
         
         }
