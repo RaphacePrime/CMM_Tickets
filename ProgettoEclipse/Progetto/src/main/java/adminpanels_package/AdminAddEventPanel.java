@@ -239,6 +239,11 @@ public class AdminAddEventPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "La data dell'evento deve essere futura.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        if (settori.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Inserisci almeno un settore.", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         Calendar calendario = Calendar.getInstance();
         calendario.setTime(dataInizioVendita);
         calendario.add(Calendar.DAY_OF_MONTH, 1);
