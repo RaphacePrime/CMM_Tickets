@@ -1,10 +1,7 @@
 package classes_package;
 
-import java.text.ParseException;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import database_package.SectorsDatabase;
 
 public class Biglietto {
 
@@ -77,8 +74,13 @@ public class Biglietto {
 	public void setIdSettore(int idSettore) {
 		this.idSettore = idSettore;
 	}
+	/*
+	public int getIdEvento()
+	{
+		return this.getIdEventoDB();
+	}
 
-	public int getIdEvento() {
+	private int getIdEventoDB() {
 		int idEvento = 0;
 		List<Settore> sectors;
 		try {
@@ -92,8 +94,7 @@ public class Biglietto {
 		} catch (ParseException e) {
 			logger.error("Errore durante il recupero dei settori: " + e.getMessage(), e);
 		}
-
 		return idEvento;
-	}
+	}*/
 
 }

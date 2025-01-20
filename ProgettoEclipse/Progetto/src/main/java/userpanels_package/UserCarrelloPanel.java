@@ -56,8 +56,9 @@ public class UserCarrelloPanel extends JPanel {
 		} else {
 			for (int i = 0; i < biglietti.size(); i++) {
 				Biglietto biglietto = biglietti.get(i);
+				EventoSettoreResult esr=  UserCarrelloPanel.findEventoSettore(biglietto);
 				JPanel bigliettoPanel = createBigliettoPanel(biglietto);
-				logger.info(biglietto.getIdEvento() + " " + biglietto.getIdSettore());
+				logger.info(esr.getEvento().getIdEvento() + " " + biglietto.getIdSettore());
 				bigliettoPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 				contentPanel.add(bigliettoPanel);
 				contentPanel.add(Box.createVerticalStrut(10));
@@ -205,8 +206,7 @@ public class UserCarrelloPanel extends JPanel {
 
 		if (ev == null || s == null) {
 			JOptionPane.showMessageDialog(
-					this, "Errore: Evento o Settore non trovati per il biglietto con ID evento "
-							+ biglietto.getIdEvento() + " e ID settore " + biglietto.getIdSettore(),
+					this, "Errore: Evento o Settore non trovati per il biglietto" + " e ID settore " + biglietto.getIdSettore(),
 					"Errore", JOptionPane.ERROR_MESSAGE);
 			return new JPanel();
 		}
@@ -350,8 +350,9 @@ public class UserCarrelloPanel extends JPanel {
 
 	public static void addBiglietto(Biglietto biglietto, int numselected) throws ParseException {
 		try {
+			EventoSettoreResult esr = findEventoSettore(biglietto);
 			biglietti.add(biglietto);
-			logger.info("Da UserDetail " + biglietto.getIdEvento() + " " + biglietto.getIdSettore());
+			logger.info("Da UserDetail " + esr.getEvento().getIdEvento() + " " + biglietto.getIdSettore());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -371,7 +372,8 @@ public class UserCarrelloPanel extends JPanel {
 		int acquistati=0;
 		for(Biglietto bacq : bigliettiAcquistati)
 		{
-			if(bacq.getIdEvento()==biglietto.getIdEvento())
+			EventoSettoreResult esr2 = findEventoSettore(bacq);
+			if(esr2.getEvento().getIdEvento()==esr.getEvento().getIdEvento())
 			{
 				acquistati++;
 			}
@@ -402,14 +404,14 @@ public class UserCarrelloPanel extends JPanel {
 			logger.info("Eventi è vuota");
 		}
 		for (Evento evento : eventi) {
-			if (b.getIdEvento() == evento.getIdEvento()) {
-				logger.info("Confronto eventi nel carrello: " + b.getIdEvento() + " " + evento.getIdEvento());
+			if (SectorsDatabase.getIdEvento(b.getIdSettore()) == evento.getIdEvento()) {
+				logger.info("Confronto eventi nel carrello: " + SectorsDatabase.getIdEvento(b.getIdSettore()) + " " + evento.getIdEvento());
 				ev = evento;
 				break;
 			}
 		}
 		if (ev == null) {
-			logger.error("Evento non trovato per ID: " + b.getIdEvento());
+			logger.error("Evento non trovato per ID: " + SectorsDatabase.getIdEvento(b.getIdSettore()));
 		}
 
 		settori = SectorsDatabase.getAllSectors();

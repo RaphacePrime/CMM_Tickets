@@ -43,6 +43,29 @@ public class SectorsDatabase {
         return sectors;
     }
     
+    public static int getIdEvento(int idSettore) {
+        String sql = "SELECT idEvento FROM settori WHERE idSettore = ?";
+        int idEvento=0;
+
+        try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idSettore);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    idEvento = rs.getInt("idEvento");
+                    logger.info("DB Recuperato idEvento: " + idEvento + " per idSettore: " + idSettore);
+                } else {
+                    logger.warn("DB Nessun risultato trovato per idSettore: " + idSettore);
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("DB Errore durante il recupero dell'idEvento per idSettore: " + idSettore + ". Dettagli: " + e.getMessage(), e);
+        }
+
+        return idEvento;
+    }
+
+    
     public static boolean addSettore(Settore settore) {
         String sql = "INSERT INTO settori (nome, prezzo, posizione, anello, postiTotali, postiAcquistati, idEvento) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
