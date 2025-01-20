@@ -1,12 +1,10 @@
 package database_package;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import classes_package.Luogo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,23 +23,19 @@ public class LuoghiDatabase {
             while (rs.next()) {
                 int idLuogo = rs.getInt("idLuogo");
                 String nome = rs.getString("nome");
-                String città = rs.getString("citta");
+                String citta = rs.getString("citta");
                 String indirizzo = rs.getString("indirizzo");
                 String nomeFile = rs.getString("nomeFile");
 
 
 
-                Luogo luogo = new Luogo(idLuogo, nome, città, indirizzo, nomeFile);
+                Luogo luogo = new Luogo(idLuogo, nome, citta, indirizzo, nomeFile);
                 luoghi.add(luogo);
                 logger.debug("DB Luogo aggiunto alla lista: " + luogo.getNome());
             }
         } catch (SQLException e) {
             logger.error("DB Errore durante il recupero dei luoghi: " + e.getMessage(), e);
         }
-        if (luoghi == null) {
-            luoghi = new ArrayList<>(); // Restituisci una lista vuota se nulla
-        }
-
         return luoghi;
     }
 

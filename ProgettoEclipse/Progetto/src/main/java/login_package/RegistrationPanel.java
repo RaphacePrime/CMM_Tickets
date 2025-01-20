@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class RegistrationPanel extends JPanel {
-    private JTextField usernameField;
+	private static final long serialVersionUID = 1L;
+	private JTextField usernameField;
     private JPasswordField passwordField;
     private JTextField codiceFiscaleField;
     private JTextField telefonoField;
     private JTextField emailField;
-    //private JCheckBox adminCheckBox;
     private JButton registerButton;
     private JButton switchToLoginButton;
 
@@ -72,12 +72,6 @@ public class RegistrationPanel extends JPanel {
         emailField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
         emailField.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(createLabeledField("Email", emailField));
-
-        // Checkbox Admin
-        /*adminCheckBox = new JCheckBox("Vuoi diventare admin?");
-        adminCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
-        adminCheckBox.setBackground(Color.WHITE);
-        mainPanel.add(adminCheckBox);*/
         
         mainPanel.add(Box.createVerticalStrut(20)); 
 
@@ -93,7 +87,6 @@ public class RegistrationPanel extends JPanel {
 			try {
 				validateAndRegister();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});

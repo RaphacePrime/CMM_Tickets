@@ -7,15 +7,15 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
-    private CardLayout cardLayout;
+
+	private static final long serialVersionUID = 1L;
+	private CardLayout cardLayout;
     private JPanel mainPanel; 
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton switchToRegisterButton;
     public static String usernameUtente;
-    
-    private ActionListener switchToRegisterAction;
     
     public LoginPanel(CardLayout cardLayout, JPanel mainPanel, ActionListener switchToRegisterAction) {
         this.cardLayout = cardLayout;
@@ -87,7 +87,6 @@ public class LoginPanel extends JPanel {
         gbc.gridy = 0;
         add(innerMainPanel, gbc);
 
-        this.switchToRegisterAction = switchToRegisterAction;  
         switchToRegisterButton.addActionListener(switchToRegisterAction);  
     }
 
@@ -108,7 +107,6 @@ public class LoginPanel extends JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Credenziali non valide", "Errore", JOptionPane.ERROR_MESSAGE);
         }
-    	//cardLayout.show(mainPanel, "User Home"); //usernameUtente="Raphael";
     }
 
     private JPanel createLabeledField(String labelText, JTextField textField) {

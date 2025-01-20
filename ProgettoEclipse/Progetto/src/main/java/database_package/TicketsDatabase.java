@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import classes_package.Biglietto;
-import database_package.Database;
 
 public class TicketsDatabase {
     private static final Logger logger = LogManager.getLogger(TicketsDatabase.class);
@@ -63,6 +62,7 @@ public class TicketsDatabase {
             {
             	SectorsDatabase.ticketAcquired(biglietto.getIdSettore());
             }
+            logger.info("Aggiunto biglietto al database con ID: ", biglietto.getIdBiglietto());
             return rowsAffected > 0; // restituisce true se il biglietto è stato aggiunto correttamente
 
         } catch (SQLException e) {

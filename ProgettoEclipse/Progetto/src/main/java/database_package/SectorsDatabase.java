@@ -6,21 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Time;
-import java.util.Date;
-import classes_package.Evento;
-import classes_package.Luogo;
 import classes_package.Settore;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 
 public class SectorsDatabase {
-    private static final Logger logger = LogManager.getLogger(EventsDatabase.class);
+    private static final Logger logger = LogManager.getLogger(SectorsDatabase.class);
 
     public static List<Settore> getAllSectors() throws ParseException {
         List<Settore> sectors = new ArrayList<>();
