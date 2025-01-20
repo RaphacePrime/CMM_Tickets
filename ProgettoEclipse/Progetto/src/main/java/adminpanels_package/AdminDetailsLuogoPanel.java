@@ -136,7 +136,6 @@ public class AdminDetailsLuogoPanel extends JPanel {
 
 		add(mainPanel, BorderLayout.CENTER);
 
-		// InputStream imageStream;
 		if (luogo.getNomeFile() == null) {
 			String path = "src/main/resources/Immagini/default.png";
 			imageIcon = new ImageIcon(path);
@@ -147,7 +146,6 @@ public class AdminDetailsLuogoPanel extends JPanel {
 			if (file.exists()) {
 				logger.info("File trovato nelle risorse!");
 				logger.info("Path file: " + path);
-				// imageStream = getClass().getClassLoader().getResourceAsStream(path);
 				imageIcon = new ImageIcon(path);
 			} else {
 				logger.warn("Il file non esiste.");
@@ -180,11 +178,10 @@ public class AdminDetailsLuogoPanel extends JPanel {
 		buttonPanel.setBackground(new Color(245, 245, 245));
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		// backButton = createButton("Torna Indietro", new Color(75, 110, 175)); // Blu
-		deleteButton = createButton("Elimina", new Color(200, 50, 50)); // Rosso
-		updateButton = createButton("Aggiorna", new Color(255, 140, 0)); // Giallo scuro
 
-		// buttonPanel.add(backButton);
+		deleteButton = createButton("Elimina", new Color(200, 50, 50));
+		updateButton = createButton("Aggiorna", new Color(255, 140, 0)); 
+
 		buttonPanel.add(deleteButton);
 		buttonPanel.add(updateButton);
 
@@ -285,14 +282,9 @@ public class AdminDetailsLuogoPanel extends JPanel {
 		button.setBorder(BorderFactory.createEmptyBorder(12, 25, 12, 25));
 		button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		button.setPreferredSize(new Dimension(200, 50));
-		button.setOpaque(true); // Garantisce che il colore sia visibile su macOS
+		button.setOpaque(true); 
 		return button;
 	}
-
-	/*
-	 * public void setBackButtonAction(ActionListener action) {
-	 * backButton.addActionListener(action); }
-	 */
 
 	public void setDeleteButtonAction(ActionListener action) {
 		deleteButton.addActionListener(action);
