@@ -16,7 +16,7 @@ import userpanels_package.UserMyOrdersPanel;
 import userpanels_package.UserViewEventPanel;
 import userpanels_package.UserViewLuogoPanel;
 import utils_package.LookAndFeelUtil;
-
+import java.io.IOException;
 import java.awt.*;
 import java.text.ParseException;
 
@@ -143,6 +143,7 @@ public class MainFrame extends JFrame {
         
         userHomePanel.setLogoutAction(e -> {
             loginPanel.resetFields();
+            restartApplication();
             cardLayout.show(mainPanel, "Login");
         });
         
@@ -162,5 +163,22 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
     	LookAndFeelUtil.setCrossPlatformLookAndFeel();
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
+    }
+    
+    public static void restartApplication() {
+        try {
+            String javaBin = System.getProperty("java.home") + "/bin/java";
+            String classpath = System.getProperty("java.class.path");
+            String className = MainFrame.class.getName();
+
+            // Crea il comando per riavviare l'applicazione
+            ProcessBuilder processBuilder = new ProcessBuilder(javaBin, "-cp", classpath, className);
+            processBuilder.start();
+
+            // Uscita dall'applicazione corrente
+            System.exit(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

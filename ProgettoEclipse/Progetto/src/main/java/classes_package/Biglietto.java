@@ -1,7 +1,7 @@
 package classes_package;
-
+/*
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Logger;*/
 
 public class Biglietto {
 
@@ -11,7 +11,7 @@ public class Biglietto {
 	private int posto;
 	private int idUtente;
 	private int idSettore;
-	private static final Logger logger = LogManager.getLogger(Biglietto.class);
+	//private static final Logger logger = LogManager.getLogger(Biglietto.class);
 
 	public Biglietto(String nomeUtilizzatore, String cognomeUtilizzatore, int posto, int idUtente, int idSettore,
 			int idEvento) {
@@ -74,27 +74,5 @@ public class Biglietto {
 	public void setIdSettore(int idSettore) {
 		this.idSettore = idSettore;
 	}
-	/*
-	public int getIdEvento()
-	{
-		return this.getIdEventoDB();
-	}
-
-	private int getIdEventoDB() {
-		int idEvento = 0;
-		List<Settore> sectors;
-		try {
-			sectors = SectorsDatabase.getAllSectors();
-			for (Settore settore : sectors) {
-				if (settore.getIdSettore() == this.getIdSettore()) {
-					idEvento = settore.getIdEvento();
-					break;
-				}
-			}
-		} catch (ParseException e) {
-			logger.error("Errore durante il recupero dei settori: " + e.getMessage(), e);
-		}
-		return idEvento;
-	}*/
-
+	
 }
