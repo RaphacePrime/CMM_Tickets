@@ -38,7 +38,7 @@ public class TicketsDatabase {
                 bigliettiList.add(biglietto);
             }
         } catch (SQLException e) {
-            logger.error("Error while fetching tickets for user with id " + idUser, e);
+            logger.error("[TicketssDatabase.java] Error while fetching tickets for user with id " + idUser, e);
         }
 
         return bigliettiList;
@@ -62,11 +62,11 @@ public class TicketsDatabase {
             {
             	SectorsDatabase.ticketAcquired(biglietto.getIdSettore());
             }
-            logger.info("Aggiunto biglietto al database con ID: ", biglietto.getIdBiglietto());
+            logger.info("[TicketssDatabase.java] Aggiunto biglietto al database con ID: ", biglietto.getIdBiglietto());
             return rowsAffected > 0; // restituisce true se il biglietto è stato aggiunto correttamente
 
         } catch (SQLException e) {
-            logger.error("Error while adding a new ticket", e);
+            logger.error("[TicketssDatabase.java] Error while adding a new ticket", e);
         }
 
         return false;
@@ -90,7 +90,7 @@ public class TicketsDatabase {
             return rowsAffected > 0; // restituisce true se il biglietto è stato aggiornato
 
         } catch (SQLException e) {
-            logger.error("Error while updating ticket with id " + vecchioId, e);
+            logger.error("[TicketssDatabase.java] Error while updating ticket with id " + vecchioId, e);
         }
 
         return false;

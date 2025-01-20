@@ -21,7 +21,7 @@ public class SectorsDatabase {
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
-            logger.info("Eseguo query: " + sql);
+            logger.info("[SectorsDatabase.java] Eseguo query: " + sql);
 
             while (rs.next()) {
                 int idSettore = rs.getInt("idSettore");
@@ -35,10 +35,10 @@ public class SectorsDatabase {
 
                 Settore settore = new Settore(idSettore, nome, prezzo, posizione, anello, postiTotali, postiAcquistati, idEvento);
                 sectors.add(settore);
-                logger.debug("Settore aggiunto alla lista: " + settore.getNome());
+                logger.debug("[SectorsDatabase.java] Settore aggiunto alla lista: " + settore.getNome());
             }
         } catch (SQLException e) {
-            logger.error("Errore durante il recupero degli eventi: " + e.getMessage(), e);
+            logger.error("[SectorsDatabase.java] Errore durante il recupero degli eventi: " + e.getMessage(), e);
         }
         return sectors;
     }
@@ -53,13 +53,13 @@ public class SectorsDatabase {
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     idEvento = rs.getInt("idEvento");
-                    logger.info("DB Recuperato idEvento: " + idEvento + " per idSettore: " + idSettore);
+                    logger.info("[SectorsDatabase.java] DB Recuperato idEvento: " + idEvento + " per idSettore: " + idSettore);
                 } else {
-                    logger.warn("DB Nessun risultato trovato per idSettore: " + idSettore);
+                    logger.warn("[SectorsDatabase.java] DB Nessun risultato trovato per idSettore: " + idSettore);
                 }
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante il recupero dell'idEvento per idSettore: " + idSettore + ". Dettagli: " + e.getMessage(), e);
+            logger.error("[SectorsDatabase.java] DB Errore durante il recupero dell'idEvento per idSettore: " + idSettore + ". Dettagli: " + e.getMessage(), e);
         }
 
         return idEvento;
@@ -81,13 +81,13 @@ public class SectorsDatabase {
 
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted > 0) {
-                logger.info("DB Settore aggiunto con successo: " + settore.getNome());
+                logger.info("[SectorsDatabase.java] DB Settore aggiunto con successo: " + settore.getNome());
                 return true;
             } else {
-                logger.warn("DB Nessun settore aggiunto al database.");
+                logger.warn("[SectorsDatabase.java] DB Nessun settore aggiunto al database.");
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante l'inserimento del settore: " + settore.getNome() + ".DB  Dettagli: " + e.getMessage(), e);
+            logger.error("[SectorsDatabase.java] DB Errore durante l'inserimento del settore: " + settore.getNome() + ".DB  Dettagli: " + e.getMessage(), e);
         }
         return false;
     }
@@ -100,13 +100,13 @@ public class SectorsDatabase {
 
             int rowsDeleted = pstmt.executeUpdate();
             if (rowsDeleted > 0) {
-                logger.info("DB Tutti i settori eliminati con successo per idEvento: " + idEvento);
+                logger.info("[SectorsDatabase.java] DB Tutti i settori eliminati con successo per idEvento: " + idEvento);
                 return true;
             } else {
-                logger.warn("DB Nessun settore trovato per idEvento: " + idEvento);
+                logger.warn("[SectorsDatabase.java] DB Nessun settore trovato per idEvento: " + idEvento);
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante l'eliminazione dei settori per idEvento: " + idEvento + ". Dettagli: " + e.getMessage(), e);
+            logger.error("[SectorsDatabase.java] DB Errore durante l'eliminazione dei settori per idEvento: " + idEvento + ". Dettagli: " + e.getMessage(), e);
         }
         return false;
     }
@@ -127,13 +127,13 @@ public class SectorsDatabase {
 
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
-                logger.info("DB Settore aggiornato con successo id: " + settore.getIdEvento());
+                logger.info("[SectorsDatabase.java] DB Settore aggiornato con successo id: " + settore.getIdEvento());
                 return true;
             } else {
-                logger.warn("DB Nessun settore trovato con l'id specificato: " + settore.getIdSettore());
+                logger.warn("[SectorsDatabase.java] B Nessun settore trovato con l'id specificato: " + settore.getIdSettore());
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante l'aggiornamento del settore: " + settore.getIdSettore() + ".DB Dettagli: " + e.getMessage(), e);
+            logger.error("[SectorsDatabase.java] DB Errore durante l'aggiornamento del settore: " + settore.getIdSettore() + ".DB Dettagli: " + e.getMessage(), e);
         }
         return false;
     }
@@ -145,13 +145,13 @@ public class SectorsDatabase {
         	
         	int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
-                logger.info("DB postiAcquistati aggiornato con successo id: " + idSettore);
+                logger.info("[SectorsDatabase.java] DB postiAcquistati aggiornato con successo id: " + idSettore);
                 return true;
             } else {
-                logger.warn("DB Nessun settore trovato con l'id specificato: " + idSettore);
+                logger.warn("[SectorsDatabase.java] DB Nessun settore trovato con l'id specificato: " + idSettore);
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante l'aggiornamento dei postiAcquistati con idSettore: " + idSettore + ".DB Dettagli: " + e.getMessage(), e);
+            logger.error("[SectorsDatabase.java] DB Errore durante l'aggiornamento dei postiAcquistati con idSettore: " + idSettore + ".DB Dettagli: " + e.getMessage(), e);
         }
         return false;
 		

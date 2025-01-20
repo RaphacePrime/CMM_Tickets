@@ -18,7 +18,7 @@ public class LuoghiDatabase {
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
-            logger.info("DB Eseguo query: " + sql);
+            logger.info("[LuoghiDatabase.java] DB Eseguo query: " + sql);
 
             while (rs.next()) {
                 int idLuogo = rs.getInt("idLuogo");
@@ -31,10 +31,10 @@ public class LuoghiDatabase {
 
                 Luogo luogo = new Luogo(idLuogo, nome, citta, indirizzo, nomeFile);
                 luoghi.add(luogo);
-                logger.debug("DB Luogo aggiunto alla lista: " + luogo.getNome());
+                logger.debug("[LuoghiDatabase.java] DB Luogo aggiunto alla lista: " + luogo.getNome());
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante il recupero dei luoghi: " + e.getMessage(), e);
+            logger.error("[LuoghiDatabase.java] DB Errore durante il recupero dei luoghi: " + e.getMessage(), e);
         }
         return luoghi;
     }
@@ -51,13 +51,13 @@ public class LuoghiDatabase {
 
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted > 0) {
-                logger.info("DB Luogo aggiunto con successo: " + luogo.getNome());
+                logger.info("[LuoghiDatabase.java] DB Luogo aggiunto con successo: " + luogo.getNome());
                 return true;
             } else {
-                logger.warn("DB Nessun luogo aggiunto al database.");
+                logger.warn("[LuoghiDatabase.java] DB Nessun luogo aggiunto al database.");
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante l'inserimento del luogo: " + luogo.getNome() + ".DB  Dettagli: " + e.getMessage(), e);
+            logger.error("[LuoghiDatabase.java] DB Errore durante l'inserimento del luogo: " + luogo.getNome() + ".DB  Dettagli: " + e.getMessage(), e);
         }
         return false;
     }
@@ -70,14 +70,14 @@ public class LuoghiDatabase {
 
             int rowsDeleted = pstmt.executeUpdate();
             if (rowsDeleted > 0) {
-                logger.info("DB Luogo eliminato con successo: " + luogo.getNome());
+                logger.info("[LuoghiDatabase.java] DB Luogo eliminato con successo: " + luogo.getNome());
                 EventsDatabase.updateEventWithDefaultLuogo(luogo.getIdLuogo());
                 return true;
             } else {
-                logger.warn("DB Nessun luogo trovato con il nome specificato: " + luogo.getNome());
+                logger.warn("[LuoghiDatabase.java] DB Nessun luogo trovato con il nome specificato: " + luogo.getNome());
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante l'eliminazione del luogo: " + luogo.getNome() + ".DB  Dettagli: " + e.getMessage(), e);
+            logger.error("[LuoghiDatabase.java] DB Errore durante l'eliminazione del luogo: " + luogo.getNome() + ".DB  Dettagli: " + e.getMessage(), e);
         }
         return false;
     }
@@ -94,13 +94,13 @@ public class LuoghiDatabase {
 
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
-                logger.info("DB Luogo aggiornato con successo: " + luogo.getNome());
+                logger.info("[LuoghiDatabase.java] DB Luogo aggiornato con successo: " + luogo.getNome());
                 return true;
             } else {
-                logger.warn("DB Nessun luogo trovato con l'id specificato: " + luogo.getIdLuogo());
+                logger.warn("[LuoghiDatabase.java] DB Nessun luogo trovato con l'id specificato: " + luogo.getIdLuogo());
             }
         } catch (SQLException e) {
-            logger.error("DB Errore durante l'aggiornamento del luogo: " + luogo.getNome() + ".DB Dettagli: " + e.getMessage(), e);
+            logger.error("[LuoghiDatabase.java] DB Errore durante l'aggiornamento del luogo: " + luogo.getNome() + ".DB Dettagli: " + e.getMessage(), e);
         }
         return false;
     }

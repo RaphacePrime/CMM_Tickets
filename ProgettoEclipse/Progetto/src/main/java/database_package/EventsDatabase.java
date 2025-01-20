@@ -54,39 +54,14 @@ public class EventsDatabase {
                 //logger.info("Evento aggiunto alla lista: " + evento.getNome());
             }
         } catch (SQLException e) {
-            logger.error("Errore durante il recupero degli eventi: " + e.getMessage(), e);
+            logger.error("[EventsDatabase.java] Errore durante il recupero degli eventi: " + e.getMessage(), e);
         } catch (Exception e) {
-            logger.error("Errore durante il parsing delle date: " + e.getMessage(), e);
+            logger.error("[EventsDatabase.java] Errore durante il parsing delle date: " + e.getMessage(), e);
         }
         return events;
     }
 
-   /* public static boolean addEvento(Evento evento) {
-        String sql = "INSERT INTO eventi (nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, evento.getNome());
-            String dataFormatted = dateFormat.format(evento.getData());
-            pstmt.setString(2, dataFormatted);
-            pstmt.setString(3, evento.getOra());
-            pstmt.setInt(4, evento.getMaxBigliettiAPersona());
-            pstmt.setBoolean(5, evento.getPostoNumerato());
-            String dataInizioVenditaFormatted = dateFormat.format(evento.getDataInizioVendita());
-            pstmt.setString(6, dataInizioVenditaFormatted);
-            pstmt.setInt(7, evento.getIdLuogo());
-            int rowsInserted = pstmt.executeUpdate();
-            if (rowsInserted > 0) {
-                logger.info("DB Evento aggiunto con successo: " + evento.getNome());
-                return true;
-            } else {
-                logger.warn("DB Nessun evento aggiunto al database.");
-            }
-        } catch (SQLException e) {
-            logger.error("Errore durante l'inserimento dell'evento: " + e.getMessage(), e);
-        }
-        return false;
-    }
-    */
+   
     public static boolean addEvento(Evento evento) {
         // SQL per verificare se esiste già un evento con lo stesso nome e data
         String checkSql = "SELECT COUNT(*) FROM eventi WHERE nome = ? AND data = ?";
@@ -105,7 +80,7 @@ public class EventsDatabase {
             try (ResultSet rs = checkStmt.executeQuery()) {
                 if (rs.next() && rs.getInt(1) > 0) {
                     // Se esiste già un evento con lo stesso nome e data, ritorniamo false
-                    logger.warn("Evento con lo stesso nome e data già presente nel database.");
+                    logger.warn("[EventsDatabase.java] Evento con lo stesso nome e data già presente nel database.");
                     return false;
                 }
             }
@@ -123,10 +98,10 @@ public class EventsDatabase {
                 
                 int rowsInserted = pstmt.executeUpdate();
                 if (rowsInserted > 0) {
-                    logger.info("DB Evento aggiunto con successo: " + evento.getNome());
+                    logger.info("[EventsDatabase.java] DB Evento aggiunto con successo: " + evento.getNome());
                     return true;
                 } else {
-                    logger.warn("DB Nessun evento aggiunto al database.");
+                    logger.warn("[EventsDatabase.java] DB Nessun evento aggiunto al database.");
                 }
             }
 
@@ -153,13 +128,13 @@ public class EventsDatabase {
             pstmt.setInt(8, id);
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
-                logger.info("DB Evento aggiornato con successo: " + evento.getNome());
+                logger.info("[EventsDatabase.java] DB Evento aggiornato con successo: " + evento.getNome());
                 return true;
             } else {
-                logger.warn("DB Nessun evento aggiornato nel database.");
+                logger.warn("[EventsDatabase.java] DB Nessun evento aggiornato nel database.");
             }
         } catch (SQLException e) {
-            logger.error("Errore durante l'aggiornamento dell'evento: " + e.getMessage(), e);
+            logger.error("[EventsDatabase.java] Errore durante l'aggiornamento dell'evento: " + e.getMessage(), e);
         }
         return false;
     }
@@ -170,14 +145,14 @@ public class EventsDatabase {
             pstmt.setInt(1, idEvento);
             int rowsDeleted = pstmt.executeUpdate();
             if (rowsDeleted > 0) {
-                logger.info("DB Evento eliminato con successo, idEvento: " + idEvento);
+                logger.info("[EventsDatabase.java] DB Evento eliminato con successo, idEvento: " + idEvento);
                 SectorsDatabase.deleteSettori(idEvento);
                 return true;
             } else {
-                logger.warn("DB Nessun evento trovato con id: " + idEvento);
+                logger.warn("[EventsDatabase.java] DB Nessun evento trovato con id: " + idEvento);
             }
         } catch (SQLException e) {
-            logger.error("Errore durante l'eliminazione dell'evento con id: " + idEvento + ": " + e.getMessage(), e);
+            logger.error("[EventsDatabase.java] Errore durante l'eliminazione dell'evento con id: " + idEvento + ": " + e.getMessage(), e);
         }
         return false;
     }
@@ -194,13 +169,13 @@ public class EventsDatabase {
 	        // Eseguiamo l'update
 	        int rowsUpdated = pstmt.executeUpdate();
 	        if (rowsUpdated > 0) {
-	            logger.info("Aggiornamento Luogo default completato con successo. " + rowsUpdated + " eventi aggiornati.");
+	            logger.info("[EventsDatabase.java] Aggiornamento Luogo default completato con successo. " + rowsUpdated + " eventi aggiornati.");
 	            return true;
 	        } else {
-	            logger.warn("default luogo Nessun evento trovato con idLuogo = " + idLuogo);
+	            logger.warn("[EventsDatabase.java] default luogo Nessun evento trovato con idLuogo = " + idLuogo);
 	        }
 	    } catch (SQLException e) {
-	        logger.error("Errore durante l'aggiornamento dell'evento per inserire default luogo: " + e.getMessage(), e);
+	        logger.error("[EventsDatabase.java] Errore durante l'aggiornamento dell'evento per inserire default luogo: " + e.getMessage(), e);
 	    }
 	    return false;
 	}
