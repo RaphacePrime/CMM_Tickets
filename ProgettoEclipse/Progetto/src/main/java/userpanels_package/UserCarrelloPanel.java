@@ -19,6 +19,7 @@ import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
 import database_package.SectorsDatabase;
 import database_package.TicketsDatabase;
+import login_package.Login;
 import login_package.LoginPanel;
 
 public class UserCarrelloPanel extends JPanel {
@@ -342,12 +343,21 @@ public class UserCarrelloPanel extends JPanel {
 				attuali++;
 			}
 		}
-		if ((numselected + attuali) > nmax) {
-			int restante = nmax - attuali; // Calcolo quanti elementi possono essere ancora aggiunti.
+		List<Biglietto> bigliettiAcquistati=TicketsDatabase.getAllUserTickets(Login.loginId);
+		int acquistati=0;
+		for(Biglietto bacq : bigliettiAcquistati)
+		{
+			if(bacq.getIdEvento()==biglietto.getIdEvento())
+			{
+				acquistati++;
+			}
+		}
+		if ((numselected + attuali + acquistati) > nmax) {
+			int restante = nmax - attuali - acquistati; // Calcolo quanti elementi possono essere ancora aggiunti.
 			JOptionPane.showMessageDialog(null,
 					"Non puoi acquistare " + numselected + " biglietti perchè il massimo consentito è " + nmax
-							+ ". Puoi aggiungere al massimo altri " + restante + " elementi. (Nel carrello "
-							+ " attualmente ne hai " + attuali + " dello stesso evento)",
+							+ ". Puoi aggiungere al massimo altri " + restante + " elementi. (In 'Carrello' "
+							+ "attualmente ne hai " + attuali + " e in 'I Miei Ordini' ne hai già acquistati "+acquistati+"  dello stesso evento)",
 					"Limite raggiunto", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
