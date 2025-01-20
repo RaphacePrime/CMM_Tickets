@@ -2,7 +2,6 @@ package test_package;
 
 import database_package.TicketsDatabase;
 import classes_package.Biglietto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

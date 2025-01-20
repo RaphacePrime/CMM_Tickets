@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.util.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class TestAdminEventsDatabase {
+class TestEventsDatabase {
     
 
     @Test

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import database_package.SectorsDatabase;
 
-public class TestAdminSectorsDatabase {
+public class TestSectorsDatabase {
 	@Test
     @Order(1)
     public void testTicketAcquired() throws SQLException {
