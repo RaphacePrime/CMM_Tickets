@@ -81,7 +81,6 @@ public class UserCarrelloPanel extends JPanel {
 				try {
 					buyCart();
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -184,7 +183,7 @@ public class UserCarrelloPanel extends JPanel {
 									}
 								}
 							}
-							logger.info("IN QUESTO PANELLO CI SONO " + editable + " ELEMeNTI EDITABILI");
+							logger.info("[UserCarrelloPanel] IN QUESTO PANELLO CI SONO " + editable + " ELEMeNTI EDITABILI");
 							TicketsDatabase.addTicket(biglietti.get(b));
 							b++;
 						}
@@ -201,7 +200,7 @@ public class UserCarrelloPanel extends JPanel {
 	private JPanel createBigliettoPanel(Biglietto biglietto) throws ParseException {
 		EventoSettoreResult esr = UserCarrelloPanel.findEventoSettore(biglietto);
 		Evento ev = esr.getEvento();
-		logger.info(ev.getIdEvento());
+		logger.info("[UserCarrelloPanel] "+ ev.getIdEvento());
 		Settore s = esr.getSettore();
 
 		if (ev == null || s == null) {
@@ -223,13 +222,13 @@ public class UserCarrelloPanel extends JPanel {
 		String pathplace = "a";
 		List<Luogo> luoghi = LuoghiDatabase.getAllLuoghi();
 		for (int i = 0; i < luoghi.size(); i++) {
-			logger.info(ev.getIdLuogo() + " lista:" + luoghi.get(i).getIdLuogo());
+			logger.info("[UserCarrelloPanel] "+ev.getIdLuogo() + " lista:" + luoghi.get(i).getIdLuogo());
 			if (ev.getIdLuogo() == luoghi.get(i).getIdLuogo()) {
 				pathplace = luoghi.get(i).getNomeFile();
 			}
 		}
 		String path = "src/main/resources/Immagini/" + pathplace;
-		logger.info(path);
+		logger.info("[UserCarrelloPanel] "+path);
 		JLabel imageLabel = new JLabel();
 		updateImage(path, imageLabel);
 
@@ -352,7 +351,7 @@ public class UserCarrelloPanel extends JPanel {
 		try {
 			EventoSettoreResult esr = findEventoSettore(biglietto);
 			biglietti.add(biglietto);
-			logger.info("Da UserDetail " + esr.getEvento().getIdEvento() + " " + biglietto.getIdSettore());
+			logger.info("[UserCarrelloPanel] Da UserDetail " + esr.getEvento().getIdEvento() + " " + biglietto.getIdSettore());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -401,17 +400,17 @@ public class UserCarrelloPanel extends JPanel {
 
 		eventi = EventsDatabase.getAllEvents();
 		if (eventi.isEmpty()) {
-			logger.info("Eventi è vuota");
+			logger.info("[UserCarrelloPanel] Eventi è vuota");
 		}
 		for (Evento evento : eventi) {
 			if (SectorsDatabase.getIdEvento(b.getIdSettore()) == evento.getIdEvento()) {
-				logger.info("Confronto eventi nel carrello: " + SectorsDatabase.getIdEvento(b.getIdSettore()) + " " + evento.getIdEvento());
+				logger.info("[UserCarrelloPanel] Confronto eventi nel carrello: " + SectorsDatabase.getIdEvento(b.getIdSettore()) + " " + evento.getIdEvento());
 				ev = evento;
 				break;
 			}
 		}
 		if (ev == null) {
-			logger.error("Evento non trovato per ID: " + SectorsDatabase.getIdEvento(b.getIdSettore()));
+			logger.error("[UserCarrelloPanel] Evento non trovato per ID: " + SectorsDatabase.getIdEvento(b.getIdSettore()));
 		}
 
 		settori = SectorsDatabase.getAllSectors();
@@ -422,7 +421,7 @@ public class UserCarrelloPanel extends JPanel {
 			}
 		}
 		if (s == null) {
-			logger.error("Settore non trovato per ID evento: " + (ev != null ? ev.getIdEvento() : "null")
+			logger.error("[UserCarrelloPanel] Settore non trovato per ID evento: " + (ev != null ? ev.getIdEvento() : "null")
 					+ " e ID settore: " + b.getIdSettore());
 		}
 

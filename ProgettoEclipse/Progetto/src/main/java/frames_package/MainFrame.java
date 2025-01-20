@@ -101,6 +101,7 @@ public class MainFrame extends JFrame {
 
         adminHomePanel.setLogoutAction(e -> {
             loginPanel.resetFields();
+            restartApplication();
             cardLayout.show(mainPanel, "Login");
         });
         

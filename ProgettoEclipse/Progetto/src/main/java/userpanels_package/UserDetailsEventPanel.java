@@ -210,7 +210,7 @@ public class UserDetailsEventPanel extends JPanel {
 	public void addToCart() throws ParseException {
 		int num=Integer.parseInt(ticketCountDropdown.getSelectedItem().toString());
 		Settore s=findSettore();
-		if(s==null) {logger.info("Settore null");};
+		if(s==null) {logger.info("[UserDetailsEventPanel] Settore null");};
 		if(s.getPostiTotali()-s.getPostiAcquistati()<num)
 		{
 			JOptionPane.showMessageDialog(
@@ -229,7 +229,7 @@ public class UserDetailsEventPanel extends JPanel {
 				{
 					
 					UserCarrelloPanel.addBiglietto(new Biglietto("","",0,Login.loginId,s.getIdSettore(),this.evento.getIdEvento()),num);
-					logger.info("IdUTENTE: "+Login.loginId+" IdSETTORE: "+s.getIdSettore()+ "evento.idevento: "+this.evento.getIdEvento() + "s.idevento: "+s.getIdEvento());
+					logger.info("[UserDetailsEventPanel] IdUTENTE: "+Login.loginId+" IdSETTORE: "+s.getIdSettore()+ "evento.idevento: "+this.evento.getIdEvento() + "s.idevento: "+s.getIdEvento());
 				}
 				JOptionPane.showMessageDialog(null,"Biglietti aggiunti al carrello con successo", "Successo",JOptionPane.INFORMATION_MESSAGE);
 				UserHomePanel.switchToCartButton.doClick();

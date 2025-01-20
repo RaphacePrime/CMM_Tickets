@@ -158,7 +158,7 @@ public class UserViewEventPanel extends JPanel {
                         comp.setBackground(new Color(204, 255, 204)); 
                     }
                 } catch (ParseException e) {
-                    logger.error("Errore nel parsing della data: " + e.getMessage());
+                    logger.error("[UserViewEventPanel] Errore nel parsing della data: " + e.getMessage());
                 }
 
                 if (isCellSelected(row, column)) {
@@ -196,7 +196,7 @@ public class UserViewEventPanel extends JPanel {
                 if (row >= 0) {
                     
                     String nomeEvento = (String) tableModel.getValueAt(row, 0);
-                   logger.info("Evento cliccato: " + nomeEvento);
+                   logger.info("[UserViewEventPanel] Evento cliccato: " + nomeEvento);
                     
                 }
             }
@@ -210,7 +210,7 @@ public class UserViewEventPanel extends JPanel {
                 if (row >= 0) {
                     String nomeEvento = (String) tableModel.getValueAt(row, 0);
                     String dataEventoStr = (String) tableModel.getValueAt(row, 1);
-                    logger.info("Evento cliccato: " + nomeEvento);
+                    logger.info("[UserViewEventPanel] Evento cliccato: " + nomeEvento);
 
                     try {
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

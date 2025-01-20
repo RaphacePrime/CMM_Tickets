@@ -121,7 +121,7 @@ public class UserViewLuogoPanel extends JPanel {
                 int row = luogoTable.rowAtPoint(me.getPoint());
                 if (row >= 0) {
                     String nomeLuogo = (String) tableModel.getValueAt(row, 0);
-                    logger.info("Luogo cliccato: " + nomeLuogo);
+                    logger.info("[UserViewLuogoPanel] Luogo cliccato: " + nomeLuogo);
                     
                     for (Luogo luogo : luoghi) {
                         if (luogo.getNome().equals(nomeLuogo)) {
