@@ -4,16 +4,11 @@ import javax.swing.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import classes_package.Evento;
 import classes_package.Settore;
 import utils_package.LookAndFeelUtil;
 
 public class AdminAddSectorsPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private JLabel imageLabel;
 	private final int IMAGE_WIDTH = 500;
 	private final int IMAGE_HEIGHT = 300;
@@ -21,7 +16,6 @@ public class AdminAddSectorsPanel extends JPanel {
 	JTextField nomeField = new JTextField();
 	JTextField prezzoField = new JTextField();
 	JTextField postiTotaliField = new JTextField();
-	// private List<Settore> settori= new ArrayList<>();
 	private int xlastselected = 0;
 	private int ylastselected = 0;
 	private int anello = 0;
@@ -56,12 +50,9 @@ public class AdminAddSectorsPanel extends JPanel {
 		String path = "src/main/resources/Immagini/campocalcio.jpg";
 		imageLabel = new JLabel();
 		imageLabel.setMinimumSize(new Dimension(IMAGE_WIDTH, IMAGE_HEIGHT));
-		// imageLabel.setMinimumSize(getPreferredSize());
 		imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		imageLabel.setVerticalAlignment(SwingConstants.CENTER);
 		updateImage(path);
-
-		Dimension buttonSize = new Dimension(50, 50);
 
 		addButton(gridPanel, gbc, 4, 1, new Dimension(IMAGE_WIDTH, 30));
 		addButton(gridPanel, gbc, 4, 2, new Dimension(IMAGE_WIDTH, 30));
@@ -145,21 +136,17 @@ public class AdminAddSectorsPanel extends JPanel {
 		add(bottomPanel, BorderLayout.SOUTH);
 		calcioButton.addActionListener(e -> updateImage("src/main/resources/Immagini/campocalcio.jpg"));
 		concertoButton.addActionListener(e -> updateImage("src/main/resources/Immagini/concerto.jpg"));
-		// Aggiungi il pulsante "Salva Settori"
 		JButton salvaSettoriButton = new JButton("Salva Settori");
 		salvaSettoriButton.setOpaque(true);
-		salvaSettoriButton.setBackground(new Color(0, 128, 0)); // Colore verde
-		salvaSettoriButton.setForeground(Color.WHITE); // Testo bianco
+		salvaSettoriButton.setBackground(new Color(0, 128, 0));
+		salvaSettoriButton.setForeground(Color.WHITE);
 		salvaSettoriButton.setFont(new Font("Arial", Font.BOLD, 14));
-		salvaSettoriButton.addActionListener(e -> goBack()); // Chiamata al metodo goBack()
-
-		// Aggiungi il pulsante al pannello inferiore
+		salvaSettoriButton.addActionListener(e -> goBack());
 		bottomPanel.add(salvaSettoriButton);
 
 	}
-	
+
 	private void goBack() {
-		// TODO Auto-generated method stub
 		AdminHomePanel.switchToAddEventButton.doClick();
 	}
 
@@ -167,13 +154,10 @@ public class AdminAddSectorsPanel extends JPanel {
 		JButton button = new JButton("+");
 		button.setBackground(Color.WHITE);
 		button.setForeground(Color.BLACK);
-		// button.setOpaque(true);
 		button.setBorderPainted(false);
-		// button.setFocusPainted(false);
 		button.setPreferredSize(size);
 		button.setFont(new Font("Arial", Font.PLAIN, 14));
 		setAnelloPosizione(x, y);
-		// logger.info("La lista ha grandezza: "+aaep.settori.size());
 		for (int j = 0; j < aaep.settori.size(); j++) {
 			Settore s = aaep.settori.get(j);
 			if (s.getAnello() == anello && s.getPosizione().equals(posizione)) {
@@ -288,7 +272,6 @@ public class AdminAddSectorsPanel extends JPanel {
 
 		panel.add(button, localGbc);
 	}
-	
 
 	private void updateImage(String imagePath) {
 		ImageIcon imageIcon = new ImageIcon(imagePath);
@@ -356,50 +339,4 @@ public class AdminAddSectorsPanel extends JPanel {
 		}
 
 	}
-
-	private void setAnelloPosizione(int anello, String posizione, int x, int y) {
-		if (x == 4) {
-			if (y == 1) {
-				posizione = "nord";
-				anello = 3;
-			} else if (y == 2) {
-				posizione = "nord";
-				anello = 2;
-			} else if (y == 3) {
-				posizione = "nord";
-				anello = 1;
-			} else if (y == 5) {
-				posizione = "sud";
-				anello = 1;
-			} else if (y == 6) {
-				posizione = "sud";
-				anello = 2;
-			} else if (y == 7) {
-				posizione = "sud";
-				anello = 3;
-			}
-		} else if (y == 4) {
-			if (x == 1) {
-				posizione = "ovest";
-				anello = 3;
-			} else if (x == 2) {
-				posizione = "ovest";
-				anello = 2;
-			} else if (x == 3) {
-				posizione = "ovest";
-				anello = 1;
-			} else if (x == 5) {
-				posizione = "est";
-				anello = 1;
-			} else if (x == 6) {
-				posizione = "est";
-				anello = 2;
-			} else if (x == 7) {
-				posizione = "est";
-				anello = 3;
-			}
-		}
-
-	}
-
 }

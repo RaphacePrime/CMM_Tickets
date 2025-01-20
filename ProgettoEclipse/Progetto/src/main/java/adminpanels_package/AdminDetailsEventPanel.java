@@ -18,17 +18,16 @@ import classes_package.Settore;
 import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
 import database_package.SectorsDatabase;
-import frames_package.MainFrame;
 
 public class AdminDetailsEventPanel extends JPanel {
-    private JTextField nameField;
+	private static final long serialVersionUID = 1L;
+	private JTextField nameField;
     private JSpinner dateSpinner;
     private JSpinner timeSpinner;
     private JTextField maxTicketsField;
     private JCheckBox seatNumberedCheckbox;
     private JSpinner saleStartSpinner;
     private JComboBox<String> locationDropdown;
-    private JButton manageSectorsButton;
     private JButton deleteButton;
     private JComboBox<String> sectorsDropdown;
     public List<Settore> settori = new ArrayList<>();
@@ -36,16 +35,9 @@ public class AdminDetailsEventPanel extends JPanel {
     private static final Logger logger = LogManager.getLogger(AdminDetailsEventPanel.class);
     private Evento evento;
     private List<Settore> settoriUpdate = new ArrayList<>();
-    private List<String> nomiSettori = new ArrayList<>();
     private JButton updateButton;
 
     public AdminDetailsEventPanel(Evento e) throws ParseException {
-        /*try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
     	this.evento=e;
         List<String> nomiluoghi = new ArrayList<>();
         listaluoghi = LuoghiDatabase.getAllLuoghi();
@@ -86,7 +78,6 @@ public class AdminDetailsEventPanel extends JPanel {
 
         nameField = new JTextField(20);
         nameField.setFont(new Font("Arial", Font.PLAIN, 14));
-        //nameField.setText(e.getNome());
         gbc.gridx = 1;
         gbc.gridy = 1;
         formPanel.add(nameField, gbc);
@@ -154,8 +145,7 @@ public class AdminDetailsEventPanel extends JPanel {
         gbc.gridy = 6;
         formPanel.add(saleStartSpinner, gbc);
 
-        JLabel locationLabel = new JLabel("Luogo:");
-        //updateLocationDropdown();
+        JLabel locationLabel = new JLabel("Luogo:");        
         locationLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -166,18 +156,6 @@ public class AdminDetailsEventPanel extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 7;
         formPanel.add(locationDropdown, gbc);
-
-        /*manageSectorsButton = new JButton("Gestisci settori");
-        manageSectorsButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        manageSectorsButton.setBackground(new Color(255, 223, 0));
-        manageSectorsButton.setForeground(Color.BLACK);
-        manageSectorsButton.setOpaque(true);
-        manageSectorsButton.setBorderPainted(false);
-        manageSectorsButton.setFocusPainted(false);
-        gbc.gridx = 0;
-        gbc.gridy = 8;
-        gbc.gridwidth = 2;
-        formPanel.add(manageSectorsButton, gbc);*/
 
         JLabel sectorsLabel = new JLabel("Settori aggiunti:");
         sectorsLabel.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -235,8 +213,7 @@ public class AdminDetailsEventPanel extends JPanel {
         updateFields(e);
         
         add(formPanel, BorderLayout.CENTER);
-        
-        //updateLocationDropdown();
+
     }
     
     private void updateEvento() {
@@ -265,13 +242,7 @@ public class AdminDetailsEventPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "La data di inizio vendita deve essere almeno un giorno prima rispetto alla data dell'evento.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        // Update the Evento object
-        
-        
         Evento e2= new Evento(nome,data,ora,maxBigliettiAPersona,postoNumerato,dataInizioVendita,idLuogo);
-        
-
-        // Call the method to update the event in the database
         if (EventsDatabase.updateEvento(e2,evento.getIdEvento())) {
             logger.info("Evento aggiornato con successo: " + e2.getNome());
             JOptionPane.showMessageDialog(this, "Evento aggiornato con successo.", "Successo", JOptionPane.INFORMATION_MESSAGE);
@@ -299,20 +270,13 @@ public class AdminDetailsEventPanel extends JPanel {
     
     public void updateFields(Evento e) throws ParseException {
         nameField.setText(e.getNome());
-        //dateSpinner.setValue(new Date());
-        JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy");
-        JSpinner.DateEditor saleStartEditor = new JSpinner.DateEditor(saleStartSpinner, "dd/MM/yyyy");
-        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
-        
         SimpleDateFormat timeFormat= new SimpleDateFormat("HH:mm");
         Date ora = timeFormat.parse(e.getOra());
-        
         dateSpinner.setValue(e.getData());        
         saleStartSpinner.setValue(e.getDataInizioVendita());
         timeSpinner.setValue(ora);
         maxTicketsField.setText(String.valueOf(e.getMaxBigliettiAPersona()));
         seatNumberedCheckbox.setSelected(e.getPostoNumerato());
-        
         int indice=0;
        
         for(int i=0; i<listaluoghi.size(); i++)
@@ -323,29 +287,19 @@ public class AdminDetailsEventPanel extends JPanel {
         		indice=i;
         	}
         }
-        locationDropdown.setSelectedIndex(indice);
-        
-        
+        locationDropdown.setSelectedIndex(indice);        
         settori = SectorsDatabase.getAllSectors();
         sectorsDropdown.removeAllItems();
-        int index=0;
         for (int k = 0; k < settori.size(); k++) 
         {
         	
         	Settore s= settori.get(k);
         	if(s.getIdEvento()==e.getIdEvento())
         	{
-        		//index=k;
         		settoriUpdate.add(s);
         		sectorsDropdown.addItem(s.getNome()+ " " + s.getPosizione()+", anello "+String.valueOf(s.getAnello()));
-        	}
-            
-            //sectorsDropdown.addItem(nomiSettori.get(index));
-        	
+        	}    	
         }
-        
-       
-        
     }
     
     public int findIdEvento(Evento ev) throws ParseException
@@ -361,10 +315,6 @@ public class AdminDetailsEventPanel extends JPanel {
     		}
     	}
     	return id;
-    }
-    
-    
-
-    
+    }  
 }
 

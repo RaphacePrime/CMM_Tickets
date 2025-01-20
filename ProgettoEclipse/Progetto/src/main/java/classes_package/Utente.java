@@ -1,6 +1,5 @@
 package classes_package;
 
-
 public class Utente {
     private int id;
     private String username;
@@ -19,8 +18,6 @@ public class Utente {
         this.email=email;
         this.admin = admin;
     }
-
-    // Costruttore senza id per creazione utente
     public Utente(String username, String password, String codiceFiscale, String telefono, String email, boolean admin) {
         this.username = username;
         this.password = password;
@@ -30,7 +27,6 @@ public class Utente {
         this.admin = admin;
     }
 
-    // Getter e Setter
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

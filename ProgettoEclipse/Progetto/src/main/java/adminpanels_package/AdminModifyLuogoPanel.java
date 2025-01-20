@@ -1,4 +1,3 @@
-
 package adminpanels_package;
 
 import javax.swing.*;
@@ -11,15 +10,14 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 import classes_package.Luogo;
-import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
-import database_package.Database;
 import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
 
 
 public class AdminModifyLuogoPanel extends JPanel {
-    private List<Luogo> luoghi;
+	private static final long serialVersionUID = 1L;
+	private List<Luogo> luoghi;
     private JTable luogoTable;
     private DefaultTableModel tableModel;
     private JButton backButton;
@@ -64,7 +62,9 @@ public class AdminModifyLuogoPanel extends JPanel {
 
         tableModel = new DefaultTableModel(data, columnNames);
         luogoTable = new JTable(tableModel) {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
                 return false;  
             }
@@ -129,12 +129,9 @@ public class AdminModifyLuogoPanel extends JPanel {
         });
     }
 
-    
-    
-
-    
     private static class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
+		private static final long serialVersionUID = 1L;
+		public ButtonRenderer() {
             setOpaque(true);
             setBorder(BorderFactory.createEmptyBorder());  
             setFocusPainted(false);  

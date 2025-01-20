@@ -1,12 +1,9 @@
 package classes_package;
 
-import java.sql.Time;
 import java.util.Date;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import login_package.Login;
 public class Evento {
     private int idEvento;
     private String nome;
@@ -31,7 +28,6 @@ public class Evento {
     }
     
     public Evento(String nome, Date data, String ora, int numMaxBigliettiAcquistabili, boolean postoNumerato, Date dataInizioVendita, int idLuogo) {
-        this.idEvento = idEvento;
         this.nome = nome;
         this.data = data;
         this.ora = ora;

@@ -5,7 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class AdminHomePanel extends JPanel {
-    private JButton logoutButton; 
+	private static final long serialVersionUID = 1L;
+	private JButton logoutButton; 
     static JButton switchToModifyEventButton;
     static JButton switchToModifyLuogoButton;
     private JButton switchToAddLuogoButton;
@@ -15,12 +16,9 @@ public class AdminHomePanel extends JPanel {
     public AdminHomePanel() {
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
-
-        
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(new Color(240, 240, 240));
 
-        
         logoutButton = new JButton("<html><u>Logout</u></html>");
         logoutButton.setFont(new Font("Arial", Font.PLAIN, 16));
         logoutButton.setBackground(null);

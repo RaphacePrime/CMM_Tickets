@@ -1,31 +1,26 @@
 package adminpanels_package;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-
 import classes_package.Luogo;
 import database_package.LuoghiDatabase;
 
 public class AdminDetailsLuogoPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private JLabel nameTextLabel;
-	private JTextField nameValueField; // Modificato da JLabel a JTextField
+	private JTextField nameValueField; 
 	private JLabel cityTextLabel;
-	private JTextField cityValueField; // Modificato da JLabel a JTextField
+	private JTextField cityValueField;
 	private JLabel addressTextLabel;
-	private JTextField addressValueField; // Modificato da JLabel a JTextField
+	private JTextField addressValueField;
 	private JButton deleteButton;
 	private JButton updateButton;
 	private JLabel imageLabel;
@@ -41,7 +36,7 @@ public class AdminDetailsLuogoPanel extends JPanel {
 		this.luogo = luogo;
 		logger.info("Luogo in dettaglio: " + this.luogo.getIdLuogo());
 		setLayout(new BorderLayout(20, 20));
-		setBackground(new Color(240, 240, 240)); // A light background color
+		setBackground(new Color(240, 240, 240)); 
 
 		JLabel titleLabel = new JLabel("Dettagli del Luogo", JLabel.CENTER);
 		titleLabel.setFont(new Font("Arial", Font.BOLD, 32));

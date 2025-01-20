@@ -15,208 +15,177 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class AdminAddLuogoPanel extends JPanel {
-    private JTextField nameField;
-    private JTextField cityField;
-    private JTextField addressField;
-    private JButton addButton;
-    private JButton uploadImageButton;
-    private JLabel imagePreview;
-    private String nomeFile= null;
-    private static final Logger logger = LogManager.getLogger(AdminAddLuogoPanel.class);
-   // private AdminModifyLuogoPanel modifyLuogoPanel;
-    
-    //public AdminAddLuogoPanel(AdminModifyLuogoPanel modifyLuogoPanel) {
-    public AdminAddLuogoPanel() {
-    	//this.modifyLuogoPanel=modifyLuogoPanel;
-        setLayout(new BorderLayout());
-        setBackground(new Color(230, 230, 250)); 
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); 
+	private static final long serialVersionUID = 1L;
+	private JTextField nameField;
+	private JTextField cityField;
+	private JTextField addressField;
+	private JButton addButton;
+	private JButton uploadImageButton;
+	private JLabel imagePreview;
+	private String nomeFile = null;
+	private static final Logger logger = LogManager.getLogger(AdminAddLuogoPanel.class);
 
-        
-        JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setBackground(Color.WHITE); 
-        formPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(180, 180, 180), 1), 
-                BorderFactory.createEmptyBorder(20, 20, 20, 20) 
-        ));
+	public AdminAddLuogoPanel() {
+		setLayout(new BorderLayout());
+		setBackground(new Color(230, 230, 250));
+		setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 10, 10, 10);
+		JPanel formPanel = new JPanel(new GridBagLayout());
+		formPanel.setBackground(Color.WHITE);
+		formPanel.setBorder(
+				BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(180, 180, 180), 1),
+						BorderFactory.createEmptyBorder(20, 20, 20, 20)));
 
-        
-        JLabel titleLabel = new JLabel("Aggiungi Nuovo Luogo");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
-        formPanel.add(titleLabel, gbc);
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets = new Insets(10, 10, 10, 10);
 
-        
-        JLabel nameLabel = new JLabel("Nome:");
-        nameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        formPanel.add(nameLabel, gbc);
+		JLabel titleLabel = new JLabel("Aggiungi Nuovo Luogo");
+		titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridwidth = 2;
+		gbc.anchor = GridBagConstraints.CENTER;
+		formPanel.add(titleLabel, gbc);
 
-        nameField = new JTextField(20);
-        nameField.setFont(new Font("Arial", Font.PLAIN, 14)); 
-        nameField.setPreferredSize(new Dimension(0, 30)); 
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        formPanel.add(nameField, gbc);
+		JLabel nameLabel = new JLabel("Nome:");
+		nameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.gridwidth = 1;
+		formPanel.add(nameLabel, gbc);
 
-       
-        JLabel cityLabel = new JLabel("Città:");
-        cityLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        formPanel.add(cityLabel, gbc);
+		nameField = new JTextField(20);
+		nameField.setFont(new Font("Arial", Font.PLAIN, 14));
+		nameField.setPreferredSize(new Dimension(0, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		formPanel.add(nameField, gbc);
 
-        cityField = new JTextField(20);
-        cityField.setFont(new Font("Arial", Font.PLAIN, 14));
-        cityField.setPreferredSize(new Dimension(0, 30));
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        formPanel.add(cityField, gbc);
+		JLabel cityLabel = new JLabel("Città:");
+		cityLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		formPanel.add(cityLabel, gbc);
 
-        
-        JLabel addressLabel = new JLabel("Indirizzo:");
-        addressLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        formPanel.add(addressLabel, gbc);
+		cityField = new JTextField(20);
+		cityField.setFont(new Font("Arial", Font.PLAIN, 14));
+		cityField.setPreferredSize(new Dimension(0, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		formPanel.add(cityField, gbc);
 
-        addressField = new JTextField(20);
-        addressField.setFont(new Font("Arial", Font.PLAIN, 14));
-        addressField.setPreferredSize(new Dimension(0, 30));
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        formPanel.add(addressField, gbc);
+		JLabel addressLabel = new JLabel("Indirizzo:");
+		addressLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		formPanel.add(addressLabel, gbc);
 
-        /*
-        uploadImageButton = new JButton("Carica immagine");
-        uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        uploadImageButton.setBackground(new Color(100,149,237));
-        uploadImageButton.setForeground(Color.BLACK);
-        uploadImageButton.setFocusPainted(false);
-        gbc.gridx=0;
-        gbc.gridy=4;
-        gbc.gridwidth=1;
-        formPanel.add(uploadImageButton, gbc);*/
-        
-        uploadImageButton = new JButton("Carica immagine");
-        uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        uploadImageButton.setBackground(Color.LIGHT_GRAY); // Cornflower blue
-        uploadImageButton.setForeground(Color.BLACK); // Testo bianco per contrasto migliore
-        uploadImageButton.setFocusPainted(false);
-        uploadImageButton.setOpaque(true); // Garantisce che il colore sia visibile su macOS
-        uploadImageButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Bordo visibile per evidenza
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        formPanel.add(uploadImageButton, gbc);
+		addressField = new JTextField(20);
+		addressField.setFont(new Font("Arial", Font.PLAIN, 14));
+		addressField.setPreferredSize(new Dimension(0, 30));
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		formPanel.add(addressField, gbc);
 
-        
-        
-        imagePreview = new JLabel();
-        imagePreview.setPreferredSize(new Dimension(350,200));
-        imagePreview.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-        gbc.gridx=1;
-        gbc.gridy=4;
-        formPanel.add(imagePreview,gbc);
-        
-        uploadImageButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int returnValue = fileChooser.showOpenDialog(AdminAddLuogoPanel.this);
-                if (returnValue == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    String destinationPath = "src/main/resources/Immagini/"+selectedFile.getName();
-                    File destinationFile = new File(destinationPath);
-                    //nomeFile = selectedFile.getName(); 
-                    try {
-                    	Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    	nomeFile=selectedFile.getName();
-                    	ImageIcon icon = new ImageIcon(destinationFile.getAbsolutePath());
-                        Image scaledImage = icon.getImage().getScaledInstance(350, 200, Image.SCALE_SMOOTH);
-                        imagePreview.setIcon(new ImageIcon(scaledImage));
+		uploadImageButton = new JButton("Carica immagine");
+		uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
+		uploadImageButton.setBackground(Color.LIGHT_GRAY);
+		uploadImageButton.setForeground(Color.BLACK);
+		uploadImageButton.setFocusPainted(false);
+		uploadImageButton.setOpaque(true);
+		uploadImageButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		gbc.gridx = 0;
+		gbc.gridy = 4;
+		gbc.gridwidth = 1;
+		formPanel.add(uploadImageButton, gbc);
 
-                        JOptionPane.showMessageDialog(AdminAddLuogoPanel.this, "Immagine caricata con successo!");
-                        //ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
-                        //Image scaledImage = icon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-                        //imagePreview.setIcon(new ImageIcon(scaledImage));
-                    } catch (IOException ex) {
-                    	JOptionPane.showMessageDialog(AdminAddLuogoPanel.this, "Errore nel caricamento dell'immagine: " + ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        });
-        
-        
-        
-        addButton = new JButton("Aggiungi");
-        addButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        addButton.setBackground(new Color(75, 175, 110)); // Colore verde chiaro
-        addButton.setForeground(Color.WHITE); // Testo bianco
-        addButton.setFocusPainted(false);
-        addButton.setBorder(BorderFactory.createLineBorder(new Color(50, 150, 85), 2)); // Bordo visibile verde scuro
-        addButton.setOpaque(true); // Forza il rendering del colore di sfondo
-        addButton.setPreferredSize(new Dimension(200, 40)); // Altezza maggiore per il pulsante
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.gridwidth = 2;
-        formPanel.add(addButton, gbc);
+		imagePreview = new JLabel();
+		imagePreview.setPreferredSize(new Dimension(350, 200));
+		imagePreview.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		formPanel.add(imagePreview, gbc);
 
+		uploadImageButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				int returnValue = fileChooser.showOpenDialog(AdminAddLuogoPanel.this);
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					String destinationPath = "src/main/resources/Immagini/" + selectedFile.getName();
+					File destinationFile = new File(destinationPath);
+					try {
+						Files.copy(selectedFile.toPath(), destinationFile.toPath(),
+								StandardCopyOption.REPLACE_EXISTING);
+						nomeFile = selectedFile.getName();
+						ImageIcon icon = new ImageIcon(destinationFile.getAbsolutePath());
+						Image scaledImage = icon.getImage().getScaledInstance(350, 200, Image.SCALE_SMOOTH);
+						imagePreview.setIcon(new ImageIcon(scaledImage));
 
-        
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addLuogo();
-            }
-        });
+						JOptionPane.showMessageDialog(AdminAddLuogoPanel.this, "Immagine caricata con successo!");
 
-        
-        add(formPanel, BorderLayout.CENTER);
-    }
+					} catch (IOException ex) {
+						JOptionPane.showMessageDialog(AdminAddLuogoPanel.this,
+								"Errore nel caricamento dell'immagine: " + ex.getMessage(), "Errore",
+								JOptionPane.ERROR_MESSAGE);
+						ex.printStackTrace();
+					}
+				}
+			}
+		});
 
-    
-    private void addLuogo() {
-        String nome = nameField.getText().trim();
-        String indirizzo = addressField.getText().trim();
-        String citta = cityField.getText().trim();
+		addButton = new JButton("Aggiungi");
+		addButton.setFont(new Font("Arial", Font.PLAIN, 16));
+		addButton.setBackground(new Color(75, 175, 110));
+		addButton.setForeground(Color.WHITE);
+		addButton.setFocusPainted(false);
+		addButton.setBorder(BorderFactory.createLineBorder(new Color(50, 150, 85), 2));
+		addButton.setOpaque(true);
+		addButton.setPreferredSize(new Dimension(200, 40));
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		gbc.gridwidth = 2;
+		formPanel.add(addButton, gbc);
 
-        if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty() || nomeFile==null) {
-            JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+		addButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				addLuogo();
+			}
+		});
 
-        Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);
-        boolean success = LuoghiDatabase.addLuogo(nuovoLuogo);
+		add(formPanel, BorderLayout.CENTER);
+	}
 
-        if (success) {
-            JOptionPane.showMessageDialog(this, "Luogo aggiunto con successo!", "Successo", JOptionPane.INFORMATION_MESSAGE);
-            logger.info("Luogo aggiunto: " + nome);
-            
-            nameField.setText("");
-            cityField.setText("");
-            addressField.setText("");
-            imagePreview.setIcon(null);
-            nomeFile=null;
-            
-            /*if(modifyLuogoPanel !=null)
-            {
-            	modifyLuogoPanel.refreshTable();
-            }*/
-        } else {
-            JOptionPane.showMessageDialog(this, "Errore durante l'aggiunta del luogo. Verifica che il nome sia unico.", "Errore", JOptionPane.ERROR_MESSAGE);
-            logger.error("Errore durante l'aggiunta del luogo: " + nome);
-        }
-    }
+	private void addLuogo() {
+		String nome = nameField.getText().trim();
+		String indirizzo = addressField.getText().trim();
+		String citta = cityField.getText().trim();
+
+		if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty() || nomeFile == null) {
+			JOptionPane.showMessageDialog(this, "Tutti i campi sono obbligatori.", "Errore", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);
+		boolean success = LuoghiDatabase.addLuogo(nuovoLuogo);
+
+		if (success) {
+			JOptionPane.showMessageDialog(this, "Luogo aggiunto con successo!", "Successo",
+					JOptionPane.INFORMATION_MESSAGE);
+			logger.info("Luogo aggiunto: " + nome);
+			nameField.setText("");
+			cityField.setText("");
+			addressField.setText("");
+			imagePreview.setIcon(null);
+			nomeFile = null;
+		} else {
+			JOptionPane.showMessageDialog(this, "Errore durante l'aggiunta del luogo. Verifica che il nome sia unico.",
+					"Errore", JOptionPane.ERROR_MESSAGE);
+			logger.error("Errore durante l'aggiunta del luogo: " + nome);
+		}
+	}
 }

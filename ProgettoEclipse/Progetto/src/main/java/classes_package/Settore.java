@@ -3,8 +3,6 @@ package classes_package;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import login_package.Login;
-
 public class Settore {
 
 	private int idSettore;

@@ -7,7 +7,6 @@ public class Luogo {
 	private String città;
 	private String nomeFile;
 	
-	
 	public Luogo(int idLuogo, String nome, String indirizzo, String città, String nomeFile)
 	{
 		this.setIdLuogo(idLuogo);
@@ -27,7 +26,7 @@ public class Luogo {
 	}
 
 	public Luogo() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public int getIdLuogo() {
