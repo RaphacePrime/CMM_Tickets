@@ -10,8 +10,8 @@ import utils_package.LookAndFeelUtil;
 public class AdminAddSectorsPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JLabel imageLabel;
-	private final int IMAGE_WIDTH = 500;
-	private final int IMAGE_HEIGHT = 300;
+	private static final int IMAGE_WIDTH = 500;
+	private static final int IMAGE_HEIGHT = 300;
 	private JButton lastSelectedButton = null;
 	JTextField nomeField = new JTextField();
 	JTextField prezzoField = new JTextField();
@@ -103,7 +103,6 @@ public class AdminAddSectorsPanel extends JPanel {
 			if (lastSelectedButton != null) {
 				lastSelectedButton.setText("+");
 				lastSelectedButton.setBackground(Color.WHITE);
-				// lastSelectedButton.setBorder(UIManager.getBorder("TextField.border"));
 
 				boolean controllo = false;
 				setAnelloPosizione(xlastselected, ylastselected);
