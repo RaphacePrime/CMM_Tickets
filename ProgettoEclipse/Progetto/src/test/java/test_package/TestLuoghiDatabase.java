@@ -17,10 +17,8 @@ class TestLuoghiDatabase {
     @Test
     @Order(1)
     public void testGetAllLuoghi() throws SQLException {
-
         List<Luogo> luoghi = LuoghiDatabase.getAllLuoghi();
-        assertNotNull(luoghi);
-        
+        assertNotNull(luoghi); 
     }
 
     @Test
@@ -28,41 +26,25 @@ class TestLuoghiDatabase {
     public void testAddLuogo() throws SQLException {
         Luogo luogo = new Luogo("Colosseo", "Roma", "Piazza del Colosseo", "colosseo.jpg");
         boolean result = LuoghiDatabase.addLuogo(luogo);
-        assertTrue(result);
-        
-        
-        
+        assertTrue(result);       
     }
 
     @Test
     @Order(3)
     public void testUpdateAndDeleteEvento() throws SQLException {
-        
-        // Crea un evento aggiornato
         Luogo updatedLuogo = new Luogo("Colosseo Aggiornato", "Roma", "Piazza del Colosseo", "colosseo.jpg");
         List<Luogo> evs = LuoghiDatabase.getAllLuoghi();
         int id= evs.getLast().getIdLuogo();
         boolean result = LuoghiDatabase.updateLuogo(updatedLuogo, id); 
-        assertTrue(result);
-       
-       
+        assertTrue(result);       
     }
 
-    
     @Test
     @Order(4)
     public void testDeleteEvento() throws SQLException {
         Luogo updatedLuogo = new Luogo("Colosseo Aggiornato", "Roma", "Piazza del Colosseo", "colosseo.jpg");
-
-        // Elimina l'evento
         boolean result = LuoghiDatabase.deleteLuogo(updatedLuogo); 
-        assertTrue(result);
-
-       
+        assertTrue(result);    
     }
     
-    
-
-    
-
 }
