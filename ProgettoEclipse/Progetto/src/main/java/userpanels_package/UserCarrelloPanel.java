@@ -77,10 +77,13 @@ public class UserCarrelloPanel extends JPanel {
 		acquistaButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				buyCart();
-
+				try {
+					buyCart();
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-
 		});
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		buttonPanel.setBackground(new Color(230, 230, 250));
@@ -88,12 +91,30 @@ public class UserCarrelloPanel extends JPanel {
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	private void buyCart() {
+	private void buyCart() throws ParseException {
 
-		if (biglietti.size() == 0) {
+		if (biglietti.isEmpty()) {
 			JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Non hai nessun biglietto nel carrello");
 			return;
 		}
+		
+		float costotot = 0;
+		EventoSettoreResult esr;
+
+		for (Biglietto bi : biglietti) {
+		    esr = UserCarrelloPanel.findEventoSettore(bi);
+		    costotot += esr.getSettore().getPrezzo();
+		}
+		int response = JOptionPane.showConfirmDialog(
+		    null, 
+		    "Il totale del costo è: " + costotot + "€. Vuoi confermare?", 
+		    "Conferma Costo Totale", 
+		    JOptionPane.YES_NO_OPTION
+		);
+		if (response == JOptionPane.NO_OPTION) {
+		    return;
+		}
+		
 		boolean hasError = false;
 		for (Component comp : getComponents()) {
 			if (comp instanceof JScrollPane) {
@@ -162,7 +183,7 @@ public class UserCarrelloPanel extends JPanel {
 									}
 								}
 							}
-							logger.info("IN QUESTO PANELLO CI SONO " + editable + " ELEMNTI EDITABILI");
+							logger.info("IN QUESTO PANELLO CI SONO " + editable + " ELEMeNTI EDITABILI");
 							TicketsDatabase.addTicket(biglietti.get(b));
 							b++;
 						}
