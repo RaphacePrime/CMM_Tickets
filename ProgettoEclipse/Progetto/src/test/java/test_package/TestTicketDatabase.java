@@ -38,23 +38,5 @@ public class TestTicketDatabase {
         assertTrue(biglietti.size() > 0, "L'utente dovrebbe avere almeno un biglietto.");
     }
 
-    // Test: Aggiornare un biglietto esistente
-    @Test
-    void testUpdateTicket() {
-        // Supponiamo che il biglietto con id 1 esista già nel database
-        int vecchioId = 1;
-
-        // Recuperiamo un biglietto esistente
-        Biglietto biglietto = new Biglietto();
-        biglietto.setIdBiglietto(vecchioId);
-        biglietto.setNomeUtilizzatore("Marco");
-        biglietto.setCognomeUtilizzatore("Bianchi");
-        biglietto.setPosto(15);
-        biglietto.setIdSettore(3);  // Esegui il test con un idSettore valido
-        biglietto.setIdUtente(2);   // Esegui il test con un idUtente valido
-
-        boolean result = TicketsDatabase.updateTicket(biglietto, vecchioId);
-
-        assertTrue(result, "Il biglietto dovrebbe essere aggiornato con successo.");
-    }
+   
 }

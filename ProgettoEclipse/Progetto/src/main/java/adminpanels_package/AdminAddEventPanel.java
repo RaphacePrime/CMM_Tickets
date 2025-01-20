@@ -21,7 +21,8 @@ import database_package.SectorsDatabase;
 import frames_package.MainFrame;
 
 public class AdminAddEventPanel extends JPanel {
-    private JTextField nameField;
+	private static final long serialVersionUID = 1L;
+	private JTextField nameField;
     private JSpinner dateSpinner;
     private JSpinner timeSpinner;
     private JTextField maxTicketsField;
@@ -36,12 +37,7 @@ public class AdminAddEventPanel extends JPanel {
     private static final Logger logger = LogManager.getLogger(AdminAddEventPanel.class);
 
     public AdminAddEventPanel() {
-        /*try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
+        
         List<String> nomiluoghi = new ArrayList<>();
         listaluoghi = LuoghiDatabase.getAllLuoghi();
         for (int i = 0; i < listaluoghi.size(); i++) {
@@ -149,7 +145,6 @@ public class AdminAddEventPanel extends JPanel {
         formPanel.add(saleStartSpinner, gbc);
 
         JLabel locationLabel = new JLabel("Luogo:");
-        //updateLocationDropdown();
         locationLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -202,7 +197,6 @@ public class AdminAddEventPanel extends JPanel {
                 try {
 					addEvento();
 				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
@@ -212,7 +206,6 @@ public class AdminAddEventPanel extends JPanel {
         
         add(formPanel, BorderLayout.CENTER);
         
-        //updateLocationDropdown();
     }
 
     private void addEvento() throws ParseException {
@@ -266,7 +259,7 @@ public class AdminAddEventPanel extends JPanel {
         boolean esito=EventsDatabase.addEvento(nuovoEvento);
         if(esito)
         {
-        	int idEv=findIdEvento(nuovoEvento);
+        	int idEv=findIdEvento();
             for(int i=0; i<settori.size();i++)
             {
             	Settore s = settori.get(i);
@@ -333,47 +326,24 @@ public class AdminAddEventPanel extends JPanel {
     
     public void resetFields() {
         nameField.setText("");
-        //dateSpinner.setValue(new Date());
         JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy");
         dateSpinner.setEditor(dateEditor);
         JSpinner.DateEditor saleStartEditor = new JSpinner.DateEditor(saleStartSpinner, "dd/MM/yyyy");
         saleStartSpinner.setEditor(saleStartEditor);
         JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
         timeSpinner.setEditor(timeEditor);
-        //timeSpinner.setValue(new Date());
         maxTicketsField.setText("");
         seatNumberedCheckbox.setSelected(false);
-        //saleStartSpinner.setValue(new Date());
         locationDropdown.setSelectedIndex(0);
         sectorsDropdown.removeAllItems();
         sectorsDropdown.addItem("Nessun settore aggiunto");
         settori.clear();
     }
     
-    /*public int findIdEvento(Evento ev) {
-        int id = 0;
-        List<Evento> evs = AdminEventsDatabase.getAllEvents();
-        System.out.println(evs.size() + " - - - - dimensioni lista");
-
-        for (int i = 0; i < evs.size(); i++) {
-            if (ev.getNome().equals(evs.get(i).getNome()) && 
-                ev.getData().equals(evs.get(i).getData()) &&
-                ev.getOra().equals(evs.get(i).getOra())) {
-                
-                id = evs.get(i).getIdEvento();
-                System.out.println(evs.get(i).getIdEvento() + " Nuovo idevento");
-                break; // Exit the loop once a match is found
-            }
-        }
-
-        return id;
-    }*/
-    
-    public int findIdEvento(Evento ev) {
+   
+    public int findIdEvento() {
         List<Evento> evs = EventsDatabase.getAllEvents();
-        int id=evs.getLast().getIdEvento();
-
-        return id;
+        return evs.getLast().getIdEvento();
     }
 
 

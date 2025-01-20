@@ -4,9 +4,6 @@ import javax.swing.*;
 
 import adminpanels_package.AdminAddEventPanel;
 import adminpanels_package.AdminAddLuogoPanel;
-import adminpanels_package.AdminAddSectorsPanel;
-import adminpanels_package.AdminDetailsEventPanel;
-import adminpanels_package.AdminDetailsLuogoPanel;
 import adminpanels_package.AdminHomePanel;
 import adminpanels_package.AdminModifyEventPanel;
 import adminpanels_package.AdminModifyLuogoPanel;
@@ -24,7 +21,8 @@ import java.awt.*;
 import java.text.ParseException;
 
 public class MainFrame extends JFrame {
-    private CardLayout cardLayout;
+	private static final long serialVersionUID = 1L;
+	private CardLayout cardLayout;
     private JPanel mainPanel;
     private LoginPanel loginPanel;
     private RegistrationPanel registrationPanel;
@@ -60,7 +58,6 @@ public class MainFrame extends JFrame {
         adminAddEventPanel = new AdminAddEventPanel();
         userHomePanel = new UserHomePanel();
         userViewLuogoPanel = new UserViewLuogoPanel();
-        //userViewEventPanel = new UserViewEventPanel();
         
 
         // Aggiunta dei pannelli al layout
@@ -72,14 +69,12 @@ public class MainFrame extends JFrame {
         mainPanel.add(adminAddEventPanel, "Admin Add Event");
         mainPanel.add(userHomePanel, "User Home");
         mainPanel.add(userViewLuogoPanel, "User View Luogo");
-        //mainPanel.add(userViewEventPanel, "User View Event");
 
         // Configurazione delle azioni nei pulsanti
         adminHomePanel.setSwitchToModifyEventAction(e -> {
             try {
 				adminModifyEventPanel = new AdminModifyEventPanel();
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
             adminModifyEventPanel.setSwitchToDetailsEventAction();
@@ -109,13 +104,11 @@ public class MainFrame extends JFrame {
             cardLayout.show(mainPanel, "Login");
         });
         
-        //userHomePanel.setSwitchToViewLuogoAction(e -> userHomePanel.setContentPanel(userViewLuogoPanel));
         userHomePanel.setSwitchToViewEventAction(e-> {
         
         	try {
 				userViewEventPanel = new UserViewEventPanel();
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
         	userViewEventPanel.setSwitchToDetailsEventAction();
@@ -128,10 +121,8 @@ public class MainFrame extends JFrame {
         	try {
 				userCarrelloPanel = new UserCarrelloPanel();
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        	//userViewEventPanel.setSwitchToDetailsEventAction();
         	mainPanel.add(userCarrelloPanel, "User Carrello");
             userHomePanel.setContentPanel(userCarrelloPanel);
         
@@ -142,10 +133,8 @@ public class MainFrame extends JFrame {
         	try {
 				userMyOrdersPanel = new UserMyOrdersPanel();
 			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        	//userViewEventPanel.setSwitchToDetailsEventAction();
         	mainPanel.add(userMyOrdersPanel, "User My Orders");
             userHomePanel.setContentPanel(userMyOrdersPanel);
         
