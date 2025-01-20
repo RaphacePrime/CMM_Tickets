@@ -2,7 +2,8 @@ package userpanels_package;
 
 import javax.swing.*;
 
-import ch.qos.logback.classic.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,10 +24,13 @@ import login_package.Login;
 import login_package.LoginPanel;
 
 public class UserCarrelloPanel extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private static List<Biglietto> biglietti = new ArrayList<>();
 	private static List<Settore> settori = new ArrayList<>();
 	private static List<Evento> eventi = new ArrayList<>();
 	private JButton acquistaButton;
+	private static final Logger logger = LogManager.getLogger(UserCarrelloPanel.class);
 
 	public UserCarrelloPanel() throws ParseException {
 		setLayout(new BorderLayout());
@@ -53,7 +57,7 @@ public class UserCarrelloPanel extends JPanel {
 			for (int i = 0; i < biglietti.size(); i++) {
 				Biglietto biglietto = biglietti.get(i);
 				JPanel bigliettoPanel = createBigliettoPanel(biglietto);
-				System.out.println(biglietto.getIdEvento() + " " + biglietto.getIdSettore());
+				logger.info(biglietto.getIdEvento() + " " + biglietto.getIdSettore());
 				bigliettoPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 				contentPanel.add(bigliettoPanel);
 				contentPanel.add(Box.createVerticalStrut(10));
@@ -145,7 +149,7 @@ public class UserCarrelloPanel extends JPanel {
 							for (Component fieldComp : panel.getComponents()) {
 								if (fieldComp instanceof JTextField) {
 									JTextField textField = (JTextField) fieldComp;
-									System.out.println(textField.getName());
+									logger.info(textField.getName());
 									if (textField.isEditable()) {
 										editable++;
 										if (nome0cognome1 == 0) {
@@ -158,7 +162,7 @@ public class UserCarrelloPanel extends JPanel {
 									}
 								}
 							}
-							System.out.println("IN QUESTO PANELLO CI SONO " + editable + " ELEMNTI EDITABILI");
+							logger.info("IN QUESTO PANELLO CI SONO " + editable + " ELEMNTI EDITABILI");
 							TicketsDatabase.addTicket(biglietti.get(b));
 							b++;
 						}
@@ -167,15 +171,15 @@ public class UserCarrelloPanel extends JPanel {
 			}
 		}
 		JOptionPane.showMessageDialog(UserCarrelloPanel.this, "Acquisto completato!");
-		this.clearCarrello();
+		UserCarrelloPanel.clearCarrello();
 		UserHomePanel.switchToMyOrdersButton.doClick();
 
 	}
 
 	private JPanel createBigliettoPanel(Biglietto biglietto) throws ParseException {
-		EventoSettoreResult esr = this.findEventoSettore(biglietto);
+		EventoSettoreResult esr = UserCarrelloPanel.findEventoSettore(biglietto);
 		Evento ev = esr.getEvento();
-		System.out.print(ev.getIdEvento());
+		logger.info(ev.getIdEvento());
 		Settore s = esr.getSettore();
 
 		if (ev == null || s == null) {
@@ -198,13 +202,13 @@ public class UserCarrelloPanel extends JPanel {
 		String pathplace = "a";
 		List<Luogo> luoghi = LuoghiDatabase.getAllLuoghi();
 		for (int i = 0; i < luoghi.size(); i++) {
-			System.out.println(ev.getIdLuogo() + " lista:" + luoghi.get(i).getIdLuogo());
+			logger.info(ev.getIdLuogo() + " lista:" + luoghi.get(i).getIdLuogo());
 			if (ev.getIdLuogo() == luoghi.get(i).getIdLuogo()) {
 				pathplace = luoghi.get(i).getNomeFile();
 			}
 		}
 		String path = "src/main/resources/Immagini/" + pathplace;
-		System.out.println(path);
+		logger.info(path);
 		JLabel imageLabel = new JLabel();
 		updateImage(path, imageLabel);
 
@@ -320,14 +324,13 @@ public class UserCarrelloPanel extends JPanel {
 		label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
 		ImageIcon imageIcon = new ImageIcon(path);
-		//Image image = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Resize image
 		label.setIcon(imageIcon);
 	}
 
 	public static void addBiglietto(Biglietto biglietto, int numselected) throws ParseException {
 		try {
 			biglietti.add(biglietto);
-			System.out.println("Da UserDetail " + biglietto.getIdEvento() + " " + biglietto.getIdSettore());
+			logger.info("Da UserDetail " + biglietto.getIdEvento() + " " + biglietto.getIdSettore());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -353,7 +356,7 @@ public class UserCarrelloPanel extends JPanel {
 			}
 		}
 		if ((numselected + attuali + acquistati) > nmax) {
-			int restante = nmax - attuali - acquistati; // Calcolo quanti elementi possono essere ancora aggiunti.
+			int restante = nmax - attuali - acquistati; 
 			JOptionPane.showMessageDialog(null,
 					"Non puoi acquistare " + numselected + " biglietti perchè il massimo consentito è " + nmax
 							+ ". Puoi aggiungere al massimo altri " + restante + " elementi. (In 'Carrello' "
@@ -375,17 +378,17 @@ public class UserCarrelloPanel extends JPanel {
 
 		eventi = EventsDatabase.getAllEvents();
 		if (eventi.isEmpty()) {
-			System.out.println("Eventi è vuota");
+			logger.info("Eventi è vuota");
 		}
 		for (Evento evento : eventi) {
 			if (b.getIdEvento() == evento.getIdEvento()) {
-				System.out.println("Confronto eventi nel carrello: " + b.getIdEvento() + " " + evento.getIdEvento());
+				logger.info("Confronto eventi nel carrello: " + b.getIdEvento() + " " + evento.getIdEvento());
 				ev = evento;
 				break;
 			}
 		}
 		if (ev == null) {
-			System.err.println("Evento non trovato per ID: " + b.getIdEvento());
+			logger.error("Evento non trovato per ID: " + b.getIdEvento());
 		}
 
 		settori = SectorsDatabase.getAllSectors();
@@ -396,7 +399,7 @@ public class UserCarrelloPanel extends JPanel {
 			}
 		}
 		if (s == null) {
-			System.err.println("Settore non trovato per ID evento: " + (ev != null ? ev.getIdEvento() : "null")
+			logger.error("Settore non trovato per ID evento: " + (ev != null ? ev.getIdEvento() : "null")
 					+ " e ID settore: " + b.getIdSettore());
 		}
 

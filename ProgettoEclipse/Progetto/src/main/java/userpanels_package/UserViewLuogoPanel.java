@@ -14,15 +14,15 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 import classes_package.Luogo;
-import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
-import database_package.Database;
 import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
 
 
 public class UserViewLuogoPanel extends JPanel {
-    private List<Luogo> luoghi;
+
+	private static final long serialVersionUID = 1L;
+	private List<Luogo> luoghi;
     private JTable luogoTable;
     private DefaultTableModel tableModel;
     private JButton backButton;
@@ -42,13 +42,6 @@ public class UserViewLuogoPanel extends JPanel {
 
         fetchAndDisplayLuoghi();
 
-
-        /*backButton = new JButton("Torna alla Home Admin");
-        backButton.setFont(new Font("Arial", Font.PLAIN, 14));
-        backButton.setBackground(new Color(75, 110, 175));
-        backButton.setForeground(Color.WHITE);
-        backButton.setFocusPainted(false);
-        add(backButton, BorderLayout.SOUTH);*/
     }
 
     public void setBackToUserHomeAction(ActionListener action) {
@@ -74,7 +67,10 @@ public class UserViewLuogoPanel extends JPanel {
 
         tableModel = new DefaultTableModel(data, columnNames);
         luogoTable = new JTable(tableModel) {
-            @Override
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
                 return false;  
             }
@@ -112,26 +108,6 @@ public class UserViewLuogoPanel extends JPanel {
         header.setFont(new Font("Arial", Font.BOLD, 16));
         header.setBackground(new Color(75, 110, 175));
         header.setForeground(Color.WHITE);
-
-        
-        /*luogoTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent me) {
-                int row = luogoTable.rowAtPoint(me.getPoint());
-                if (row >= 0) {
-                    
-                    String nomeLuogo = (String) tableModel.getValueAt(row, 0);
-                    logger.info("Luogo cliccato: " + nomeLuogo);                    
-                    for (Luogo luogo : luoghi) {
-                        if (luogo.getNome().equals(nomeLuogo)) {
-                            AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);                            
-                            break;
-                        }
-                    }
-                    
-                }
-            }
-        });*/
-
         
         JScrollPane scrollPane = new JScrollPane(luogoTable);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Lista Luoghi"));
@@ -150,7 +126,6 @@ public class UserViewLuogoPanel extends JPanel {
                     for (Luogo luogo : luoghi) {
                         if (luogo.getNome().equals(nomeLuogo)) {
                             AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);
-                            //detailsPanel.setBackButtonAction(e -> mainFrame.adminHomePanel.setContentPanel(AdminModifyLuogoPanel.this));
                             MainFrame.setUserHomeContentPanel(detailsPanel);
                             break;
                         }
@@ -165,7 +140,10 @@ public class UserViewLuogoPanel extends JPanel {
 
     
     private static class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
+
+		private static final long serialVersionUID = 1L;
+
+		public ButtonRenderer() {
             setOpaque(true);
             setBorder(BorderFactory.createEmptyBorder());  
             setFocusPainted(false);  

@@ -8,11 +8,7 @@ import javax.swing.table.TableCellRenderer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import adminpanels_package.AdminDetailsEventPanel;
-import adminpanels_package.AdminModifyEventPanel;
-
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,11 +21,13 @@ import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
 
 public class UserViewEventPanel extends JPanel {
-    private List<Evento> eventi;
+	
+	private static final long serialVersionUID = 1L;
+	private List<Evento> eventi;
     private List<Luogo> luoghi;
     private JTable eventTable;
     private DefaultTableModel tableModel;
-    private JButton backButton, applyButton;
+    private JButton applyButton;
     private JCheckBox availableNowCheckBox;
     private JTextField eventSearchField;
     private JComboBox<String> luogoComboBox;
@@ -46,23 +44,20 @@ public class UserViewEventPanel extends JPanel {
         filterTitleLabel.setForeground(new Color(60, 63, 65)); 
         add(filterTitleLabel, BorderLayout.NORTH);
         
-        // Pannello dei filtri orizzontale
         JPanel filterPanel = new JPanel();
-        filterPanel.setLayout(new GridBagLayout()); // Layout più preciso per i filtri
+        filterPanel.setLayout(new GridBagLayout()); 
         filterPanel.setBackground(new Color(240, 240, 240));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Filtro "Acquistabile Ora"
         availableNowCheckBox = new JCheckBox("Acquistabile Ora");
         availableNowCheckBox.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 0;
         gbc.gridy = 0;
         filterPanel.add(availableNowCheckBox, gbc);
 
-        // Filtro "Nome Evento"
         JLabel eventSearchLabel = new JLabel("Nome Evento");
         eventSearchLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 1;
@@ -72,7 +67,6 @@ public class UserViewEventPanel extends JPanel {
         gbc.gridx = 2;
         filterPanel.add(eventSearchField, gbc);
 
-        // Filtro "Luogo"
         JLabel luogoLabel = new JLabel("Luogo");
         luogoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 3;
@@ -86,7 +80,6 @@ public class UserViewEventPanel extends JPanel {
         gbc.gridx = 4;
         filterPanel.add(luogoComboBox, gbc);
 
-        // Filtro "Max Biglietti Acquistabili"
         JLabel maxTicketsLabel = new JLabel("Max Biglietti");
         maxTicketsLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         gbc.gridx = 5;
@@ -96,7 +89,6 @@ public class UserViewEventPanel extends JPanel {
         gbc.gridx = 6;
         filterPanel.add(maxTicketsField, gbc);
 
-        // Bottone "Applica Filtri"
         applyButton = new JButton("Applica Filtri");
         applyButton.setFont(new Font("Arial", Font.PLAIN, 16));
         applyButton.setBackground(new Color(33, 150, 243));
@@ -109,10 +101,8 @@ public class UserViewEventPanel extends JPanel {
         gbc.gridy = 0;
         filterPanel.add(applyButton, gbc);
 
-        // Aggiunta del pannello dei filtri sopra la tabella
         add(filterPanel, BorderLayout.NORTH);
 
-        // Carica e mostra gli eventi iniziali
         fetchAndDisplayEvents();
     }
 
@@ -143,7 +133,10 @@ public class UserViewEventPanel extends JPanel {
 
         tableModel = new DefaultTableModel(data, columnNames);
         eventTable = new JTable(tableModel) {
-            @Override
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public boolean isCellEditable(int row, int column) {
                 return false;  
             }
@@ -168,7 +161,6 @@ public class UserViewEventPanel extends JPanel {
                     logger.error("Errore nel parsing della data: " + e.getMessage());
                 }
 
-                // Selezione della cella
                 if (isCellSelected(row, column)) {
                     comp.setBackground(new Color(75, 110, 175));
                     comp.setForeground(Color.WHITE);
@@ -258,7 +250,7 @@ public class UserViewEventPanel extends JPanel {
         String maxBigliettiStr = maxTicketsField.getText();
         int maxBiglietti = (maxBigliettiStr.isEmpty()) ? Integer.MAX_VALUE : Integer.parseInt(maxBigliettiStr);
         List<Evento> filteredEvents;
-        // Filtro eventi
+
         if(acquistabileOra)
         {
         	filteredEvents = EventsDatabase.getAllEvents().stream()
@@ -284,7 +276,6 @@ public class UserViewEventPanel extends JPanel {
         }
         
         
-        // Refresh the event table
         updateEventTable(filteredEvents);
     }
 
@@ -305,17 +296,5 @@ public class UserViewEventPanel extends JPanel {
         }
 
         tableModel.setDataVector(data, columnNames);
-    }
-
-    private JPanel createLabeledField(String labelText, JComponent component) {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        JLabel label = new JLabel(labelText);
-        label.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(label, BorderLayout.NORTH);
-        panel.add(component, BorderLayout.CENTER); // Rimosso lo spazio verticale tra label e component
-        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.setOpaque(false); 
-        return panel;
     }
 }

@@ -12,8 +12,9 @@ import login_package.Login;
 
 public class UserMyOrdersPanel extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 
-    public UserMyOrdersPanel() throws ParseException {
+	public UserMyOrdersPanel() throws ParseException {
         setLayout(new BorderLayout());
         setBackground(new Color(230, 230, 250));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));

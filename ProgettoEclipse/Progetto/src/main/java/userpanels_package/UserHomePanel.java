@@ -2,26 +2,21 @@ package userpanels_package;
 
 import javax.swing.*;
 
-import classes_package.Biglietto;
-import classes_package.Settore;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserHomePanel extends JPanel {
-    private JButton logoutButton;
+
+	private static final long serialVersionUID = 1L;
+	private JButton logoutButton;
     private JLabel titleLabel;
     private JList<String> eventsList;
-    private JButton switchToViewLuogoButton;
     private JButton switchToViewEventButton;
     private JPanel contentPanel;
 	static JButton switchToCartButton;
 	static JButton switchToMyOrdersButton;
-	private List<Biglietto> biglietti = new ArrayList<>();
-
-    public UserHomePanel() {
+	
+	public UserHomePanel() {
         
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
@@ -55,7 +50,6 @@ public class UserHomePanel extends JPanel {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0)); 
         centerPanel.add(titleLabel, BorderLayout.NORTH); 
 
-        // Lista degli eventi
         eventsList = new JList<>();
         eventsList.setFont(new Font("Arial", Font.PLAIN, 16));
         eventsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -147,10 +141,6 @@ public class UserHomePanel extends JPanel {
     public void setSwitchToViewEventAction(ActionListener action) {
         switchToViewEventButton.addActionListener(action);
     }
-    
-    /*public void setSwitchToViewLuogoAction(ActionListener action) {
-        switchToViewLuogoButton.addActionListener(action);
-    }*/
     
     public void setSwitchToCart(ActionListener action) {
     	switchToCartButton.addActionListener(action);

@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,14 +15,14 @@ import classes_package.Biglietto;
 import classes_package.Evento;
 import classes_package.Luogo;
 import classes_package.Settore;
-import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
 import database_package.SectorsDatabase;
 import login_package.Login;
-import login_package.LoginPanel;
 
 public class UserDetailsEventPanel extends JPanel {
-    private JTextField nameField;
+	
+	private static final long serialVersionUID = 1L;
+	private JTextField nameField;
     private JTextField dateField;
     private JTextField timeField;
     private JTextField maxTicketsField;
@@ -230,7 +229,7 @@ public class UserDetailsEventPanel extends JPanel {
 				{
 					
 					UserCarrelloPanel.addBiglietto(new Biglietto("","",0,Login.loginId,s.getIdSettore(),this.evento.getIdEvento()),num);
-					System.out.println("IdUTENTE: "+Login.loginId+" IdSETTORE: "+s.getIdSettore()+ "evento.idevento: "+this.evento.getIdEvento() + "s.idevento: "+s.getIdEvento());
+					logger.info("IdUTENTE: "+Login.loginId+" IdSETTORE: "+s.getIdSettore()+ "evento.idevento: "+this.evento.getIdEvento() + "s.idevento: "+s.getIdEvento());
 				}
 				JOptionPane.showMessageDialog(null,"Biglietti aggiunti al carrello con successo", "Successo",JOptionPane.INFORMATION_MESSAGE);
 				UserHomePanel.switchToCartButton.doClick();
