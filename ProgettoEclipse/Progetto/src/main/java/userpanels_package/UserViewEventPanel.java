@@ -21,9 +21,9 @@ import frames_package.MainFrame;
 import utils_package.LookAndFeelUtil;
 
 public class UserViewEventPanel extends JPanel {
-	
-	private static final long serialVersionUID = 1L;
-	private List<Evento> eventi;
+
+    private static final long serialVersionUID = 1L;
+    private List<Evento> eventi;
     private List<Luogo> luoghi;
     private JTable eventTable;
     private DefaultTableModel tableModel;
@@ -43,7 +43,14 @@ public class UserViewEventPanel extends JPanel {
         filterTitleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         filterTitleLabel.setForeground(new Color(60, 63, 65)); 
         add(filterTitleLabel, BorderLayout.NORTH);
-        
+
+        JPanel filterPanel = createFilterPanel();
+        add(filterPanel, BorderLayout.NORTH);
+
+        fetchAndDisplayEvents();
+    }
+
+    private JPanel createFilterPanel() {
         JPanel filterPanel = new JPanel();
         filterPanel.setLayout(new GridBagLayout()); 
         filterPanel.setBackground(new Color(240, 240, 240));
@@ -101,182 +108,191 @@ public class UserViewEventPanel extends JPanel {
         gbc.gridy = 0;
         filterPanel.add(applyButton, gbc);
 
-        add(filterPanel, BorderLayout.NORTH);
-
-        fetchAndDisplayEvents();
+        return filterPanel;
     }
 
     public void fetchAndDisplayEvents() throws ParseException {
         eventi = EventsDatabase.getAllEvents();
         luoghi = LuoghiDatabase.getAllLuoghi();
         String[] columnNames = {"Nome Evento", "Data", "Luogo", "Città", "Indirizzo"};
-        Object[][] data = new Object[eventi.size()][5]; 
+        Object[][] data = populateEventData();
+
+        tableModel = new DefaultTableModel(data, columnNames);
+        eventTable = createEventTable();
+
+        JScrollPane scrollPane = new JScrollPane(eventTable);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Lista Eventi"));
+        add(scrollPane, BorderLayout.CENTER);
+    }
+
+    private Object[][] populateEventData() throws ParseException {
+        Object[][] data = new Object[eventi.size()][5];
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         for (int i = 0; i < eventi.size(); i++) {
             Evento e = eventi.get(i);
-            Luogo l;
-            
-            for (int y = 0; y < luoghi.size(); y++) {
-                data[i][0] = e.getNome();     
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                data[i][1] = sdf.format(e.getData());
+            Luogo l = luoghi.stream().filter(lu -> lu.getIdLuogo() == e.getIdLuogo()).findFirst().orElse(null);
 
-                l = luoghi.get(y);
-                
-                if (e.getIdLuogo() == l.getIdLuogo()) {
-                    data[i][2] = l.getNome();
-                    data[i][3] = l.getIndirizzo(); 
-                    data[i][4] = l.getCittà();
-                }
+            data[i][0] = e.getNome();
+            data[i][1] = sdf.format(e.getData());
+            if (l != null) {
+                data[i][2] = l.getNome();
+                data[i][3] = l.getIndirizzo();
+                data[i][4] = l.getCittà();
             }
         }
 
-        tableModel = new DefaultTableModel(data, columnNames);
-        eventTable = new JTable(tableModel) {
+        return data;
+    }
 
-			private static final long serialVersionUID = 1L;
+    private JTable createEventTable() {
+        JTable table = new JTable(tableModel) {
 
-			@Override
+            private static final long serialVersionUID = 1L;
+
+            @Override
             public boolean isCellEditable(int row, int column) {
-                return false;  
+                return false;
             }
 
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component comp = super.prepareRenderer(renderer, row, column);
-                int dateColumnIndex = 1; 
-                try {
-                    String dateStr = (String) getValueAt(row, dateColumnIndex);
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    Date eventDate = sdf.parse(dateStr);
-                    Date today = new Date();
-
-                    if (eventDate.before(today)) {
-                        comp.setBackground(new Color(255, 204, 204)); 
-                        
-                    } else {
-                        comp.setBackground(new Color(204, 255, 204)); 
-                    }
-                } catch (ParseException e) {
-                    logger.error("[UserViewEventPanel] Errore nel parsing della data: " + e.getMessage());
-                }
-
-                if (isCellSelected(row, column)) {
-                    comp.setBackground(new Color(75, 110, 175));
-                    comp.setForeground(Color.WHITE);
-                } else {
-                    comp.setForeground(Color.BLACK);
-                }
+                colorizeRowByDate(comp, row, column);
                 return comp;
             }
         };
 
-        eventTable.setRowHeight(40);  
-        eventTable.setFont(new Font("Arial", Font.PLAIN, 14));  
-        eventTable.setSelectionBackground(new Color(75, 110, 175));  
-        eventTable.setSelectionForeground(Color.WHITE);
+        styleEventTable(table);
+        return table;
+    }
 
-        eventTable.setCellSelectionEnabled(false);
-        eventTable.setRowSelectionAllowed(true);
-        eventTable.setColumnSelectionAllowed(false);
+    private void colorizeRowByDate(Component comp, int row, int column) {
+        int dateColumnIndex = 1;
+        try {
+            String dateStr = (String) tableModel.getValueAt(row, dateColumnIndex);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date eventDate = sdf.parse(dateStr);
+            Date today = new Date();
 
-        JTableHeader header = eventTable.getTableHeader();
+            if (eventDate.before(today)) {
+                comp.setBackground(new Color(255, 204, 204));
+            } else {
+                comp.setBackground(new Color(204, 255, 204));
+            }
+        } catch (ParseException e) {
+            logger.error("[UserViewEventPanel] Errore nel parsing della data: " + e.getMessage());
+        }
+
+        if (eventTable.isCellSelected(row, column)) {
+            comp.setBackground(new Color(75, 110, 175));
+            comp.setForeground(Color.WHITE);
+        } else {
+            comp.setForeground(Color.BLACK);
+        }
+    }
+
+    private void styleEventTable(JTable table) {
+        table.setRowHeight(40);
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+        table.setSelectionBackground(new Color(75, 110, 175));
+        table.setSelectionForeground(Color.WHITE);
+        table.setCellSelectionEnabled(false);
+        table.setRowSelectionAllowed(true);
+        table.setColumnSelectionAllowed(false);
+
+        JTableHeader header = table.getTableHeader();
         header.setFont(new Font("Arial", Font.BOLD, 16));
         header.setBackground(new Color(75, 110, 175));
         header.setForeground(Color.WHITE);
-
-        JScrollPane scrollPane = new JScrollPane(eventTable);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Lista Eventi"));
-        add(scrollPane, BorderLayout.CENTER);
-        
-        eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mousePressed(java.awt.event.MouseEvent me) {
-                int row = eventTable.rowAtPoint(me.getPoint());
-                if (row >= 0) {
-                    
-                    String nomeEvento = (String) tableModel.getValueAt(row, 0);
-                   logger.info("[UserViewEventPanel] Evento cliccato: " + nomeEvento);
-                    
-                }
-            }
-        });
     }
-    
+
     public void setSwitchToDetailsEventAction() {
         eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent me) {
                 int row = eventTable.rowAtPoint(me.getPoint());
                 if (row >= 0) {
-                    String nomeEvento = (String) tableModel.getValueAt(row, 0);
-                    String dataEventoStr = (String) tableModel.getValueAt(row, 1);
-                    logger.info("[UserViewEventPanel] Evento cliccato: " + nomeEvento);
-
-                    try {
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                        Date dataEvento = sdf.parse(dataEventoStr);
-
-                        for (Evento evento : eventi) {
-                            if (evento.getNome().equals(nomeEvento) && dataEvento.equals(evento.getData())) {
-                                Date today = new Date();
-
-                                if (!dataEvento.before(today)) {
-                                    UserDetailsEventPanel detailsPanel = new UserDetailsEventPanel(evento);
-                                    MainFrame.setUserHomeContentPanel(detailsPanel);
-                                    break;
-                                } else {
-                                    JOptionPane.showMessageDialog(
-                                        null,
-                                        "L'evento si è svolto in data " + dataEventoStr + "! Non è disponibile all'acquisto",
-                                        "Evento bloccato",
-                                        JOptionPane.WARNING_MESSAGE
-                                    );
-                                }
-                            }
-                        }
-                    } catch (ParseException e) {
-                        logger.error("Errore nel parsing della data: " + e.getMessage());
-                    }
+                    handleEventSelection(row);
                 }
             }
         });
     }
 
+    private void handleEventSelection(int row) {
+        String nomeEvento = (String) tableModel.getValueAt(row, 0);
+        String dataEventoStr = (String) tableModel.getValueAt(row, 1);
+        logger.info("[UserViewEventPanel] Evento cliccato: " + nomeEvento);
+        boolean controllo=false;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataEvento = sdf.parse(dataEventoStr);
+           
+            for (Evento evento : eventi) {
+                if (evento.getNome().equals(nomeEvento) && dataEvento.equals(evento.getData())) {
+                    if (!dataEvento.before(new Date())) {
+                        UserDetailsEventPanel detailsPanel = new UserDetailsEventPanel(evento);
+                        MainFrame.setUserHomeContentPanel(detailsPanel);
+                    } else {
+                    	controllo=true;
+                    	
+                    }
+                    break;
+                }
+            }
+            if(controllo==true)
+            {
+            	showEventExpiredMessage(dataEventoStr);
+            }
+        } catch (ParseException e) {
+            logger.error("Errore nel parsing della data: " + e.getMessage());
+        }
+    }
+
+    private void showEventExpiredMessage(String dataEventoStr) {
+        JOptionPane.showMessageDialog(
+            null,
+            "L'evento si è svolto in data " + dataEventoStr + "! Non è disponibile all'acquisto",
+            "Evento bloccato",
+            JOptionPane.WARNING_MESSAGE
+        );
+    }
 
     private void applyFilters() {
         String nomeEvento = eventSearchField.getText();
         String luogo = (String) luogoComboBox.getSelectedItem();
         boolean acquistabileOra = availableNowCheckBox.isSelected();
-        String maxBigliettiStr = maxTicketsField.getText();
-        int maxBiglietti = (maxBigliettiStr.isEmpty()) ? Integer.MAX_VALUE : Integer.parseInt(maxBigliettiStr);
-        List<Evento> filteredEvents;
+        int maxBiglietti = parseMaxTickets(maxTicketsField.getText());
 
-        if(acquistabileOra)
-        {
-        	filteredEvents = EventsDatabase.getAllEvents().stream()
-                    .filter(event -> 
-                        (nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase())) &&
-                        (luogo.equals("Seleziona Luogo") || event.getIdLuogo() == luoghi.stream().filter(l -> l.getNome().equals(luogo)).findFirst().get().getIdLuogo()) &&
-                        (acquistabileOra ? event.getDataInizioVendita().before(new Date()) : true) && 
-                        (event.getData().after(new Date())) &&
-                        (event.getMaxBigliettiAPersona() <= maxBiglietti)
-                    )
-                    .toList();
-        }
-        else
-        {
-        	filteredEvents = EventsDatabase.getAllEvents().stream()
-                    .filter(event -> 
-                        (nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase())) &&
-                        (luogo.equals("Seleziona Luogo") || event.getIdLuogo() == luoghi.stream().filter(l -> l.getNome().equals(luogo)).findFirst().get().getIdLuogo()) &&
-                        (acquistabileOra ? event.getDataInizioVendita().before(new Date()) : true) && 
-                        (event.getMaxBigliettiAPersona() <= maxBiglietti)
-                    )
-                    .toList();
-        }
-        
-        
+        List<Evento> filteredEvents = EventsDatabase.getAllEvents().stream()
+            .filter(event -> filterByNome(event, nomeEvento))
+            .filter(event -> filterByLuogo(event, luogo))
+            .filter(event -> filterByDisponibilita(event, acquistabileOra))
+            .filter(event -> filterByMaxBiglietti(event, maxBiglietti))
+            .toList();
+
         updateEventTable(filteredEvents);
+    }
+
+    private int parseMaxTickets(String maxTicketsStr) {
+        return maxTicketsStr.isEmpty() ? Integer.MAX_VALUE : Integer.parseInt(maxTicketsStr);
+    }
+
+    private boolean filterByNome(Evento event, String nomeEvento) {
+        return nomeEvento.isEmpty() || event.getNome().toLowerCase().contains(nomeEvento.toLowerCase());
+    }
+
+    private boolean filterByLuogo(Evento event, String luogo) {
+        return luogo.equals("Seleziona Luogo") || 
+               luoghi.stream().anyMatch(l -> l.getNome().equals(luogo) && l.getIdLuogo() == event.getIdLuogo());
+    }
+
+    private boolean filterByDisponibilita(Evento event, boolean acquistabileOra) {
+        Date today = new Date();
+        return !acquistabileOra || (event.getDataInizioVendita().before(today) && event.getData().after(today));
+    }
+
+    private boolean filterByMaxBiglietti(Evento event, int maxBiglietti) {
+        return event.getMaxBigliettiAPersona() <= maxBiglietti;
     }
 
     private void updateEventTable(List<Evento> events) {
@@ -286,7 +302,7 @@ public class UserViewEventPanel extends JPanel {
         for (int i = 0; i < events.size(); i++) {
             Evento e = events.get(i);
             Luogo l = luoghi.stream().filter(lu -> lu.getIdLuogo() == e.getIdLuogo()).findFirst().get();
-            
+
             data[i][0] = e.getNome();     
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             data[i][1] = sdf.format(e.getData());
