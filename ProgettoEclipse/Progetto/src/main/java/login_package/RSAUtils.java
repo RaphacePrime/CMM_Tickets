@@ -28,7 +28,6 @@ public class RSAUtils {
         loadKeys(); 
     }
 
-    // Carica le chiavi da disco
     public static void loadKeys() throws Exception {
         publicKey = loadPublicKey(PUBLIC_KEY_FILE);
         privateKey = loadPrivateKey(PRIVATE_KEY_FILE);

@@ -41,15 +41,12 @@ public class MainFrame extends JFrame {
         Database.createTables();
         setTitle("Sistema di Accesso e Registrazione");
 
-        // Configurazione della finestra principale
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Layout principale
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Inizializzazione dei pannelli
         loginPanel = new LoginPanel(this.cardLayout, mainPanel, e -> cardLayout.show(mainPanel, "Registration"));
         registrationPanel = new RegistrationPanel(e -> cardLayout.show(mainPanel, "Login"));
         adminHomePanel = new AdminHomePanel();
@@ -59,8 +56,6 @@ public class MainFrame extends JFrame {
         userHomePanel = new UserHomePanel();
         userViewLuogoPanel = new UserViewLuogoPanel();
         
-
-        // Aggiunta dei pannelli al layout
         mainPanel.add(loginPanel, "Login");
         mainPanel.add(registrationPanel, "Registration");
         mainPanel.add(adminHomePanel, "Admin Home");
@@ -70,7 +65,6 @@ public class MainFrame extends JFrame {
         mainPanel.add(userHomePanel, "User Home");
         mainPanel.add(userViewLuogoPanel, "User View Luogo");
 
-        // Configurazione delle azioni nei pulsanti
         adminHomePanel.setSwitchToModifyEventAction(e -> {
             try {
 				adminModifyEventPanel = new AdminModifyEventPanel();
@@ -84,7 +78,7 @@ public class MainFrame extends JFrame {
 
         adminHomePanel.setSwitchToModifyLuogoAction(e -> {
             adminModifyLuogoPanel = new AdminModifyLuogoPanel();
-            adminModifyLuogoPanel.setSwitchToDetailsLuogoAction(); // Passaggio del riferimento al MainFrame
+            adminModifyLuogoPanel.setSwitchToDetailsLuogoAction();
             mainPanel.add(adminModifyLuogoPanel, "Admin Modify Luogo");
             adminHomePanel.setContentPanel(adminModifyLuogoPanel);
         });
@@ -150,7 +144,6 @@ public class MainFrame extends JFrame {
         
         add(mainPanel);
 
-        // Mostra la schermata di login iniziale
         cardLayout.show(mainPanel, "Login");
     }
     
@@ -172,11 +165,9 @@ public class MainFrame extends JFrame {
             String classpath = System.getProperty("java.class.path");
             String className = MainFrame.class.getName();
 
-            // Crea il comando per riavviare l'applicazione
             ProcessBuilder processBuilder = new ProcessBuilder(javaBin, "-cp", classpath, className);
             processBuilder.start();
 
-            // Uscita dall'applicazione corrente
             System.exit(0);
         } catch (IOException e) {
             e.printStackTrace();

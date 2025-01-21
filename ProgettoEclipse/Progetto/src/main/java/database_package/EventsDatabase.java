@@ -28,8 +28,6 @@ public class EventsDatabase {
             while (rs.next()) {
                 int idEvento = rs.getInt("idEvento");
                 String nome = rs.getString("nome");
-
-                // Recupero e parsing della colonna data
                 Date data = null;
                 String dataString = rs.getString("data");
                 if (dataString != null) {
@@ -39,8 +37,6 @@ public class EventsDatabase {
                 String ora = rs.getString("ora");
                 int numMaxBigliettiAcquistabili = rs.getInt("maxBigliettiAPersona");
                 boolean postoNumerato = rs.getBoolean("postoNumerato");
-
-                // Recupero e parsing della colonna dataInizioVendita
                 Date dataInizioVendita = null;
                 String dataInizioVenditaString = rs.getString("dataInizioVendita");
                 if (dataInizioVenditaString != null) {
@@ -51,7 +47,6 @@ public class EventsDatabase {
 
                 Evento evento = new Evento(idEvento, nome, data, ora, numMaxBigliettiAcquistabili, postoNumerato, dataInizioVendita, idLuogo);
                 events.add(evento);
-                //logger.info("Evento aggiunto alla lista: " + evento.getNome());
             }
         } catch (SQLException e) {
             logger.error("[EventsDatabase.java] Errore durante il recupero degli eventi: " + e.getMessage(), e);
@@ -63,7 +58,7 @@ public class EventsDatabase {
 
    
     public static boolean addEvento(Evento evento) {
-        // SQL per verificare se esiste già un evento con lo stesso nome e data
+    	
         String checkSql = "SELECT COUNT(*) FROM eventi WHERE nome = ? AND data = ?";
         String insertSql = "INSERT INTO eventi (nome, data, ora, maxBigliettiAPersona, postoNumerato, dataInizioVendita, idLuogo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -71,21 +66,17 @@ public class EventsDatabase {
         try (Connection conn = Database.getConnection(); 
              PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
 
-            // Impostiamo i parametri per la query di controllo
             checkStmt.setString(1, evento.getNome());
             String dataFormatted = dateFormat.format(evento.getData());
             checkStmt.setString(2, dataFormatted);
 
-            // Eseguiamo la query di controllo
             try (ResultSet rs = checkStmt.executeQuery()) {
                 if (rs.next() && rs.getInt(1) > 0) {
-                    // Se esiste già un evento con lo stesso nome e data, ritorniamo false
                     logger.warn("[EventsDatabase.java] Evento con lo stesso nome e data già presente nel database.");
                     return false;
                 }
             }
 
-            // Procediamo con l'inserimento dell'evento se non esiste già
             try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
                 pstmt.setString(1, evento.getNome());
                 pstmt.setString(2, dataFormatted);
@@ -163,10 +154,8 @@ public class EventsDatabase {
 	    try (Connection conn = Database.getConnection(); 
 	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-	        // Impostiamo il parametro per l'ID del luogo da aggiornare
 	        pstmt.setInt(1, idLuogo);
 
-	        // Eseguiamo l'update
 	        int rowsUpdated = pstmt.executeUpdate();
 	        if (rowsUpdated > 0) {
 	            logger.info("[EventsDatabase.java] Aggiornamento Luogo default completato con successo. " + rowsUpdated + " eventi aggiornati.");

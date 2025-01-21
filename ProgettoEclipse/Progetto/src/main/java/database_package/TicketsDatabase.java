@@ -15,7 +15,6 @@ import classes_package.Biglietto;
 public class TicketsDatabase {
     private static final Logger logger = LogManager.getLogger(TicketsDatabase.class);
 
-    // Metodo per ottenere tutti i biglietti di un determinato utente
     public static List<Biglietto> getAllUserTickets(int idUser) {
         List<Biglietto> bigliettiList = new ArrayList<>();
         String query = "SELECT * FROM biglietti WHERE idAcquirente = ?";
@@ -44,7 +43,6 @@ public class TicketsDatabase {
         return bigliettiList;
     }
 
-    // Metodo per aggiungere un nuovo biglietto nel database
     public static boolean addTicket(Biglietto biglietto) {
         String query = "INSERT INTO biglietti (nomeUtilizzatore, cognomeUtilizzatore, posto, idSettore, idAcquirente) VALUES (?, ?, ?, ?, ?)";
 
@@ -63,7 +61,7 @@ public class TicketsDatabase {
             	SectorsDatabase.ticketAcquired(biglietto.getIdSettore());
             }
             logger.info("[TicketssDatabase.java] Aggiunto biglietto al database con ID: ", biglietto.getIdBiglietto());
-            return rowsAffected > 0; // restituisce true se il biglietto è stato aggiunto correttamente
+            return rowsAffected > 0; 
 
         } catch (SQLException e) {
             logger.error("[TicketssDatabase.java] Error while adding a new ticket", e);
@@ -72,7 +70,7 @@ public class TicketsDatabase {
         return false;
     }
 
-    // Metodo per aggiornare i dati di un biglietto esistente
+
     public static boolean updateTicket(Biglietto biglietto, int vecchioId) {
         String query = "UPDATE biglietti SET nomeUtilizzatore = ?, cognomeUtilizzatore = ?, posto = ?, idSettore = ?, idAcquirente = ? WHERE idBiglietto = ?";
 
@@ -87,7 +85,7 @@ public class TicketsDatabase {
             stmt.setInt(6, vecchioId);
 
             int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0; // restituisce true se il biglietto è stato aggiornato
+            return rowsAffected > 0; 
 
         } catch (SQLException e) {
             logger.error("[TicketssDatabase.java] Error while updating ticket with id " + vecchioId, e);

@@ -1,7 +1,4 @@
 package classes_package;
-/*
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;*/
 
 public class Biglietto {
 
@@ -11,7 +8,6 @@ public class Biglietto {
 	private int posto;
 	private int idUtente;
 	private int idSettore;
-	//private static final Logger logger = LogManager.getLogger(Biglietto.class);
 
 	public Biglietto(String nomeUtilizzatore, String cognomeUtilizzatore, int posto, int idUtente, int idSettore,
 			int idEvento) {

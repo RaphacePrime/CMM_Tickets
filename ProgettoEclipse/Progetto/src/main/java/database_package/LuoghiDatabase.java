@@ -62,7 +62,7 @@ public class LuoghiDatabase {
         return false;
     }
 
-    public static boolean deleteLuogo(Luogo luogo) { //quando viene eliminato un luogo, mettere il luogo di default per gli eventi che hanno quell'id luogo
+    public static boolean deleteLuogo(Luogo luogo) { 
         String sql = "DELETE FROM luoghi WHERE nome = ?";
 
         try (Connection conn = Database.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {

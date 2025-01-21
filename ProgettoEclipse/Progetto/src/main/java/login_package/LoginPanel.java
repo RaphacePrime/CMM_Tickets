@@ -51,7 +51,6 @@ public class LoginPanel extends JPanel {
 
         innerMainPanel.add(Box.createVerticalStrut(20)); 
 
-        // Creazione del pulsante di login
         loginButton = new JButton("Accedi");
         loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
         loginButton.setBackground(new Color(33, 150, 243)); 
@@ -64,8 +63,6 @@ public class LoginPanel extends JPanel {
         loginButton.addActionListener(e -> loginAction());
         innerMainPanel.add(loginButton);
 
-        // Aggiunta del Key Binding per il tasto Invio
-        // Imposta l'azione di premere "Accedi" quando premi Invio nella passwordField
         passwordField.addActionListener(e -> loginButton.doClick());
         usernameField.addActionListener(e -> loginButton.doClick());
 
@@ -90,7 +87,7 @@ public class LoginPanel extends JPanel {
         switchToRegisterButton.addActionListener(switchToRegisterAction);  
     }
 
-    // Metodo per gestire l'azione di login
+    
     private void loginAction() {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());

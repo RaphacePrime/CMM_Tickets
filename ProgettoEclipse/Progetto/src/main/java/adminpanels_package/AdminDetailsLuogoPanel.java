@@ -57,7 +57,6 @@ public class AdminDetailsLuogoPanel extends JPanel {
 		detailsPanel.setBackground(Color.WHITE);
 		detailsPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		// Etichette per "Nome", "Città", "Indirizzo" con JTextField
 		nameTextLabel = createTextLabel("Nome:");
 		nameValueField = createEditableField(luogo.getNome());
 		cityTextLabel = createTextLabel("Città:");
@@ -65,7 +64,6 @@ public class AdminDetailsLuogoPanel extends JPanel {
 		addressTextLabel = createTextLabel("Indirizzo:");
 		addressValueField = createEditableField(luogo.getIndirizzo());
 
-		// Aggiungi le etichette e i campi al pannello dei dettagli
 		detailsPanel.add(createLabeledField(nameTextLabel, nameValueField));
 		detailsPanel.add(Box.createVerticalStrut(15));
 		detailsPanel.add(createLabeledField(cityTextLabel, cityValueField));
@@ -75,10 +73,10 @@ public class AdminDetailsLuogoPanel extends JPanel {
 		uploadImageButton = new JButton("Carica nuova immagine");
 		uploadImageButton.setFont(new Font("Arial", Font.PLAIN, 16));
 		uploadImageButton.setBackground(Color.LIGHT_GRAY);
-		uploadImageButton.setForeground(Color.BLACK); // Testo bianco per contrasto migliore
+		uploadImageButton.setForeground(Color.BLACK); 
 		uploadImageButton.setFocusPainted(false);
-		uploadImageButton.setOpaque(true); // Garantisce che il colore sia visibile su macOS
-		uploadImageButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1)); // Bordo visibile per evidenza
+		uploadImageButton.setOpaque(true); 
+		uploadImageButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
 		detailsPanel.add(uploadImageButton);
 
@@ -115,10 +113,6 @@ public class AdminDetailsLuogoPanel extends JPanel {
 						imagePreview.setIcon(new ImageIcon(scaledImage));
 
 						JOptionPane.showMessageDialog(AdminDetailsLuogoPanel.this, "Immagine caricata con successo!");
-						// ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
-						// Image scaledImage = icon.getImage().getScaledInstance(150, 150,
-						// Image.SCALE_SMOOTH);
-						// imagePreview.setIcon(new ImageIcon(scaledImage));
 					} catch (IOException ex) {
 						JOptionPane.showMessageDialog(AdminDetailsLuogoPanel.this,
 								"Errore nel caricamento dell'immagine: " + ex.getMessage(), "Errore",
