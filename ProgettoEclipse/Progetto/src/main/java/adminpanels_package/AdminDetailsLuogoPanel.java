@@ -200,12 +200,21 @@ public class AdminDetailsLuogoPanel extends JPanel {
 		String nome = nameValueField.getText().trim();
 		String indirizzo = addressValueField.getText().trim();
 		String citta = cityValueField.getText().trim();
-		//
+		
+		
 
 		if (nome.isEmpty() || indirizzo.isEmpty() || citta.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Tutti i campi tranne l'immagine sono obbligatori.", "Errore",
 					JOptionPane.ERROR_MESSAGE);
 			return;
+		}
+		if(nomeFile==null && luogo.getNomeFile()!=null)
+		{
+			nomeFile=luogo.getNomeFile();
+		}
+		else if(nomeFile==null)
+		{
+			nomeFile="default.png";
 		}
 
 		Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);

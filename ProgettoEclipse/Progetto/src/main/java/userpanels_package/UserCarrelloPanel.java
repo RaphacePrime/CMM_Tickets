@@ -211,7 +211,7 @@ public class UserCarrelloPanel extends JPanel {
 		}
 
 		JPanel panel = new JPanel(new GridBagLayout());
-		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBackground(new Color(173, 216, 230));
 		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(150, 150, 150), 1),
 				BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
@@ -230,6 +230,7 @@ public class UserCarrelloPanel extends JPanel {
 		String path = "src/main/resources/Immagini/" + pathplace;
 		logger.info("[UserCarrelloPanel] "+path);
 		JLabel imageLabel = new JLabel();
+		
 		updateImage(path, imageLabel);
 
 		gbc.gridx = 0;
@@ -337,15 +338,16 @@ public class UserCarrelloPanel extends JPanel {
 	}
 
 	private void updateImage(String path, JLabel label) {
-		label.setPreferredSize(new Dimension(350, 200));
-		label.setMaximumSize(new Dimension(350, 200));
-		label.setHorizontalAlignment(JLabel.CENTER);
-		label.setVerticalAlignment(JLabel.CENTER);
-		label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
-		ImageIcon imageIcon = new ImageIcon(path);
-		label.setIcon(imageIcon);
+	    label.setPreferredSize(new Dimension(350, 200));
+	    label.setHorizontalAlignment(JLabel.CENTER);
+	    label.setVerticalAlignment(JLabel.CENTER);
+	    label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+	    ImageIcon imageIcon = new ImageIcon(path);
+	    Image originalImage = imageIcon.getImage();
+	    Image scaledImage = originalImage.getScaledInstance(350, 200, Image.SCALE_SMOOTH);
+	    label.setIcon(new ImageIcon(scaledImage));
 	}
+
 
 	public static void addBiglietto(Biglietto biglietto, int numselected) throws ParseException {
 		try {
