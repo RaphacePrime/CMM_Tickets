@@ -69,28 +69,4 @@ public class TicketsDatabase {
 
         return false;
     }
-
-
-    public static boolean updateTicket(Biglietto biglietto, int vecchioId) {
-        String query = "UPDATE biglietti SET nomeUtilizzatore = ?, cognomeUtilizzatore = ?, posto = ?, idSettore = ?, idAcquirente = ? WHERE idBiglietto = ?";
-
-        try (Connection conn = Database.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-
-            stmt.setString(1, biglietto.getNomeUtilizzatore());
-            stmt.setString(2, biglietto.getCognomeUtilizzatore());
-            stmt.setInt(3, biglietto.getPosto());
-            stmt.setInt(4, biglietto.getIdSettore());
-            stmt.setInt(5, biglietto.getIdUtente());
-            stmt.setInt(6, vecchioId);
-
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0; 
-
-        } catch (SQLException e) {
-            logger.error("[TicketssDatabase.java] Error while updating ticket with id " + vecchioId, e);
-        }
-
-        return false;
-    }
 }

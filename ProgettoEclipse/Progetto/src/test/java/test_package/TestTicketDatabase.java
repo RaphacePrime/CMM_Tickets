@@ -29,7 +29,7 @@ public class TestTicketDatabase {
     // Test: Recuperare tutti i biglietti di un determinato utente
     @Test
     void testGetAllUserTickets() {
-        int idUser = 1;  // Usa l'id di un utente presente nel database per il test
+        int idUser = 29;  // Usa l'id di un utente presente nel database per il test
         List<Biglietto> biglietti = TicketsDatabase.getAllUserTickets(idUser);
 
         // Verifica che ci siano dei biglietti restituiti
