@@ -18,7 +18,7 @@ public class TestTicketDatabase {
         biglietto.setNomeUtilizzatore("Giovanni");
         biglietto.setCognomeUtilizzatore("Rossi");
         biglietto.setPosto(10);
-        biglietto.setIdSettore(2);  // Esegui il test con un idSettore valido
+        biglietto.setIdSettore(30);  // Esegui il test con un idSettore valido
         biglietto.setIdUtente(1);   // Esegui il test con un idUtente valido
 
         boolean result = TicketsDatabase.addTicket(biglietto);
