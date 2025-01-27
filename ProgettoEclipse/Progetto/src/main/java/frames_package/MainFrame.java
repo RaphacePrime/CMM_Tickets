@@ -14,7 +14,6 @@ import userpanels_package.UserCarrelloPanel;
 import userpanels_package.UserHomePanel;
 import userpanels_package.UserMyOrdersPanel;
 import userpanels_package.UserViewEventPanel;
-import userpanels_package.UserViewLuogoPanel;
 import utils_package.LookAndFeelUtil;
 import java.io.IOException;
 import java.awt.*;
@@ -32,7 +31,6 @@ public class MainFrame extends JFrame {
     private static AdminModifyLuogoPanel adminModifyLuogoPanel;
     private static AdminAddLuogoPanel adminAddLuogoPanel;
     private static AdminAddEventPanel adminAddEventPanel;
-    private static UserViewLuogoPanel userViewLuogoPanel;
     private static UserViewEventPanel userViewEventPanel;
     private static UserCarrelloPanel userCarrelloPanel;
     private static UserMyOrdersPanel userMyOrdersPanel;
@@ -54,7 +52,6 @@ public class MainFrame extends JFrame {
         adminAddLuogoPanel = new AdminAddLuogoPanel();
         adminAddEventPanel = new AdminAddEventPanel();
         userHomePanel = new UserHomePanel();
-        userViewLuogoPanel = new UserViewLuogoPanel();
         
         mainPanel.add(loginPanel, "Login");
         mainPanel.add(registrationPanel, "Registration");
@@ -63,7 +60,6 @@ public class MainFrame extends JFrame {
         mainPanel.add(adminAddLuogoPanel, "Admin Add Luogo");
         mainPanel.add(adminAddEventPanel, "Admin Add Event");
         mainPanel.add(userHomePanel, "User Home");
-        mainPanel.add(userViewLuogoPanel, "User View Luogo");
 
         adminHomePanel.setSwitchToModifyEventAction(e -> {
             try {
