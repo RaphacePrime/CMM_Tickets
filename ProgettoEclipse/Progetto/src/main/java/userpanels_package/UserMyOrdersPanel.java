@@ -1,18 +1,26 @@
 package userpanels_package;
 
 import javax.swing.*;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import classes_package.Biglietto;
+import classes_package.Evento;
+import classes_package.Luogo;
+import database_package.LuoghiDatabase;
 import database_package.TicketsDatabase;
 import login_package.Login;
 
 public class UserMyOrdersPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(UserMyOrdersPanel.class);
 
 	public UserMyOrdersPanel() throws ParseException {
         setLayout(new BorderLayout());
@@ -54,6 +62,7 @@ public class UserMyOrdersPanel extends JPanel {
     private JPanel createBigliettoPanel(Biglietto biglietto) throws ParseException {
         JPanel panel = new JPanel(new GridBagLayout());
         EventoSettoreResult esr=UserCarrelloPanel.findEventoSettore(biglietto);
+        Evento ev = esr.getEvento();
         Date today = new Date();
         if(esr.getEvento().getData().before(today)) 
         {
@@ -68,81 +77,116 @@ public class UserMyOrdersPanel extends JPanel {
                 BorderFactory.createLineBorder(new Color(150, 150, 150), 1),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
+        String pathplace = "a";
+        List<Luogo> luoghi = LuoghiDatabase.getAllLuoghi();
+		for (int i = 0; i < luoghi.size(); i++) {
+			logger.info("[UserCarrelloPanel] "+ev.getIdLuogo() + " lista:" + luoghi.get(i).getIdLuogo());
+			if (ev.getIdLuogo() == luoghi.get(i).getIdLuogo()) {
+				pathplace = luoghi.get(i).getNomeFile();
+			}
+		}
+		String path = "src/main/resources/Immagini/" + pathplace;
+		logger.info("[UserCarrelloPanel] "+path);
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.insets = new Insets(5, 5, 5, 5);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5);
-        
-        JLabel eventoLabel = new JLabel("Evento:");
-        eventoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(eventoLabel, gbc);
-        
-        JTextField eventoField = new JTextField(esr.getEvento().getNome()+" del "+new SimpleDateFormat("dd/MM/yyyy").format(esr.getEvento().getData()));
-        eventoField.setFont(new Font("Arial", Font.PLAIN, 14));
-        eventoField.setEditable(false);
-        eventoField.setPreferredSize(new Dimension(300,30));
-        gbc.gridx = 1;
-        panel.add(eventoField, gbc);
+		// Aggiungi l'immagine
+		JLabel imageLabel = new JLabel();
+		updateImage(path, imageLabel);
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridheight = 5;  // Immagine occupa più righe
+		panel.add(imageLabel, gbc);
 
-        JLabel nomeLabel = new JLabel("Nome Utilizzatore:");
-        nomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(nomeLabel, gbc);
+		// Aggiungi le etichette e i textfield
+		gbc.gridheight = 1; // Resetta gridheight per i componenti successivi
 
-        JTextField nomeField = new JTextField(biglietto.getNomeUtilizzatore());
-        nomeField.setFont(new Font("Arial", Font.PLAIN, 14));
-        nomeField.setEditable(false);
-        nomeField.setPreferredSize(new Dimension(300,30));
-        gbc.gridx = 1;
-        panel.add(nomeField, gbc);
+		// Evento Label
+		JLabel eventoLabel = new JLabel("Evento:");
+		eventoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		panel.add(eventoLabel, gbc);
 
-        JLabel cognomeLabel = new JLabel("Cognome Utilizzatore:");
-        cognomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        panel.add(cognomeLabel, gbc);
+		JTextField eventoField = new JTextField(esr.getEvento().getNome() + " del " + new SimpleDateFormat("dd/MM/yyyy").format(esr.getEvento().getData()));
+		eventoField.setFont(new Font("Arial", Font.PLAIN, 14));
+		eventoField.setEditable(false);
+		eventoField.setPreferredSize(new Dimension(300, 30));
+		gbc.gridx = 2;
+		panel.add(eventoField, gbc);
 
-        JTextField cognomeField = new JTextField(biglietto.getCognomeUtilizzatore());
-        cognomeField.setFont(new Font("Arial", Font.PLAIN, 14));
-        cognomeField.setEditable(false);
-        cognomeField.setPreferredSize(new Dimension(300,30));
-        gbc.gridx = 1;
-        panel.add(cognomeField, gbc);
+		// Nome Utilizzatore Label
+		JLabel nomeLabel = new JLabel("Nome Utilizzatore:");
+		nomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		panel.add(nomeLabel, gbc);
 
-        JLabel postoLabel = new JLabel("Posto:");
-        postoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        panel.add(postoLabel, gbc);
-        
+		JTextField nomeField = new JTextField(biglietto.getNomeUtilizzatore());
+		nomeField.setFont(new Font("Arial", Font.PLAIN, 14));
+		nomeField.setEditable(false);
+		nomeField.setPreferredSize(new Dimension(300, 30));
+		gbc.gridx = 2;
+		panel.add(nomeField, gbc);
 
-        JTextField postoField = new JTextField(String.valueOf(biglietto.getPosto()));
-        if(biglietto.getPosto()==0)
-        {
-        	postoField=new JTextField("Posto non numerato");
-        }
-        postoField.setFont(new Font("Arial", Font.PLAIN, 14));
-        postoField.setEditable(false);
-        postoField.setPreferredSize(new Dimension(300,30));
-        gbc.gridx = 1;
-        panel.add(postoField, gbc);
+		// Cognome Utilizzatore Label
+		JLabel cognomeLabel = new JLabel("Cognome Utilizzatore:");
+		cognomeLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		panel.add(cognomeLabel, gbc);
 
-        JLabel settoreLabel = new JLabel("Settore:");
-        settoreLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        panel.add(settoreLabel, gbc);
+		JTextField cognomeField = new JTextField(biglietto.getCognomeUtilizzatore());
+		cognomeField.setFont(new Font("Arial", Font.PLAIN, 14));
+		cognomeField.setEditable(false);
+		cognomeField.setPreferredSize(new Dimension(300, 30));
+		gbc.gridx = 2;
+		panel.add(cognomeField, gbc);
 
-        JTextField settoreField = new JTextField(String.valueOf(UserDetailsEventPanel.outputSettoriSmall(esr.getSettore())));
-        settoreField.setFont(new Font("Arial", Font.PLAIN, 14));
-        settoreField.setEditable(false);
-        settoreField.setPreferredSize(new Dimension(300,30));
-        gbc.gridx = 1;
-        panel.add(settoreField, gbc);
+		// Posto Label
+		JLabel postoLabel = new JLabel("Posto:");
+		postoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		panel.add(postoLabel, gbc);
 
-        return panel;
+		JTextField postoField = new JTextField(String.valueOf(biglietto.getPosto()));
+		if (biglietto.getPosto() == 0) {
+		    postoField = new JTextField("Posto non numerato");
+		}
+		postoField.setFont(new Font("Arial", Font.PLAIN, 14));
+		postoField.setEditable(false);
+		postoField.setPreferredSize(new Dimension(300, 30));
+		gbc.gridx = 2;
+		panel.add(postoField, gbc);
+
+		// Settore Label
+		JLabel settoreLabel = new JLabel("Settore:");
+		settoreLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		panel.add(settoreLabel, gbc);
+
+		JTextField settoreField = new JTextField(String.valueOf(UserDetailsEventPanel.outputSettoriSmall(esr.getSettore())));
+		settoreField.setFont(new Font("Arial", Font.PLAIN, 14));
+		settoreField.setEditable(false);
+		settoreField.setPreferredSize(new Dimension(300, 30));
+		gbc.gridx = 2;
+		panel.add(settoreField, gbc);
+
+		return panel;
     }
+    
+    private void updateImage(String path, JLabel label) {
+	    label.setPreferredSize(new Dimension(350, 200));
+	    label.setHorizontalAlignment(JLabel.CENTER);
+	    label.setVerticalAlignment(JLabel.CENTER);
+	    label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+	    ImageIcon imageIcon = new ImageIcon(path);
+	    Image originalImage = imageIcon.getImage();
+	    Image scaledImage = originalImage.getScaledInstance(350, 200, Image.SCALE_SMOOTH);
+	    label.setIcon(new ImageIcon(scaledImage));
+	}
 }

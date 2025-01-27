@@ -301,7 +301,7 @@ public class UserCarrelloPanel extends JPanel {
 		gbc.gridx = 2;
 		panel.add(cognomeField, gbc);
 
-		JLabel postoLabel = new JLabel("Acquistatore:");
+		JLabel postoLabel = new JLabel("Acquirente:");
 		postoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
 
 		gbc.gridx = 1;
