@@ -19,6 +19,7 @@ import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
 import database_package.SectorsDatabase;
 import frames_package.MainFrame;
+import interfaces_package.NavigationListener;
 
 public class AdminAddEventPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -35,9 +36,11 @@ public class AdminAddEventPanel extends JPanel {
 	public List<Settore> settori = new ArrayList<>();
 	private List<Luogo> listaluoghi = new ArrayList<>();
 	private static final Logger logger = LogManager.getLogger(AdminAddEventPanel.class);
+	private NavigationListener navigationListener;
 
-	public AdminAddEventPanel() {
+	public AdminAddEventPanel(NavigationListener navigationListener) {
 
+		this.navigationListener = navigationListener;
 		List<String> nomiluoghi = new ArrayList<>();
 		listaluoghi = LuoghiDatabase.getAllLuoghi();
 		for (int i = 0; i < listaluoghi.size(); i++) {
@@ -319,7 +322,7 @@ public class AdminAddEventPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				logger.info("num settori: " + AdminAddEventPanel.this.settori.size());
 				AdminAddSectorsPanel adminAddSectorsPanel = new AdminAddSectorsPanel(AdminAddEventPanel.this);
-				MainFrame.setAdminHomeContentPanel(adminAddSectorsPanel);
+				navigationListener.AdminNavigateTo(adminAddSectorsPanel);
 			}
 		});
 	}

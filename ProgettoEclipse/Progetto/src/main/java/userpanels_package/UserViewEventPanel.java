@@ -18,6 +18,7 @@ import classes_package.Luogo;
 import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
 import frames_package.MainFrame;
+import interfaces_package.NavigationListener;
 import utils_package.LookAndFeelUtil;
 
 public class UserViewEventPanel extends JPanel {
@@ -33,8 +34,10 @@ public class UserViewEventPanel extends JPanel {
     private JComboBox<String> luogoComboBox;
     private JTextField maxTicketsField;
     private static Logger logger = LogManager.getLogger(UserViewEventPanel.class);
+    private NavigationListener navigationListener;
 
-    public UserViewEventPanel() throws ParseException {
+    public UserViewEventPanel(NavigationListener navigationListener) throws ParseException {
+    	this.navigationListener = navigationListener;
         LookAndFeelUtil.setCrossPlatformLookAndFeel();
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
@@ -231,7 +234,7 @@ public class UserViewEventPanel extends JPanel {
                 if (evento.getNome().equals(nomeEvento) && dataEvento.equals(evento.getData())) {
                     if (!dataEvento.before(new Date())) {
                         UserDetailsEventPanel detailsPanel = new UserDetailsEventPanel(evento);
-                        MainFrame.setUserHomeContentPanel(detailsPanel);
+                        navigationListener.UserNavigateTo(detailsPanel);
                     } else {
                     	controllo=true;
                     	

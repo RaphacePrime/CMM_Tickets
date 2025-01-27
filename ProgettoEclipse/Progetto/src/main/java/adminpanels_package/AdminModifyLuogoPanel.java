@@ -12,6 +12,7 @@ import java.util.List;
 import classes_package.Luogo;
 import database_package.LuoghiDatabase;
 import frames_package.MainFrame;
+import interfaces_package.NavigationListener;
 import utils_package.LookAndFeelUtil;
 
 
@@ -22,8 +23,10 @@ public class AdminModifyLuogoPanel extends JPanel {
     private DefaultTableModel tableModel;
     private JButton backButton;
     private static Logger logger = LogManager.getLogger(AdminModifyLuogoPanel.class);
+    private NavigationListener navigationListener;
 
-    public AdminModifyLuogoPanel() {
+    public AdminModifyLuogoPanel(NavigationListener navigationListener) {
+    	this.navigationListener = navigationListener;
     	LookAndFeelUtil.setCrossPlatformLookAndFeel();
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240));
@@ -120,7 +123,7 @@ public class AdminModifyLuogoPanel extends JPanel {
                     for (Luogo luogo : luoghi) {
                         if (luogo.getNome().equals(nomeLuogo)) {
                             AdminDetailsLuogoPanel detailsPanel = new AdminDetailsLuogoPanel(luogo);
-                            MainFrame.setAdminHomeContentPanel(detailsPanel);
+                            navigationListener.AdminNavigateTo(detailsPanel);
                             break;
                         }
                     }

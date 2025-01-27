@@ -16,6 +16,7 @@ import classes_package.Luogo;
 import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
 import frames_package.MainFrame;
+import interfaces_package.NavigationListener;
 import utils_package.LookAndFeelUtil;
 
 public class AdminModifyEventPanel extends JPanel {
@@ -26,8 +27,11 @@ public class AdminModifyEventPanel extends JPanel {
 	private DefaultTableModel tableModel;
 	private JButton backButton;
 	private static Logger logger = LogManager.getLogger(AdminModifyEventPanel.class);
+	private NavigationListener navigationListener;
+	
 
-	public AdminModifyEventPanel() throws ParseException {
+	public AdminModifyEventPanel(NavigationListener navigationListener) throws ParseException {
+		this.navigationListener = navigationListener;
 		LookAndFeelUtil.setCrossPlatformLookAndFeel();
 		setLayout(new BorderLayout());
 		setBackground(new Color(240, 240, 240));
@@ -134,7 +138,8 @@ public class AdminModifyEventPanel extends JPanel {
 							AdminDetailsEventPanel detailsPanel;
 							try {
 								detailsPanel = new AdminDetailsEventPanel(evento);
-								MainFrame.setAdminHomeContentPanel(detailsPanel);
+								
+								navigationListener.AdminNavigateTo(detailsPanel);
 							} catch (ParseException e) {
 								e.printStackTrace();
 							}

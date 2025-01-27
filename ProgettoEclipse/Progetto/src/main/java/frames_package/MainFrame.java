@@ -8,6 +8,7 @@ import adminpanels_package.AdminHomePanel;
 import adminpanels_package.AdminModifyEventPanel;
 import adminpanels_package.AdminModifyLuogoPanel;
 import database_package.Database;
+import interfaces_package.NavigationListener;
 import login_package.LoginPanel;
 import login_package.RegistrationPanel;
 import userpanels_package.UserCarrelloPanel;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.awt.*;
 import java.text.ParseException;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements NavigationListener{
 	private static final long serialVersionUID = 1L;
 	private CardLayout cardLayout;
     private JPanel mainPanel;
@@ -48,9 +49,9 @@ public class MainFrame extends JFrame {
         loginPanel = new LoginPanel(this.cardLayout, mainPanel, e -> cardLayout.show(mainPanel, "Registration"));
         registrationPanel = new RegistrationPanel(e -> cardLayout.show(mainPanel, "Login"));
         adminHomePanel = new AdminHomePanel();
-        adminModifyLuogoPanel = new AdminModifyLuogoPanel();
+        adminModifyLuogoPanel = new AdminModifyLuogoPanel(this);
         adminAddLuogoPanel = new AdminAddLuogoPanel();
-        adminAddEventPanel = new AdminAddEventPanel();
+        adminAddEventPanel = new AdminAddEventPanel(this);
         userHomePanel = new UserHomePanel();
         
         mainPanel.add(loginPanel, "Login");
@@ -63,7 +64,7 @@ public class MainFrame extends JFrame {
 
         adminHomePanel.setSwitchToModifyEventAction(e -> {
             try {
-				adminModifyEventPanel = new AdminModifyEventPanel();
+				adminModifyEventPanel = new AdminModifyEventPanel(this);
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
@@ -73,7 +74,7 @@ public class MainFrame extends JFrame {
         });
 
         adminHomePanel.setSwitchToModifyLuogoAction(e -> {
-            adminModifyLuogoPanel = new AdminModifyLuogoPanel();
+            adminModifyLuogoPanel = new AdminModifyLuogoPanel(this);
             adminModifyLuogoPanel.setSwitchToDetailsLuogoAction();
             mainPanel.add(adminModifyLuogoPanel, "Admin Modify Luogo");
             adminHomePanel.setContentPanel(adminModifyLuogoPanel);
@@ -98,7 +99,7 @@ public class MainFrame extends JFrame {
         userHomePanel.setSwitchToViewEventAction(e-> {
         
         	try {
-				userViewEventPanel = new UserViewEventPanel();
+				userViewEventPanel = new UserViewEventPanel(this);
 			} catch (ParseException e1) {
 				e1.printStackTrace();
 			}
@@ -169,4 +170,16 @@ public class MainFrame extends JFrame {
             e.printStackTrace();
         }
     }
+
+	@Override
+	public void UserNavigateTo(JPanel panel) {
+		userHomePanel.setContentPanel(panel);
+		
+	}
+
+	@Override
+	public void AdminNavigateTo(JPanel panel) {
+		adminHomePanel.setContentPanel(panel);
+		
+	}
 }
