@@ -18,7 +18,6 @@ import classes_package.Settore;
 import database_package.EventsDatabase;
 import database_package.LuoghiDatabase;
 import database_package.SectorsDatabase;
-import frames_package.MainFrame;
 import interfaces_package.NavigationListener;
 
 public class AdminAddEventPanel extends JPanel {

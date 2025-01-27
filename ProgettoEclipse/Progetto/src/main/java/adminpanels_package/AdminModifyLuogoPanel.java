@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import classes_package.Luogo;
 import database_package.LuoghiDatabase;
-import frames_package.MainFrame;
 import interfaces_package.NavigationListener;
 import utils_package.LookAndFeelUtil;
 

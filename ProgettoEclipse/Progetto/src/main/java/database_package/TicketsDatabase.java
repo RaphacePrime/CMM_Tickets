@@ -60,7 +60,7 @@ public class TicketsDatabase {
             {
             	SectorsDatabase.ticketAcquired(biglietto.getIdSettore());
             }
-            logger.info("[TicketssDatabase.java] Aggiunto biglietto al database con ID: ", biglietto.getIdBiglietto());
+            logger.info("[TicketssDatabase.java] Aggiunto biglietto al database");
             return rowsAffected > 0; 
 
         } catch (SQLException e) {
