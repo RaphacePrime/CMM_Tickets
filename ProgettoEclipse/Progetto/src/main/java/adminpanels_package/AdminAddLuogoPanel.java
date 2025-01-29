@@ -170,7 +170,7 @@ public class AdminAddLuogoPanel extends JPanel {
 			return;
 		}
 
-		Luogo nuovoLuogo = new Luogo(nome, citta, indirizzo, nomeFile);
+		Luogo nuovoLuogo = new Luogo(nome, indirizzo, citta, nomeFile);
 		boolean success = LuoghiDatabase.addLuogo(nuovoLuogo);
 
 		if (success) {
